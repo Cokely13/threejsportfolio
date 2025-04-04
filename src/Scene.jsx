@@ -64,6 +64,7 @@ function Scene({ setActiveProject }) {
         {/* Buildings (Next step) */}
         <Building
           position={[10, 2.5, 10]}
+          rotation={[0, Math.PI * 1.5, 0]}
           color="#e74c3c"
           project={{
             name: "HyroxTrack",
@@ -74,6 +75,7 @@ function Scene({ setActiveProject }) {
         />
         <Building
           position={[-10, 2.5, -10]}
+          rotation={[0, Math.PI, 0]}
           color="blue"
           project={{
             name: "Stuff",
@@ -84,6 +86,7 @@ function Scene({ setActiveProject }) {
         />
         <Building
           position={[10, 2.5, -10]}
+          rotation={[0, Math.PI, 0]}
           color="#27ae60"
           project={{
             name: "Party",
@@ -94,6 +97,7 @@ function Scene({ setActiveProject }) {
         />
         <Building
           position={[-10, 2.5, 10]}
+          // rotation={[0, Math.PI, 0]}
           color="yellow"
           project={{
             name: "Cool",
