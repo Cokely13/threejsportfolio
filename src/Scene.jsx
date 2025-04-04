@@ -7,6 +7,7 @@ import Building from "./Building";
 import Player from "./Player";
 import CameraFollow from "./CameraFollow";
 import Gate from "./Gate";
+import FadeInOverlay from "./FadeInOverlay"; // make sure path is correct
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -146,6 +147,7 @@ function Scene({ setActiveProject }) {
         />
         <Player onProjectEnter={setActiveProject} playerRef={playerRef} />
         <CameraFollow targetRef={playerRef} />
+        <FadeInOverlay />
       </KeyboardControls>
     </>
   );
