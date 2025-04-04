@@ -40,7 +40,7 @@ function Scene({ setActiveProject }) {
     <>
       <KeyboardControls map={controlsMap}>
         {/* Ground */}
-        <RigidBody type="fixed" colliders="cuboid">
+        {/* <RigidBody type="fixed" colliders="cuboid">
           <Plane
             ref={groundRef}
             args={[100, 100]}
@@ -49,16 +49,64 @@ function Scene({ setActiveProject }) {
           >
             <meshStandardMaterial color="#2c3e50" />
           </Plane>
-        </RigidBody>
+        </RigidBody> */}
 
         {/* Roads */}
-        <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        {/* <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[5, 100]} />
           <meshStandardMaterial color="#34495e" />
         </mesh>
         <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, Math.PI / 2, 0]}>
           <planeGeometry args={[5, 100]} />
           <meshStandardMaterial color="#34495e" />
+        </mesh> */}
+        {/* BIG Grass Ground */}
+        <RigidBody type="fixed" colliders="cuboid">
+          <Plane
+            ref={groundRef}
+            args={[200, 600]} // much bigger now!
+            rotation={[-Math.PI / 2, 0, 0]}
+            receiveShadow
+          >
+            <meshStandardMaterial color="green" />
+          </Plane>
+        </RigidBody>
+
+        {/* Main Long Road */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, -200]}>
+          <planeGeometry args={[10, 500]} />
+          <meshStandardMaterial color="gray" />
+        </mesh>
+
+        {/* Section Markers - TEMPORARY, for reference */}
+        {/* Gate Marker */}
+        <mesh position={[0, 0.5, 100]}>
+          <boxGeometry args={[5, 5, 1]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
+
+        {/* About Building Placeholder */}
+        <mesh position={[0, 0.5, 50]}>
+          <boxGeometry args={[10, 10, 10]} />
+          <meshStandardMaterial color="black" />
+        </mesh>
+
+        {/* Skills Path Start */}
+        <mesh position={[0, 0.5, -75]}>
+          <boxGeometry args={[5, 5, 5]} />
+          <meshStandardMaterial color="yellow" />
+        </mesh>
+
+        {/* Projects Neighborhood */}
+        <mesh position={[0, 0.5, -200]}>
+          <boxGeometry args={[15, 15, 15]} />
+          <meshStandardMaterial color="orange" />
+        </mesh>
+
+        {/* Contact / Post Office */}
+        <mesh position={[0, 0.5, -275]}>
+          <boxGeometry args={[10, 10, 10]} />
+          <meshStandardMaterial color="red" />
         </mesh>
 
         {/* Buildings (Next step) */}
