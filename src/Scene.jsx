@@ -66,9 +66,14 @@ function Scene({ setActiveProject }) {
         <Building
           position={[10, 2.5, 10]}
           color="#e74c3c"
-          project="Project 1"
+          project={{
+            name: "HyroxTrack",
+            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+            description: "An app to log and compare results for Hyrox.",
+            url: "https://hyroxtrack.herokuapp.com/",
+          }}
         />
-        <Building
+        {/* <Building
           position={[-10, 2.5, 10]}
           color="#3498db"
           project="Project 2"
@@ -82,7 +87,7 @@ function Scene({ setActiveProject }) {
           position={[-10, 2.5, -10]}
           color="#f39c12"
           project="Project 4"
-        />
+        /> */}
         <Player onProjectEnter={setActiveProject} />
       </KeyboardControls>
     </>

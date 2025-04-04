@@ -97,9 +97,30 @@ function App() {
         />
       </Canvas>
 
-      {activeProject && (
+      {/* {activeProject && (
         <div className="project-name-overlay">
           <h2>{activeProject}</h2>
+        </div>
+      )} */}
+      {activeProject && (
+        <div className="project-card-overlay">
+          <img
+            src={activeProject.image}
+            alt={activeProject.name}
+            className="project-image"
+          />
+          <div className="project-info">
+            <h2>{activeProject.name}</h2>
+            <p>{activeProject.description}</p>
+            <a
+              href={activeProject.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-link"
+            >
+              View Project
+            </a>
+          </div>
         </div>
       )}
     </div>
