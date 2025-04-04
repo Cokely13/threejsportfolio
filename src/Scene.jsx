@@ -16,9 +16,9 @@ const controlsMap = [
   { name: "shift", keys: ["Shift"] },
 ];
 
-function Scene() {
+function Scene({ setActiveProject }) {
   const groundRef = useRef();
-  const [activeProject, setActiveProject] = useState(null);
+  // const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
 
   useEffect(() => {

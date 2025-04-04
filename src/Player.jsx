@@ -75,6 +75,7 @@ export default function Player({ onProjectEnter }) {
       const projectName = hitObject.name.replace("building-", "");
       console.log("hitt!!!", projectName);
       onProjectEnter(projectName);
+      setActiveProject(projectName);
     }
   };
 
