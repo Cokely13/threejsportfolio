@@ -4,7 +4,6 @@ import { KeyboardControls } from "@react-three/drei";
 import { Plane } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import Building from "./Building";
-import Runner from "./Runner";
 import Player from "./Player";
 
 const controlsMap = [
