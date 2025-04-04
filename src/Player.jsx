@@ -5,10 +5,11 @@ import { useState, useRef } from "react";
 import Runner from "./Runner";
 import * as THREE from "three";
 
-export default function Player() {
+export default function Player({ onProjectEnter }) {
   const body = useRef();
   const [animation, setAnimation] = useState("rig|Idle");
   const [, getKeys] = useKeyboardControls();
+  const [activeProject, setActiveProject] = useState(null);
 
   useFrame((state, delta) => {
     if (!body.current) return;
@@ -67,6 +68,16 @@ export default function Player() {
     // state.camera.lookAt(playerPosition);
   });
 
+  const handleCollisionEnter = (payload) => {
+    const hitObject = payload.colliderObject;
+
+    if (hitObject && hitObject.name?.startsWith("building-")) {
+      const projectName = hitObject.name.replace("building-", "");
+      console.log("hitt!!!", projectName);
+      onProjectEnter(projectName);
+    }
+  };
+
   return (
     <RigidBody
       ref={body}
@@ -77,6 +88,7 @@ export default function Player() {
       position={[0, 2, 0]}
       enabledRotations={[false, true, false]}
       colliders={false}
+      onCollisionEnter={handleCollisionEnter}
     >
       {/* Slightly adjusted CuboidCollider for feet-level precision */}
       <CuboidCollider args={[0.3, 0.9, 0.3]} position={[0, 0, 0]} />

@@ -18,6 +18,7 @@ const controlsMap = [
 
 function Scene() {
   const groundRef = useRef();
+  const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
 
   useEffect(() => {
@@ -82,12 +83,7 @@ function Scene() {
           color="#f39c12"
           project="Project 4"
         />
-        {/* <Runner
-          position={[0, 0, 0]}
-          scale={[0.05, 0.05, 0.05]}
-          animationName={animationName}
-        /> */}
-        <Player />
+        <Player onProjectEnter={setActiveProject} />
       </KeyboardControls>
     </>
   );
