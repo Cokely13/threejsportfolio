@@ -5,6 +5,8 @@ import { Plane } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import Building from "./Building";
 import Player from "./Player";
+import CameraFollow from "./CameraFollow";
+import Gate from "./Gate";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -17,6 +19,7 @@ const controlsMap = [
 
 function Scene({ setActiveProject }) {
   const groundRef = useRef();
+  const playerRef = useRef();
   // const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
 
@@ -39,27 +42,6 @@ function Scene({ setActiveProject }) {
   return (
     <>
       <KeyboardControls map={controlsMap}>
-        {/* Ground */}
-        {/* <RigidBody type="fixed" colliders="cuboid">
-          <Plane
-            ref={groundRef}
-            args={[100, 100]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            receiveShadow
-          >
-            <meshStandardMaterial color="#2c3e50" />
-          </Plane>
-        </RigidBody> */}
-
-        {/* Roads */}
-        {/* <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[5, 100]} />
-          <meshStandardMaterial color="#34495e" />
-        </mesh>
-        <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, Math.PI / 2, 0]}>
-          <planeGeometry args={[5, 100]} />
-          <meshStandardMaterial color="#34495e" />
-        </mesh> */}
         {/* BIG Grass Ground */}
         <RigidBody type="fixed" colliders="cuboid">
           <Plane
@@ -73,15 +55,23 @@ function Scene({ setActiveProject }) {
         </RigidBody>
 
         {/* Main Long Road */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, -200]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, -100]}>
           <planeGeometry args={[10, 500]} />
           <meshStandardMaterial color="gray" />
         </mesh>
 
         {/* Section Markers - TEMPORARY, for reference */}
         {/* Gate Marker */}
-        <mesh position={[0, 0.5, 100]}>
+        {/* <mesh position={[0, 0.5, 100]}>
           <boxGeometry args={[5, 5, 1]} />
+          <meshStandardMaterial color="white" />
+        </mesh> */}
+        {/* Left Post */}
+        <Gate playerRef={playerRef} />
+
+        {/* Top Bar */}
+        <mesh position={[0, 5.5, 100]}>
+          <boxGeometry args={[7, 1, 1]} />
           <meshStandardMaterial color="white" />
         </mesh>
 
@@ -154,7 +144,8 @@ function Scene({ setActiveProject }) {
             url: "https://hyroxtrack.herokuapp.com/",
           }}
         />
-        <Player onProjectEnter={setActiveProject} />
+        <Player onProjectEnter={setActiveProject} playerRef={playerRef} />
+        <CameraFollow targetRef={playerRef} />
       </KeyboardControls>
     </>
   );

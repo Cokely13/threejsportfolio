@@ -1,11 +1,11 @@
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Runner from "./Runner";
 import * as THREE from "three";
 
-export default function Player({ onProjectEnter }) {
+export default function Player({ onProjectEnter, playerRef }) {
   const body = useRef();
   const [animation, setAnimation] = useState("rig|Idle");
   const [, getKeys] = useKeyboardControls();
@@ -113,8 +113,6 @@ export default function Player({ onProjectEnter }) {
     if (hitObject && hitObject.name?.startsWith("building-")) {
       const projectKey = hitObject.name.replace("building-", ""); // "HyroxTrack"
 
-      console.log("hitt!!!", projectKey);
-
       // Lookup the full project info here
       const projectInfo = PROJECTS[projectKey];
 
@@ -127,6 +125,12 @@ export default function Player({ onProjectEnter }) {
     }
   };
 
+  useEffect(() => {
+    if (playerRef) {
+      playerRef.current = body.current;
+    }
+  }, [playerRef]);
+
   return (
     <RigidBody
       ref={body}
@@ -134,7 +138,7 @@ export default function Player({ onProjectEnter }) {
       friction={1}
       linearDamping={4}
       angularDamping={0.9}
-      position={[0, 2, 0]}
+      position={[0, 2, 130]}
       enabledRotations={[false, true, false]}
       colliders={false}
       onCollisionEnter={handleCollisionEnter}
