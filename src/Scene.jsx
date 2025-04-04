@@ -73,21 +73,36 @@ function Scene({ setActiveProject }) {
             url: "https://hyroxtrack.herokuapp.com/",
           }}
         />
-        {/* <Building
-          position={[-10, 2.5, 10]}
-          color="#3498db"
-          project="Project 2"
+        <Building
+          position={[-10, 2.5, -10]}
+          color="blue"
+          project={{
+            name: "Stuff",
+            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+            description: "An app to stuff.",
+            url: "https://hyroxtrack.herokuapp.com/",
+          }}
         />
         <Building
           position={[10, 2.5, -10]}
           color="#27ae60"
-          project="Project 3"
+          project={{
+            name: "Party",
+            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+            description: "An app to paty.",
+            url: "https://hyroxtrack.herokuapp.com/",
+          }}
         />
         <Building
-          position={[-10, 2.5, -10]}
-          color="#f39c12"
-          project="Project 4"
-        /> */}
+          position={[-10, 2.5, 10]}
+          color="yellow"
+          project={{
+            name: "Cool",
+            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+            description: "An app to paty.",
+            url: "https://hyroxtrack.herokuapp.com/",
+          }}
+        />
         <Player onProjectEnter={setActiveProject} />
       </KeyboardControls>
     </>

@@ -11,6 +11,34 @@ export default function Player({ onProjectEnter }) {
   const [, getKeys] = useKeyboardControls();
   const [activeProject, setActiveProject] = useState(null);
 
+  const PROJECTS = {
+    HyroxTrack: {
+      name: "HyroxTrack",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to log and compare results for Hyrox.",
+      url: "https://hyroxtrack.herokuapp.com/",
+    },
+    Party: {
+      name: "Party",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to Party.",
+      url: "https://hyroxtrack.herokuapp.com/",
+    },
+    Cool: {
+      name: "Cool",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to Cool.",
+      url: "https://hyroxtrack.herokuapp.com/",
+    },
+    Stuff: {
+      name: "Stuff",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to stuff.",
+      url: "https://hyroxtrack.herokuapp.com/",
+    },
+    // Add more projects here later
+  };
+
   useFrame((state, delta) => {
     if (!body.current) return;
 
@@ -68,14 +96,34 @@ export default function Player({ onProjectEnter }) {
     // state.camera.lookAt(playerPosition);
   });
 
+  // const handleCollisionEnter = (payload) => {
+  //   const hitObject = payload.colliderObject;
+
+  //   if (hitObject && hitObject.name?.startsWith("building-")) {
+  //     const projectName = hitObject.name.replace("building-", "");
+  //     console.log("hitt!!!", projectName);
+  //     onProjectEnter(projectName);
+  //     setActiveProject(projectName);
+  //   }
+  // };
+
   const handleCollisionEnter = (payload) => {
     const hitObject = payload.colliderObject;
 
     if (hitObject && hitObject.name?.startsWith("building-")) {
-      const projectName = hitObject.name.replace("building-", "");
-      console.log("hitt!!!", projectName);
-      onProjectEnter(projectName);
-      setActiveProject(projectName);
+      const projectKey = hitObject.name.replace("building-", ""); // "HyroxTrack"
+
+      console.log("hitt!!!", projectKey);
+
+      // Lookup the full project info here
+      const projectInfo = PROJECTS[projectKey];
+
+      if (projectInfo) {
+        onProjectEnter(projectInfo); // ✅ Pass full project object
+        setActiveProject(projectInfo); // ✅ (only needed if you use local activeProject too)
+      } else {
+        console.warn("No project found for key:", projectKey);
+      }
     }
   };
 
