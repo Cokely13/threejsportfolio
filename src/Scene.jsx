@@ -20,9 +20,14 @@ const controlsMap = [
   { name: "shift", keys: ["Shift"] },
 ];
 
-function Scene({ setActiveProject, setShowContactPopup, showContactPopup }) {
+function Scene({
+  setActiveProject,
+  setShowContactPopup,
+  showContactPopup,
+  playerRef,
+}) {
   const groundRef = useRef();
-  const playerRef = useRef();
+  // const playerRef = useRef();
   // const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
 

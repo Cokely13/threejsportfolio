@@ -3,12 +3,14 @@ import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import Scene from "./Scene";
 import ContactPopup from "./ContactPopup";
+import TeleportMenu from "./TeleportMenu";
 import "./styles.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showContactPopup, setShowContactPopup] = useState(false);
+  const playerRef = useRef();
 
   useEffect(() => {
     if (activeProject) {
@@ -28,6 +30,7 @@ function App() {
             setActiveProject={setActiveProject}
             setShowContactPopup={setShowContactPopup}
             showContactPopup={showContactPopup}
+            playerRef={playerRef} // 🛑 pass it
           />
         </Physics>
 
@@ -68,6 +71,7 @@ function App() {
           </div>
         </div>
       )}
+      <TeleportMenu playerRef={playerRef} />
     </div>
   );
 }
