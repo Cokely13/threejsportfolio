@@ -7,7 +7,9 @@ import Building from "./Building";
 import Player from "./Player";
 import CameraFollow from "./CameraFollow";
 import Gate from "./Gate";
-import FadeInOverlay from "./FadeInOverlay"; // make sure path is correct
+import FadeInOverlay from "./FadeInOverlay";
+import Skill from "./Skill"; //
+import ContactBuilding from "./ContactBuilding";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -18,11 +20,16 @@ const controlsMap = [
   { name: "shift", keys: ["Shift"] },
 ];
 
-function Scene({ setActiveProject }) {
+function Scene({ setActiveProject, setShowContactPopup, showContactPopup }) {
   const groundRef = useRef();
   const playerRef = useRef();
   // const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
+
+  const handlePlayerNearContact = () => {
+    console.log("Player near contact building!");
+    setShowContactPopup(true);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -77,7 +84,7 @@ function Scene({ setActiveProject }) {
         </mesh>
 
         {/* About Building Placeholder */}
-        <mesh position={[0, 0.5, 50]}>
+        <mesh position={[50, 0.5, 50]}>
           <boxGeometry args={[10, 10, 10]} />
           <meshStandardMaterial color="black" />
         </mesh>
@@ -95,10 +102,12 @@ function Scene({ setActiveProject }) {
         </mesh>
 
         {/* Contact / Post Office */}
-        <mesh position={[0, 0.5, -275]}>
-          <boxGeometry args={[10, 10, 10]} />
-          <meshStandardMaterial color="red" />
-        </mesh>
+        <ContactBuilding
+          position={[0, 5, -75]}
+          playerRef={playerRef}
+          onEnter={handlePlayerNearContact}
+          popupVisible={showContactPopup}
+        />
 
         {/* Buildings (Next step) */}
         <Building
@@ -145,6 +154,14 @@ function Scene({ setActiveProject }) {
             url: "https://hyroxtrack.herokuapp.com/",
           }}
         />
+        {/* Skills Section */}
+        <Skill label="JavaScript" position={[-20, 2, 55]} />
+        <Skill label="PostgreSQL" position={[-15, 2, 50]} />
+        <Skill label="Express" position={[0, 2, 60]} />
+        <Skill label="React" position={[10, 2, 55]} />
+        <Skill label="Node" position={[15, 2, 60]} />
+        <Skill label="CSS" position={[20, 2, 55]} />
+        <Skill label="Three.js" position={[4, 2, 50]} />
         <Player onProjectEnter={setActiveProject} playerRef={playerRef} />
         <CameraFollow targetRef={playerRef} />
         <FadeInOverlay />
