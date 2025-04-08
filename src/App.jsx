@@ -6,10 +6,12 @@ import ContactPopup from "./ContactPopup";
 import TeleportMenu from "./TeleportMenu";
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
+import ZoomControls from "./ZoomControls";
 
 function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showContactPopup, setShowContactPopup] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(10);
   const playerRef = useRef();
 
   useEffect(() => {
@@ -21,6 +23,14 @@ function App() {
 
   return (
     <div className="canvas-container">
+      {/* <div style={{ position: "absolute", top: 20, right: 20, zIndex: 10 }}>
+        <button onClick={() => setZoomLevel((z) => Math.max(z - 2, 5))}>
+          Zoom In
+        </button>
+        <button onClick={() => setZoomLevel((z) => Math.min(z + 2, 25))}>
+          Zoom Out
+        </button>
+      </div> */}
       <Canvas camera={{ position: [0, 15, 30], fov: 50 }}>
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 20, 10]} intensity={1.2} />

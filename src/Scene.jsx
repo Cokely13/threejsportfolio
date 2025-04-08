@@ -250,10 +250,10 @@ function Scene({
   setShowContactPopup,
   showContactPopup,
   playerRef,
+  zoomLevel,
 }) {
   const groundRef = useRef();
   const [animationName, setAnimationName] = useState("rig|Idle");
-
   const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
   const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
   grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
@@ -393,7 +393,7 @@ function Scene({
         />
 
         <FadeInOverlay />
-        <CameraFollow targetRef={playerRef} />
+        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>
   );
