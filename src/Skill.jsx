@@ -57,7 +57,7 @@
 // }
 
 // Skill.jsx
-import { Text } from "@react-three/drei";
+import { Text, Text3D } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useRef, useEffect } from "react";
 

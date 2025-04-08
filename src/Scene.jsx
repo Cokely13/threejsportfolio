@@ -10,6 +10,9 @@ import Gate from "./Gate";
 import FadeInOverlay from "./FadeInOverlay";
 import Skill from "./Skill"; //
 import ContactBuilding from "./ContactBuilding";
+import BuildingWithDoor from "./BuildingWithDoor";
+import { TextureLoader, RepeatWrapping } from "three";
+import { useLoader } from "@react-three/fiber";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -30,6 +33,13 @@ function Scene({
   // const playerRef = useRef();
   // const [activeProject, setActiveProject] = useState(null);
   const [animationName, setAnimationName] = useState("rig|Idle");
+
+  const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
+  const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+  grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
+  grassTexture.repeat.set(20, 20);
+  roadTexture.wrapS = roadTexture.wrapT = RepeatWrapping;
+  roadTexture.repeat.set(1, 4);
 
   const handlePlayerNearContact = () => {
     console.log("Player near contact building!");
@@ -56,7 +66,7 @@ function Scene({
     <>
       <KeyboardControls map={controlsMap}>
         {/* BIG Grass Ground */}
-        <RigidBody type="fixed" colliders="cuboid">
+        {/* <RigidBody type="fixed" colliders="cuboid">
           <Plane
             ref={groundRef}
             args={[200, 600]} // much bigger now!
@@ -65,12 +75,42 @@ function Scene({
           >
             <meshStandardMaterial color="green" />
           </Plane>
+        </RigidBody> */}
+        <RigidBody type="fixed" colliders="trimesh">
+          <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+            <circleGeometry args={[120, 64]} />
+            <meshStandardMaterial map={grassTexture} />
+          </mesh>
         </RigidBody>
 
-        {/* Main Long Road */}
+        {/* Main Long Road
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, -100]}>
           <planeGeometry args={[10, 500]} />
           <meshStandardMaterial color="gray" />
+        </mesh> */}
+
+        {/* Main Road - Straight */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 30]}>
+          <planeGeometry args={[4, 60]} />
+          <meshStandardMaterial map={roadTexture} />
+        </mesh>
+
+        {/* Left Road - Skills */}
+        <mesh
+          position={[-15, 0.05, 15]}
+          rotation={[-Math.PI / 2, 0, Math.PI / 4]}
+        >
+          <planeGeometry args={[3, 20]} />
+          <meshStandardMaterial map={roadTexture} />
+        </mesh>
+
+        {/* Right Road - About */}
+        <mesh
+          position={[15, 0.05, 15]}
+          rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
+        >
+          <planeGeometry args={[3, 20]} />
+          <meshStandardMaterial map={roadTexture} />
         </mesh>
 
         {/* Section Markers - TEMPORARY, for reference */}
@@ -112,6 +152,11 @@ function Scene({
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
+        />
+
+        <BuildingWithDoor
+          position={[45, 0, 100]}
+          rotation={[0, Math.PI / 2, 0]}
         />
 
         {/* Buildings (Next step) */}
@@ -168,7 +213,7 @@ function Scene({
         <Skill label="CSS" position={[20, 2, 55]} />
         <Skill label="Three.js" position={[4, 2, 50]} />
         <Player onProjectEnter={setActiveProject} playerRef={playerRef} />
-        <CameraFollow targetRef={playerRef} />
+
         <FadeInOverlay />
       </KeyboardControls>
     </>
