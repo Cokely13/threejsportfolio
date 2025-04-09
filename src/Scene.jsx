@@ -236,6 +236,8 @@ import { TextureLoader, RepeatWrapping } from "three";
 import { useLoader } from "@react-three/fiber";
 import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
+import Road from "./Road";
+import Road2 from "./Road2";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -252,11 +254,13 @@ function Scene({
   showContactPopup,
   playerRef,
   zoomLevel,
+  roadMode,
 }) {
   const groundRef = useRef();
   const [animationName, setAnimationName] = useState("rig|Idle");
   const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
   const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+  // const [roadMode, setRoadMode] = useState("translate");
   grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
   grassTexture.repeat.set(60, 60);
   roadTexture.wrapS = roadTexture.wrapT = RepeatWrapping;
@@ -393,9 +397,20 @@ function Scene({
           playerRef={playerRef}
           position={[0, 1, -20]}
         />
+        <Road
+          scale={[0.4207, 0.1002, 0.4853]}
+          position={[-18.6471, -1.4316, 71.3294]}
+          rotation={[-3.0854, -0.7612, 2.4803]}
+        />
+
+        <Road2
+          scale={[-0.4207, 0.1002, 0.4853]} // flipped scale
+          position={[18.6471, -1.4316, 71.3294]} // mirrored X position
+          rotation={[-3.0854, 0.7612, -2.4803]} // mirrored rotation
+        />
 
         <FadeInOverlay />
-        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
+        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
       </KeyboardControls>
     </>
   );
