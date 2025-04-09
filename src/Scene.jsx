@@ -234,6 +234,7 @@ import ContactBuilding from "./ContactBuilding";
 import BuildingWithDoor from "./BuildingWithDoor";
 import { TextureLoader, RepeatWrapping } from "three";
 import { useLoader } from "@react-three/fiber";
+import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
 
 const controlsMap = [
@@ -284,6 +285,7 @@ function Scene({
   return (
     <>
       <KeyboardControls map={controlsMap}>
+        <Wall />
         {/* Big Ground */}
         <RigidBody type="fixed" colliders="trimesh">
           <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
@@ -322,7 +324,7 @@ function Scene({
 
         {/* Contact Building (End of Main Road) */}
         <ContactBuilding
-          position={[0, 5, -100]}
+          position={[0, 5, -90]}
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
