@@ -33,7 +33,7 @@ function App() {
           Zoom Out
         </button>
       </div> */}
-      <div
+      {/* <div
         style={{
           position: "absolute",
           top: 20,
@@ -47,7 +47,7 @@ function App() {
         <button onClick={() => setRoadMode("translate")}>Move</button>
         <button onClick={() => setRoadMode("rotate")}>Rotate</button>
         <button onClick={() => setRoadMode("scale")}>Scale</button>
-      </div>
+      </div> */}
       <Canvas camera={{ position: [0, 15, 30], fov: 50 }}>
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 20, 10]} intensity={1.2} />

@@ -3,7 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef, useMemo } from "react";
 
 export default function Road2(props) {
-  const gltf = useLoader(GLTFLoader, "/models/road.glb");
+  const gltf = useLoader(GLTFLoader, "/models/myroad.glb");
   const roadRef = useRef();
 
   const clonedScene = useMemo(() => gltf.scene.clone(), [gltf.scene]);
