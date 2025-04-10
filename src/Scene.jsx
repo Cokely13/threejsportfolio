@@ -16,7 +16,8 @@ import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
 import Road from "./Road";
 import Road2 from "./Road2";
-import Hills from "./Hills"; //
+import Hills from "./Hills";
+import MyHill from "./MyHill";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -194,6 +195,7 @@ function Scene({
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </RigidBody>
+        <MyHill position={[20, -1, 85]} scale={[4, 1.5, 4]} />
 
         <FadeInOverlay />
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />

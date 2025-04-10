@@ -6,7 +6,7 @@ export default function Hills() {
     <>
       {/* Big Skills Section Hill */}
       <RigidBody type="fixed" colliders="trimesh">
-        <mesh position={[-65, 1, 10]} scale={[2, 0.7, 2]}>
+        <mesh position={[-65, 0, 30]} scale={[2, 0.7, 2]}>
           <sphereGeometry args={[10, 32, 32]} />
           <meshStandardMaterial color="green" />
         </mesh>
