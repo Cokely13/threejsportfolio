@@ -139,13 +139,28 @@ function Scene({
         />
 
         {/* Skills Section - Left end */}
-        <Skill label="JavaScript" position={[-60, 2, 30]} />
+        {/* <Skill label="JavaScript" position={[-60, 2, 30]} />
         <Skill label="PostgreSQL" position={[-60, 2, 25]} />
         <Skill label="Express" position={[-60, 2, 35]} />
         <Skill label="React" position={[-65, 2, 30]} />
         <Skill label="Node" position={[-65, 2, 35]} />
         <Skill label="CSS" position={[-65, 2, 25]} />
-        <Skill label="Three.js" position={[-70, 2, 30]} />
+        <Skill label="Three.js" position={[-70, 2, 30]} /> */}
+        <Skill
+          label="JavaScript"
+          position={[-70, 10, 17]}
+          playerRef={playerRef}
+        />
+        <Skill
+          label="PostgreSQL"
+          position={[-73, 10, 25]}
+          playerRef={playerRef}
+        />
+        <Skill label="Express" position={[-75, 10, 17]} playerRef={playerRef} />
+        <Skill label="React" position={[-80, 10, 10]} playerRef={playerRef} />
+        <Skill label="Node" position={[-79, 10, 22]} playerRef={playerRef} />
+        <Skill label="CSS" position={[-82, 10, 16]} playerRef={playerRef} />
+        <Skill label="Three.js" position={[-74, 10, 8]} playerRef={playerRef} />
 
         {/* About Building - Right end */}
         <BuildingWithDoor
@@ -161,7 +176,7 @@ function Scene({
         />
 
         {/* Hills */}
-        <Hills />
+        {/* <Hills /> */}
 
         <Road
           scale={[0.8, 0.9, 0.9]}
@@ -195,10 +210,14 @@ function Scene({
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </RigidBody>
-        <MyHill position={[20, -1, 85]} scale={[4, 1.5, 4]} />
+        <MyHill
+          position={[-75, -1, 30]}
+          scale={[8, 3, 8]}
+          rotation={[0, 1, 0]}
+        />
 
         <FadeInOverlay />
-        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
+        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
       </KeyboardControls>
     </>
   );
