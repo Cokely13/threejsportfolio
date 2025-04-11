@@ -21,6 +21,7 @@ import ResetButton from "./ResetButton";
 import BouncyBall from "./BouncyBall";
 import { Sky, Cloud } from "@react-three/drei";
 import MainRoad from "./MainRoad";
+import SignPost from "./SignPost";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -124,39 +125,6 @@ function Scene({
             <meshStandardMaterial map={grassTexture} />
           </mesh>
         </RigidBody>
-        {/* Roads */}
-        {/* Main Road through Gate to Contact */}
-        {/* <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
-          <planeGeometry args={[4, 200]} />
-          <meshStandardMaterial map={roadTexture} />
-        </mesh> */}
-
-        {/* MAINNN!!! */}
-        {/* <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0.05, 0]}
-          receiveShadow
-        >
-          <planeGeometry args={[14, 200]} />
-          <meshStandardMaterial
-            map={roadTexture}
-            roughness={0.8}
-            metalness={0.0}
-          />
-        </mesh> */}
-        {/* <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, 0.05, 0]}
-          receiveShadow
-        >
-          <planeGeometry args={[14, 200]} />
-          <meshStandardMaterial
-            map={roadTexture}
-            roughness={1} // ← FULLY rough like a real street
-            metalness={0} // ← no metal
-            color={"#a9a9a9"} // ← Add a subtle gray tint to match cobblestone
-          />
-        </mesh> */}
 
         {/* GATE */}
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
@@ -170,7 +138,8 @@ function Scene({
         />
         {/* Projects - 4 buildings after Cross */}
         <Building
-          position={[-10, 2.5, 15]}
+          position={[-15, 0, 10]}
+          rotation={[0, 1.6, 0]}
           color="#e74c3c"
           project={{
             name: "HyroxTrack",
@@ -180,7 +149,7 @@ function Scene({
           }}
         />
         <Building
-          position={[15, 2.5, 15]}
+          position={[20, 0, 10]}
           color="blue"
           project={{
             name: "Stuff",
@@ -190,7 +159,8 @@ function Scene({
           }}
         />
         <Building
-          position={[-10, 2.5, -5]}
+          position={[-15, 2.0, -5]}
+          rotation={[0, -1.55, 0]}
           color="#27ae60"
           project={{
             name: "Party",
@@ -200,7 +170,8 @@ function Scene({
           }}
         />
         <Building
-          position={[10, 2.5, -5]}
+          position={[15, 0, -10]}
+          rotation={[0, -1.6, 0]}
           color="yellow"
           project={{
             name: "Cool",
@@ -315,6 +286,18 @@ function Scene({
           scale={[8, 3, 8]}
           rotation={[0, 1, 0]}
         />
+        <SignPost position={[-12, 0, 20]} text="Projects" />
+        <SignPost
+          position={[-30, 0, 35]}
+          text="Skills"
+          rotation={[0, Math.PI / 4, 0]}
+        />
+        <SignPost
+          position={[30, 0, 35]}
+          text="About"
+          rotation={[0, -Math.PI / 4, 0]}
+        />
+        <SignPost position={[15, 0, -65]} text="Contact" />
         <ResetButton
           position={[-25, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
           onReset={() => {
