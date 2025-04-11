@@ -302,7 +302,7 @@ const Skill = forwardRef(function Skill({ label, position, playerRef }, ref) {
 
   return (
     <>
-      <RigidBody
+      {/* <RigidBody
         ref={ballRef}
         type={activated ? "dynamic" : "kinematicPosition"}
         colliders="ball"
@@ -312,8 +312,20 @@ const Skill = forwardRef(function Skill({ label, position, playerRef }, ref) {
         angularDamping={0.1}
         linearDamping={0.1}
         position={position}
+      > */}
+      {/* <RigidBody
+        ref={ballRef}
+        type={activated ? "dynamic" : "kinematicPosition"}
+        colliders="ball"
+        mass={0.5}
+        restitution={0.8}
+        friction={0.3}
+        angularDamping={0.1}
+        linearDamping={0.1}
+        position={[position[0], position[1] + 2, position[2]]}
+        ccd={true}
       >
-        {/* Ball with texture */}
+
         <mesh castShadow receiveShadow>
           <sphereGeometry args={[2, 16, 16]} />
           <meshStandardMaterial
@@ -323,9 +335,42 @@ const Skill = forwardRef(function Skill({ label, position, playerRef }, ref) {
           />
         </mesh>
 
-        {/* Wireframe */}
+
         <mesh>
           <sphereGeometry args={[2.05, 16, 16]} />
+          <meshBasicMaterial
+            color="#ffffff"
+            wireframe
+            opacity={0.08}
+            transparent
+          />
+        </mesh>
+      </RigidBody> */}
+      <RigidBody
+        ref={ballRef}
+        type={activated ? "dynamic" : "kinematicPosition"}
+        colliders="ball"
+        mass={0.25} // 👈 Easier to move (lighter)
+        restitution={0.8}
+        friction={0.1}
+        angularDamping={0.1}
+        linearDamping={0.1}
+        position={[position[0], position[1] + 1.5, position[2]]} // 👈 Correct height offset
+        ccd={true}
+      >
+        {/* Ball with texture (smaller size matches BouncyBall) */}
+        <mesh castShadow receiveShadow>
+          <sphereGeometry args={[1.5, 32, 32]} />
+          <meshStandardMaterial
+            map={textTexture}
+            toneMapped={false}
+            transparent={false}
+          />
+        </mesh>
+
+        {/* Wireframe (slightly larger for visibility) */}
+        <mesh>
+          <sphereGeometry args={[1.55, 32, 32]} />
           <meshBasicMaterial
             color="#ffffff"
             wireframe

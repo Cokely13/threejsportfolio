@@ -44,9 +44,9 @@ export default function BouncyBall({
     <RigidBody
       ref={ballRef}
       colliders="ball"
-      restitution={1.2}
+      restitution={0.8}
       friction={0.3}
-      mass={0.8}
+      mass={0.5}
       position={adjustedPosition}
       ccd={true} // Helps prevent collisions from sinking in
     >
