@@ -16,8 +16,9 @@ import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
 import Road from "./Road";
 import Road2 from "./Road2";
-import Hills from "./Hills";
 import MyHill from "./MyHill";
+import ResetButton from "./ResetButton";
+import BouncyBall from "./BouncyBall";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -37,6 +38,7 @@ function Scene({
   roadMode,
 }) {
   const groundRef = useRef();
+  const ballRefs = useRef([]);
   const [animationName, setAnimationName] = useState("rig|Idle");
   const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
   const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
@@ -87,6 +89,7 @@ function Scene({
 
         {/* GATE */}
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
+        <BouncyBall position={[2, 3, 80]} />
 
         {/* Contact Building (End of Main Road) */}
         <ContactBuilding
@@ -150,17 +153,44 @@ function Scene({
           label="JavaScript"
           position={[-70, 10, 17]}
           playerRef={playerRef}
+          ref={(el) => (ballRefs.current[0] = el)}
         />
         <Skill
           label="PostgreSQL"
           position={[-73, 10, 25]}
           playerRef={playerRef}
+          ref={(el) => (ballRefs.current[1] = el)}
         />
-        <Skill label="Express" position={[-75, 10, 17]} playerRef={playerRef} />
-        <Skill label="React" position={[-80, 10, 10]} playerRef={playerRef} />
-        <Skill label="Node" position={[-79, 10, 22]} playerRef={playerRef} />
-        <Skill label="CSS" position={[-82, 10, 16]} playerRef={playerRef} />
-        <Skill label="Three.js" position={[-74, 10, 8]} playerRef={playerRef} />
+        <Skill
+          label="Express"
+          position={[-75, 10, 17]}
+          playerRef={playerRef}
+          ref={(el) => (ballRefs.current[2] = el)}
+        />
+        <Skill
+          label="React"
+          position={[-80, 10, 10]}
+          playerRef={playerRef}
+          ref={(el) => (ballRefs.current[3] = el)}
+        />
+        <Skill
+          label="Node"
+          position={[-79, 10, 22]}
+          playerRef={playerRef}
+          ref={(el) => (ballRefs.current[4] = el)}
+        />
+        <Skill
+          label="CSS"
+          position={[-82, 10, 16]}
+          playerRef={playerRef}
+          ref={(el) => (ballRefs.current[5] = el)}
+        />
+        <Skill
+          label="Three.js"
+          position={[-74, 10, 8]}
+          playerRef={playerRef}
+          ref={(el) => (ballRefs.current[6] = el)}
+        />
 
         {/* About Building - Right end */}
         <BuildingWithDoor
@@ -214,6 +244,15 @@ function Scene({
           position={[-75, -1, 30]}
           scale={[8, 3, 8]}
           rotation={[0, 1, 0]}
+        />
+
+        <ResetButton
+          position={[-25, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
+          onReset={() => {
+            ballRefs.current.forEach((ref) => {
+              if (ref) ref.reset();
+            });
+          }}
         />
 
         <FadeInOverlay />

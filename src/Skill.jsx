@@ -1,6 +1,11 @@
-// import { Text } from "@react-three/drei";
 // import { RigidBody } from "@react-three/rapier";
-// import { useRef, useState } from "react";
+// import {
+//   useRef,
+//   useState,
+//   useMemo,
+//   useImperativeHandle,
+//   forwardRef,
+// } from "react";
 // import { useFrame } from "@react-three/fiber";
 // import * as THREE from "three";
 
@@ -9,35 +14,35 @@
 //   JavaScript: "#f0db4f", // Yellow
 //   PostgreSQL: "#336791", // Blue
 //   Express: "#888888", // Gray
-//   React: "#61dafb", // Cyan
+//   React: "#61dafb", // Light Cyan
 //   Node: "#3c873a", // Green
-//   CSS: "#264de4", // Blue
+//   CSS: "#264de4", // Bright Blue
 //   "Three.js": "#000000", // Black
 // };
 
-// // 🎨 Text colors that look good on the ball
+// // 🎨 Text colors (complementary)
 // const TEXT_COLORS = {
-//   JavaScript: "#000000", // Black text on Yellow
-//   PostgreSQL: "#ffffff", // White text on Blue
-//   Express: "#ffffff", // White text on Gray
-//   React: "#000000", // Black text on Cyan
-//   Node: "#ffffff", // White text on Green
-//   CSS: "#ffffff", // White text on Blue
-//   "Three.js": "#ffffff", // White text on Black
+//   JavaScript: "#000000", // Black on yellow
+//   PostgreSQL: "#ffffff", // White on blue
+//   Express: "#ffffff", // White on gray
+//   React: "#000000", // Black on cyan
+//   Node: "#ffffff", // White on green
+//   CSS: "#ffffff", // White on blue
+//   "Three.js": "#ffffff", // White on black
 // };
 
-// // 🖌️ Create a texture with text for each ball
-// function createTextTexture(text, textColor = "white") {
+// // 🖌️ Create a text-painted texture
+// function createTextTexture(text, ballColor = "white", textColor = "white") {
 //   const canvas = document.createElement("canvas");
 //   const context = canvas.getContext("2d");
-
 //   canvas.width = 512;
 //   canvas.height = 512;
 
-//   // Transparent background
-//   context.clearRect(0, 0, canvas.width, canvas.height);
+//   // 🎨 Fill background first
+//   context.fillStyle = ballColor;
+//   context.fillRect(0, 0, canvas.width, canvas.height);
 
-//   // Draw text
+//   // 🎨 Draw text on top
 //   context.font = "bold 80px Arial";
 //   context.fillStyle = textColor;
 //   context.textAlign = "center";
@@ -50,14 +55,35 @@
 // }
 
 // export default function Skill({ label, position, playerRef }) {
-//   const color = COLORS[label] || "white"; // Ball color
-//   const textColor = TEXT_COLORS[label] || "white"; // Matching text color
 //   const ballRef = useRef();
 //   const [activated, setActivated] = useState(false);
 //   const [initialY] = useState(position[1]);
 //   const [floatOffset] = useState(() => Math.random() * Math.PI * 2);
 
-//   const textTexture = createTextTexture(label, textColor);
+//   const ballColor = COLORS[label] || "white";
+//   const textColor = TEXT_COLORS[label] || "white";
+
+//   // Generate texture ONCE
+//   const textTexture = useMemo(() => {
+//     const safeLabel = label || "Skill";
+//     const ballColor = COLORS[safeLabel] || "white";
+//     const textColor = TEXT_COLORS[safeLabel] || "white";
+//     return createTextTexture(safeLabel, ballColor, textColor);
+//   }, [label]);
+
+//   useImperativeHandle(ref, () => ({
+//     reset() {
+//       if (ballRef.current) {
+//         setActivated(false);
+//         ballRef.current.setBodyType("kinematicPosition");
+//         ballRef.current.setNextKinematicTranslation({
+//           x: position[0],
+//           y: initialY,
+//           z: position[2],
+//         });
+//       }
+//     },
+//   }));
 
 //   useFrame((state) => {
 //     if (ballRef.current) {
@@ -79,7 +105,7 @@
 //           w: 1,
 //         });
 
-//         // Check distance to activate
+//         // Check if player is close
 //         if (playerRef?.current) {
 //           const ballPosition = ballRef.current.translation();
 //           const playerPosition = playerRef.current.translation();
@@ -103,72 +129,72 @@
 //     <>
 //       <RigidBody
 //         ref={ballRef}
-//         type="kinematicPosition"
+//         type={activated ? "dynamic" : "kinematicPosition"}
 //         colliders="ball"
-//         mass={0.2}
-//         restitution={0.8}
-//         friction={0.3}
+//         mass={1} // ⚡ Make them heavier
+//         restitution={0.8} // ⚡ Bouncy
+//         friction={0.1} // ⚡ Low friction to roll
 //         angularDamping={0.1}
 //         linearDamping={0.1}
 //         position={position}
 //       >
-//         {/* Ball */}
+//         {/* Ball with text texture */}
 //         <mesh castShadow receiveShadow>
-//           <sphereGeometry args={[2, 32, 32]} />
-//           <meshStandardMaterial map={textTexture} color={color} />
+//           {/* <sphereGeometry args={[2, 32, 32]} /> */}
+//           <sphereGeometry args={[2, 16, 16]} />
+//           <meshStandardMaterial
+//             map={textTexture}
+//             toneMapped={false}
+//             transparent={false}
+//           />
 //         </mesh>
 
-//         {/* Decorative Wireframe */}
+//         {/* Softer wireframe */}
 //         <mesh>
 //           <sphereGeometry args={[2.05, 16, 16]} />
-//           <meshStandardMaterial
-//             color="white"
+//           <meshBasicMaterial
+//             color="#ffffff"
 //             wireframe
-//             opacity={0.2}
+//             opacity={0.08} // Softer wireframe
 //             transparent
 //           />
 //         </mesh>
 //       </RigidBody>
-
-//       {/* Floating Label (optional) */}
-//       {/* <Text
-//         position={[position[0], position[1] + 2, position[2]]}
-//         fontSize={0.8}
-//         color="white"
-//         anchorX="center"
-//         anchorY="middle"
-//       >
-//         {label}
-//       </Text> */}
 //     </>
 //   );
 // }
 
 import { RigidBody } from "@react-three/rapier";
-import { useRef, useState, useMemo } from "react";
+import {
+  useRef,
+  useState,
+  useMemo,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // 🎨 Ball base colors
 const COLORS = {
-  JavaScript: "#f0db4f", // Yellow
-  PostgreSQL: "#336791", // Blue
-  Express: "#888888", // Gray
-  React: "#61dafb", // Light Cyan
-  Node: "#3c873a", // Green
-  CSS: "#264de4", // Bright Blue
-  "Three.js": "#000000", // Black
+  JavaScript: "#f0db4f",
+  PostgreSQL: "#336791",
+  Express: "#888888",
+  React: "#61dafb",
+  Node: "#3c873a",
+  CSS: "#264de4",
+  "Three.js": "#000000",
 };
 
-// 🎨 Text colors (complementary)
+// 🎨 Text colors
 const TEXT_COLORS = {
-  JavaScript: "#000000", // Black on yellow
-  PostgreSQL: "#ffffff", // White on blue
-  Express: "#ffffff", // White on gray
-  React: "#000000", // Black on cyan
-  Node: "#ffffff", // White on green
-  CSS: "#ffffff", // White on blue
-  "Three.js": "#ffffff", // White on black
+  JavaScript: "#000000",
+  PostgreSQL: "#ffffff",
+  Express: "#ffffff",
+  React: "#000000",
+  Node: "#ffffff",
+  CSS: "#ffffff",
+  "Three.js": "#ffffff",
 };
 
 // 🖌️ Create a text-painted texture
@@ -178,11 +204,9 @@ function createTextTexture(text, ballColor = "white", textColor = "white") {
   canvas.width = 512;
   canvas.height = 512;
 
-  // 🎨 Fill background first
   context.fillStyle = ballColor;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  // 🎨 Draw text on top
   context.font = "bold 80px Arial";
   context.fillStyle = textColor;
   context.textAlign = "center";
@@ -194,7 +218,7 @@ function createTextTexture(text, ballColor = "white", textColor = "white") {
   return texture;
 }
 
-export default function Skill({ label, position, playerRef }) {
+const Skill = forwardRef(function Skill({ label, position, playerRef }, ref) {
   const ballRef = useRef();
   const [activated, setActivated] = useState(false);
   const [initialY] = useState(position[1]);
@@ -203,18 +227,44 @@ export default function Skill({ label, position, playerRef }) {
   const ballColor = COLORS[label] || "white";
   const textColor = TEXT_COLORS[label] || "white";
 
-  // Generate texture ONCE
   const textTexture = useMemo(() => {
     const safeLabel = label || "Skill";
-    const ballColor = COLORS[safeLabel] || "white";
-    const textColor = TEXT_COLORS[safeLabel] || "white";
     return createTextTexture(safeLabel, ballColor, textColor);
   }, [label]);
+
+  // useImperativeHandle(ref, () => ({
+  //   reset() {
+  //     if (ballRef.current) {
+  //       setActivated(false);
+  //       ballRef.current.setBodyType("kinematicPosition");
+  //       ballRef.current.setNextKinematicTranslation({
+  //         x: position[0],
+  //         y: initialY,
+  //         z: position[2],
+  //       });
+  //     }
+  //   },
+  // }));
+
+  useImperativeHandle(ref, () => ({
+    reset() {
+      if (ballRef.current) {
+        setActivated(false); // 🛑 Must turn OFF dynamic physics
+        ballRef.current.setBodyType("kinematicPosition"); // 🛑 Switch back to floating
+        ballRef.current.setTranslation(
+          { x: position[0], y: initialY, z: position[2] },
+          true
+        ); // 🛑 Move immediately
+        ballRef.current.setRotation({ x: 0, y: 0, z: 0, w: 1 }, true); // 🛑 Reset rotation immediately
+        ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true); // 🛑 Stop moving
+        ballRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true); // 🛑 Stop spinning
+      }
+    },
+  }));
 
   useFrame((state) => {
     if (ballRef.current) {
       if (!activated) {
-        // Floating animation
         const t = state.clock.getElapsedTime();
         const floatY = initialY + Math.sin(t * 2 + floatOffset) * 0.5;
 
@@ -231,7 +281,6 @@ export default function Skill({ label, position, playerRef }) {
           w: 1,
         });
 
-        // Check if player is close
         if (playerRef?.current) {
           const ballPosition = ballRef.current.translation();
           const playerPosition = playerRef.current.translation();
@@ -257,16 +306,16 @@ export default function Skill({ label, position, playerRef }) {
         ref={ballRef}
         type={activated ? "dynamic" : "kinematicPosition"}
         colliders="ball"
-        mass={1} // ⚡ Make them heavier
-        restitution={0.8} // ⚡ Bouncy
-        friction={0.1} // ⚡ Low friction to roll
+        mass={1}
+        restitution={0.8}
+        friction={0.1}
         angularDamping={0.1}
         linearDamping={0.1}
         position={position}
       >
-        {/* Ball with text texture */}
+        {/* Ball with texture */}
         <mesh castShadow receiveShadow>
-          <sphereGeometry args={[2, 32, 32]} />
+          <sphereGeometry args={[2, 16, 16]} />
           <meshStandardMaterial
             map={textTexture}
             toneMapped={false}
@@ -274,17 +323,19 @@ export default function Skill({ label, position, playerRef }) {
           />
         </mesh>
 
-        {/* Softer wireframe */}
+        {/* Wireframe */}
         <mesh>
           <sphereGeometry args={[2.05, 16, 16]} />
           <meshBasicMaterial
             color="#ffffff"
             wireframe
-            opacity={0.08} // Softer wireframe
+            opacity={0.08}
             transparent
           />
         </mesh>
       </RigidBody>
     </>
   );
-}
+});
+
+export default Skill;
