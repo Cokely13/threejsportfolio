@@ -217,7 +217,7 @@ function Scene({
         />
 
         <FadeInOverlay />
-        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
+        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>
   );
