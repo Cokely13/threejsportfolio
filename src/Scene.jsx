@@ -19,7 +19,8 @@ import Road2 from "./Road2";
 import MyHill from "./MyHill";
 import ResetButton from "./ResetButton";
 import BouncyBall from "./BouncyBall";
-import { Sky } from "@react-three/drei";
+import { Sky, Cloud } from "@react-three/drei";
+import MainRoad from "./MainRoad";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -72,13 +73,49 @@ function Scene({
   return (
     <>
       <KeyboardControls map={controlsMap}>
-        <Sky
-          distance={450000} // How far the skybox is
-          sunPosition={[0, 1, 0]} // Position of the sun
-          inclination={0} // Sun elevation angle
-          azimuth={0.25} // Sun rotation around the horizon
+        {/* Sky */}
+        {/* <Sky
+          distance={450000}
+          sunPosition={[100, 100, 20]} // ☀️ Sun way up
+          inclination={0}
+          azimuth={0.25}
+          turbidity={8}
+          rayleigh={6}
+          mieCoefficient={0.003}
+          mieDirectionalG={0.7}
         />
 
+
+        <mesh position={[100, 100, -100]}>
+          <sphereGeometry args={[5, 32, 32]} />
+          <meshBasicMaterial emissive={"#fffacd"} toneMapped={false} />
+        </mesh>
+
+        <Cloud
+          position={[-30, 50, -100]}
+          speed={0.2} // How fast they move
+          opacity={0.4}
+          width={20}
+          depth={10}
+          segments={20}
+        />
+        <Cloud
+          position={[50, 60, -50]}
+          speed={0.25}
+          opacity={0.5}
+          width={25}
+          depth={15}
+          segments={30}
+        />
+        <Cloud
+          position={[0, 55, 80]}
+          speed={0.15}
+          opacity={0.45}
+          width={30}
+          depth={20}
+          segments={25}
+        />{" "}
+        */}
         <Wall />
         {/* Big Ground */}
         <RigidBody type="fixed" colliders="trimesh">
@@ -87,18 +124,43 @@ function Scene({
             <meshStandardMaterial map={grassTexture} />
           </mesh>
         </RigidBody>
-
         {/* Roads */}
         {/* Main Road through Gate to Contact */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
+        {/* <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
           <planeGeometry args={[4, 200]} />
           <meshStandardMaterial map={roadTexture} />
-        </mesh>
+        </mesh> */}
+
+        {/* MAINNN!!! */}
+        {/* <mesh
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, 0.05, 0]}
+          receiveShadow
+        >
+          <planeGeometry args={[14, 200]} />
+          <meshStandardMaterial
+            map={roadTexture}
+            roughness={0.8}
+            metalness={0.0}
+          />
+        </mesh> */}
+        {/* <mesh
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, 0.05, 0]}
+          receiveShadow
+        >
+          <planeGeometry args={[14, 200]} />
+          <meshStandardMaterial
+            map={roadTexture}
+            roughness={1} // ← FULLY rough like a real street
+            metalness={0} // ← no metal
+            color={"#a9a9a9"} // ← Add a subtle gray tint to match cobblestone
+          />
+        </mesh> */}
 
         {/* GATE */}
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
         <BouncyBall position={[2, 3, 80]} />
-
         {/* Contact Building (End of Main Road) */}
         <ContactBuilding
           position={[0, 5, -90]}
@@ -106,7 +168,6 @@ function Scene({
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         />
-
         {/* Projects - 4 buildings after Cross */}
         <Building
           position={[-10, 2.5, 15]}
@@ -148,7 +209,6 @@ function Scene({
             url: "https://hyroxtrack.herokuapp.com/",
           }}
         />
-
         {/* Skills Section - Left end */}
         {/* <Skill label="JavaScript" position={[-60, 2, 30]} />
         <Skill label="PostgreSQL" position={[-60, 2, 25]} />
@@ -199,36 +259,38 @@ function Scene({
           playerRef={playerRef}
           ref={(el) => (ballRefs.current[6] = el)}
         />
-
         {/* About Building - Right end */}
         <BuildingWithDoor
           position={[60, 0, 30]}
           rotation={[0, Math.PI / 2, 0]}
         />
-
         {/* Player */}
         <Player
           onProjectEnter={setActiveProject}
           playerRef={playerRef}
           position={[0, 1, -20]}
         />
-
         {/* Hills */}
         {/* <Hills /> */}
-
+        <MainRoad
+          // scale={[3, 2, 6]}
+          // position={[0, 0, -20]}
+          // rotation={[3.1401, 0, 0]}
+          scale={[5, 5, 5]}
+          position={[0, 0.03, 0]}
+          rotation={[0, 0, 0]}
+        />
         <Road
           scale={[0.8, 0.9, 0.9]}
           position={[45, -0.521, 30]}
           rotation={[0, 0.7, 0]}
         />
-
         <RigidBody type="fixed" colliders="cuboid">
           <mesh position={[45, 0, 30]} rotation={[0, 0.7, 0]}>
             <boxGeometry args={[4, 0.2, 20]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </RigidBody>
-
         {/* <RigidBody type="fixed" colliders="trimesh"> */}
         <Road2
           // scale={[0.4207, 0.1002, 0.4853]}
@@ -253,7 +315,6 @@ function Scene({
           scale={[8, 3, 8]}
           rotation={[0, 1, 0]}
         />
-
         <ResetButton
           position={[-25, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
           onReset={() => {
@@ -262,7 +323,6 @@ function Scene({
             });
           }}
         />
-
         <FadeInOverlay />
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>

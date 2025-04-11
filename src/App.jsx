@@ -48,7 +48,15 @@ function App() {
         <button onClick={() => setRoadMode("rotate")}>Rotate</button>
         <button onClick={() => setRoadMode("scale")}>Scale</button>
       </div> */}
-      <Canvas camera={{ position: [0, 15, 30], fov: 50 }}>
+      <Canvas
+        shadows
+        camera={{ position: [0, 15, 30], fov: 50 }}
+        onCreated={({ gl }) => {
+          gl.setClearColor("#87ceeb"); // Set real canvas background sky blue!
+        }}
+      >
+        {/* <fog attach="fog" args={["#87ceeb", 50, 200]} /> */}
+        {/* <Canvas camera={{ position: [0, 15, 30], fov: 50 }}> */}
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 20, 10]} intensity={1.2} />
 
