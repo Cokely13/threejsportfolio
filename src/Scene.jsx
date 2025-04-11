@@ -19,6 +19,7 @@ import Road2 from "./Road2";
 import MyHill from "./MyHill";
 import ResetButton from "./ResetButton";
 import BouncyBall from "./BouncyBall";
+import { Sky } from "@react-three/drei";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -71,6 +72,13 @@ function Scene({
   return (
     <>
       <KeyboardControls map={controlsMap}>
+        <Sky
+          distance={450000} // How far the skybox is
+          sunPosition={[0, 1, 0]} // Position of the sun
+          inclination={0} // Sun elevation angle
+          azimuth={0.25} // Sun rotation around the horizon
+        />
+
         <Wall />
         {/* Big Ground */}
         <RigidBody type="fixed" colliders="trimesh">

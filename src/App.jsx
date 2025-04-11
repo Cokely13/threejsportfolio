@@ -52,7 +52,8 @@ function App() {
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 20, 10]} intensity={1.2} />
 
-        <Physics gravity={[0, -9.81, 0]}>
+        {/* gravity={[0, -9.81, 0]} */}
+        <Physics gravity={[0, -30, 0]}>
           <Scene
             setActiveProject={setActiveProject}
             setShowContactPopup={setShowContactPopup}

@@ -71,7 +71,7 @@ export default function Wall() {
     }
   });
 
-  console.log("here", scene);
+  // console.log("here", scene);
 
   return (
     // <RigidBody type="fixed" colliders={false} restitution={1} friction={0.5}>

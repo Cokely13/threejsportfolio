@@ -36,7 +36,29 @@
 //       description: "An app to stuff.",
 //       url: "https://hyroxtrack.herokuapp.com/",
 //     },
-//     // Add more projects here later
+//   };
+
+//   const handleCollisionEnter = (payload) => {
+//     const hitObject = payload.colliderObject;
+
+//     // 🛑 1. Handle building collisions
+//     if (hitObject && hitObject.name?.startsWith("building-")) {
+//       const projectKey = hitObject.name.replace("building-", "");
+//       const projectInfo = PROJECTS[projectKey];
+
+//       if (projectInfo) {
+//         onProjectEnter(projectInfo);
+//         setActiveProject(projectInfo);
+//       } else {
+//         console.warn("No project found for key:", projectKey);
+//       }
+//     }
+
+//     // 🛑 2. Handle reset button collisions
+//     if (hitObject && hitObject.name === "resetButton") {
+//       console.log("✅ Player touched the reset button!");
+//       // You could call a reset function here too if you want
+//     }
 //   };
 
 //   useFrame((state, delta) => {
@@ -52,7 +74,6 @@
 //       : 0;
 
 //     const impulse = new THREE.Vector3();
-
 //     const rotationQuat = body.current.rotation();
 //     if (!rotationQuat) return;
 
@@ -81,49 +102,7 @@
 //     else if (forward) setAnimation(shift ? "rig|Sprint" : "rig|Walk");
 //     else if (backward) setAnimation("rig|Walk");
 //     else setAnimation("rig|Idle");
-
-//     const playerPosition = body.current.translation();
-//     if (!playerPosition) return;
-
-//     // state.camera.position.lerp(
-//     //   new THREE.Vector3(
-//     //     playerPosition.x,
-//     //     playerPosition.y + 5,
-//     //     playerPosition.z + 12
-//     //   ),
-//     //   0.1
-//     // );
-//     // state.camera.lookAt(playerPosition);
 //   });
-
-//   // const handleCollisionEnter = (payload) => {
-//   //   const hitObject = payload.colliderObject;
-
-//   //   if (hitObject && hitObject.name?.startsWith("building-")) {
-//   //     const projectName = hitObject.name.replace("building-", "");
-//   //     console.log("hitt!!!", projectName);
-//   //     onProjectEnter(projectName);
-//   //     setActiveProject(projectName);
-//   //   }
-//   // };
-
-//   const handleCollisionEnter = (payload) => {
-//     const hitObject = payload.colliderObject;
-
-//     if (hitObject && hitObject.name?.startsWith("building-")) {
-//       const projectKey = hitObject.name.replace("building-", ""); // "HyroxTrack"
-
-//       // Lookup the full project info here
-//       const projectInfo = PROJECTS[projectKey];
-
-//       if (projectInfo) {
-//         onProjectEnter(projectInfo); // ✅ Pass full project object
-//         setActiveProject(projectInfo); // ✅ (only needed if you use local activeProject too)
-//       } else {
-//         console.warn("No project found for key:", projectKey);
-//       }
-//     }
-//   };
 
 //   useEffect(() => {
 //     if (playerRef) {
@@ -134,7 +113,7 @@
 //   return (
 //     <RigidBody
 //       ref={body}
-//       name="player"
+//       name="player" // ✅ Name the body "player"
 //       restitution={0.1}
 //       friction={1}
 //       linearDamping={4}
@@ -144,14 +123,12 @@
 //       colliders={false}
 //       onCollisionEnter={handleCollisionEnter}
 //     >
-//       {/* Slightly adjusted CuboidCollider for feet-level precision */}
 //       <CuboidCollider
-//         name="player"
+//         name="playerCollider" // ✅ (optional) Name the collider too
 //         args={[0.3, 0.9, 0.3]}
 //         position={[0, 0, 0]}
 //       />
 
-//       {/* Adjust Runner vertically so feet match collider */}
 //       <group position={[0, -0.9, 0]}>
 //         <Runner
 //           animationName={animation}
@@ -198,32 +175,9 @@ export default function Player({ onProjectEnter, playerRef }) {
     Stuff: {
       name: "Stuff",
       image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to stuff.",
+      description: "An app to Stuff.",
       url: "https://hyroxtrack.herokuapp.com/",
     },
-  };
-
-  const handleCollisionEnter = (payload) => {
-    const hitObject = payload.colliderObject;
-
-    // 🛑 1. Handle building collisions
-    if (hitObject && hitObject.name?.startsWith("building-")) {
-      const projectKey = hitObject.name.replace("building-", "");
-      const projectInfo = PROJECTS[projectKey];
-
-      if (projectInfo) {
-        onProjectEnter(projectInfo);
-        setActiveProject(projectInfo);
-      } else {
-        console.warn("No project found for key:", projectKey);
-      }
-    }
-
-    // 🛑 2. Handle reset button collisions
-    if (hitObject && hitObject.name === "resetButton") {
-      console.log("✅ Player touched the reset button!");
-      // You could call a reset function here too if you want
-    }
   };
 
   useFrame((state, delta) => {
@@ -232,13 +186,8 @@ export default function Player({ onProjectEnter, playerRef }) {
     const keys = getKeys();
     const { forward, backward, leftward, rightward, jump, shift } = keys;
 
-    const impulseStrength = forward
-      ? (shift ? 45 : 20) * delta
-      : backward
-      ? 15 * delta
-      : 0;
-
     const impulse = new THREE.Vector3();
+
     const rotationQuat = body.current.rotation();
     if (!rotationQuat) return;
 
@@ -251,9 +200,12 @@ export default function Player({ onProjectEnter, playerRef }) {
       )
     );
 
-    if (forward) impulse.add(forwardDirection.multiplyScalar(impulseStrength));
-    if (backward)
-      impulse.add(forwardDirection.multiplyScalar(-impulseStrength));
+    // 🛑 BOOSTED Impulse Strength for Gravity -30
+    const moveSpeed = shift ? 65 : 35; // Sprint: 65, Walk: 35
+
+    if (forward)
+      impulse.add(forwardDirection.multiplyScalar(moveSpeed * delta));
+    if (backward) impulse.add(forwardDirection.multiplyScalar(-20 * delta)); // a little less backward
 
     body.current.applyImpulse(impulse, true);
 
@@ -263,11 +215,26 @@ export default function Player({ onProjectEnter, playerRef }) {
     if (rightward) angularVelocity -= angularSpeed;
     body.current.setAngvel({ x: 0, y: angularVelocity, z: 0 });
 
+    // 🏃‍♂️ Animation handling
     if (jump) setAnimation("rig|Jump");
     else if (forward) setAnimation(shift ? "rig|Sprint" : "rig|Walk");
     else if (backward) setAnimation("rig|Walk");
     else setAnimation("rig|Idle");
   });
+
+  const handleCollisionEnter = (payload) => {
+    const hitObject = payload.colliderObject;
+    if (hitObject && hitObject.name?.startsWith("building-")) {
+      const projectKey = hitObject.name.replace("building-", "");
+      const projectInfo = PROJECTS[projectKey];
+      if (projectInfo) {
+        onProjectEnter(projectInfo);
+        setActiveProject(projectInfo);
+      } else {
+        console.warn("No project found for key:", projectKey);
+      }
+    }
+  };
 
   useEffect(() => {
     if (playerRef) {
@@ -278,7 +245,7 @@ export default function Player({ onProjectEnter, playerRef }) {
   return (
     <RigidBody
       ref={body}
-      name="player" // ✅ Name the body "player"
+      name="player"
       restitution={0.1}
       friction={1}
       linearDamping={4}
@@ -289,11 +256,10 @@ export default function Player({ onProjectEnter, playerRef }) {
       onCollisionEnter={handleCollisionEnter}
     >
       <CuboidCollider
-        name="playerCollider" // ✅ (optional) Name the collider too
+        name="player"
         args={[0.3, 0.9, 0.3]}
         position={[0, 0, 0]}
       />
-
       <group position={[0, -0.9, 0]}>
         <Runner
           animationName={animation}
