@@ -474,15 +474,15 @@ function Building({
           {/* Door opening (black box with thickness) */}
           <mesh
             position={[
-              rotation[1] === Math.PI ? position[0] - 1 : position[0] + 1.4,
+              rotation[1] === Math.PI ? position[0] - 1 : position[0] + 1,
               position[1] + 0,
-              rotation[1] === Math.PI ? position[2] - 0 : position[2] - 0.3,
+              rotation[1] === Math.PI ? position[2] - 0 : position[2] - 0,
             ]}
             rotation={[0, rotation[1], 0]} // matches building direction perfectly
           >
             <boxGeometry args={[5, 10, 3]} />{" "}
             {/* Box (door): width, height, depth */}
-            <meshBasicMaterial color="#000000" />
+            <meshBasicMaterial color="#000000" transparent opacity={0.85} />
           </mesh>
 
           {/* Invisible sensor (trigger when player enters) */}
