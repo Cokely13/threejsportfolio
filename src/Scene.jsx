@@ -116,7 +116,6 @@ function Scene({
           }}
           playerRef={playerRef}
           onEnter={() => setActiveProject("HyroxTrack")}
-          showDebug={true}
         />
         <Building
           position={[-20, 0, -5]}
@@ -129,7 +128,6 @@ function Scene({
           }}
           playerRef={playerRef}
           onEnter={() => setActiveProject("PopcornPair")}
-          showDebug={true}
         />
         <Building
           position={[20, 0, -30]}
@@ -141,7 +139,6 @@ function Scene({
             description: "An app to party.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
-          showDebug={true}
         />
         <Building
           position={[20, 0, -5]}
@@ -153,7 +150,6 @@ function Scene({
             description: "A cool app.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
-          showDebug={true}
         />
 
         <Skill
@@ -199,10 +195,7 @@ function Scene({
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
-        <BuildingWithDoor
-          position={[60, 0, 30]}
-          rotation={[0, Math.PI / 2, 0]}
-        />
+        <BuildingWithDoor position={[70, 0, 20]} rotation={[0, Math.PI, 0]} />
         {/* Player */}
         <Player
           onProjectEnter={setActiveProject}
