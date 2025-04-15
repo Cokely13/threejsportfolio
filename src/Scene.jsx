@@ -22,6 +22,7 @@ import BouncyBall from "./BouncyBall";
 import MainRoad from "./MainRoad";
 import SignPost from "./SignPost";
 import MultiSignPost from "./MultiSign";
+import { PI } from "three/src/nodes/TSL.js";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -113,9 +114,12 @@ function Scene({
             description: "An app to log and compare results for Hyrox.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
+          playerRef={playerRef}
+          onEnter={() => setActiveProject("HyroxTrack")}
+          showDebug={true}
         />
         <Building
-          position={[-20, 0, -20]}
+          position={[-20, 0, -5]}
           color="blue"
           project={{
             name: "PopcornPair",
@@ -123,28 +127,33 @@ function Scene({
             description: "An app to stuff.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
+          playerRef={playerRef}
+          onEnter={() => setActiveProject("PopcornPair")}
+          showDebug={true}
         />
         <Building
-          position={[25, 6.0, -45]}
-          rotation={[0, 1.55, 0]}
+          position={[20, 0, -30]}
+          rotation={[0, Math.PI, 0]}
           color="#27ae60"
           project={{
-            name: "Party",
+            name: "NewHorizons",
             image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
             description: "An app to party.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
+          showDebug={true}
         />
         <Building
-          position={[15, 0, -5]}
-          rotation={[0, -1.6, 0]}
+          position={[20, 0, -5]}
+          rotation={[0, Math.PI, 0]}
           color="yellow"
           project={{
-            name: "Cool",
+            name: "PlaylistBattle",
             image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
             description: "A cool app.",
             url: "https://hyroxtrack.herokuapp.com/",
           }}
+          showDebug={true}
         />
 
         <Skill
