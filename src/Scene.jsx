@@ -104,8 +104,8 @@ function Scene({
         />
         {/* Projects - 4 buildings after Cross */}
         <Building
-          position={[-30, 0, -45]}
-          rotation={[0, 1.6, 0]}
+          position={[-20, 0, -30]}
+          rotation={[0, 0, 0]}
           color="#e74c3c"
           project={{
             name: "HyroxTrack",
@@ -115,10 +115,10 @@ function Scene({
           }}
         />
         <Building
-          position={[-20, 0, 10]}
+          position={[-20, 0, -20]}
           color="blue"
           project={{
-            name: "Stuff",
+            name: "PopcornPair",
             image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
             description: "An app to stuff.",
             url: "https://hyroxtrack.herokuapp.com/",
