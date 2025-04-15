@@ -9,10 +9,10 @@ function Building({ position, project, rotation = [0, 0, 0] }) {
   const gym = useGLTF("/models/Gym.glb");
 
   const modelMap = {
-    Stuff: { scene: coliseum.scene, scale: 0.01 }, // 🛑 Super small coliseum
-    HyroxTrack: { scene: gym.scene, scale: 0.05 }, // 🏋️‍♂️ Smaller gym
-    Party: { scene: cinema.scene, scale: 7 }, // 🎥 Medium cinema
-    Cool: { scene: cinema2.scene, scale: 0.2 }, // 🎬 Medium cinema 2
+    Stuff: { scene: coliseum.scene, scale: 0.005 }, // 🛑 Super small coliseum
+    HyroxTrack: { scene: gym.scene, scale: 0.2 }, // 🏋️‍♂️ Smaller gym
+    Party: { scene: cinema.scene, scale: 20 }, // 🎥 Medium cinema
+    Cool: { scene: cinema2.scene, scale: 1 }, // 🎬 Medium cinema 2
   };
 
   const modelInfo = modelMap[project.name] || null;

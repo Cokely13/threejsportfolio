@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
 function BuildingWithDoor({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
-  const { scene } = useGLTF("/models/newbuild1.glb"); //
+  const { scene } = useGLTF("/models/firstBuild.glb"); //
 
   return (
     <RigidBody type="fixed" colliders={false}>
@@ -11,7 +11,7 @@ function BuildingWithDoor({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
         object={scene}
         position={position}
         rotation={rotation}
-        scale={[1, 1, 1]} // or adjust if needed
+        scale={[1, 0.4, 1]} // or adjust if needed
         castShadow
       />
       <CuboidCollider

@@ -19,9 +19,9 @@ import Road2 from "./Road2";
 import MyHill from "./MyHill";
 import ResetButton from "./ResetButton";
 import BouncyBall from "./BouncyBall";
-import { Sky, Cloud } from "@react-three/drei";
 import MainRoad from "./MainRoad";
 import SignPost from "./SignPost";
+import MultiSignPost from "./MultiSign";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -74,49 +74,6 @@ function Scene({
   return (
     <>
       <KeyboardControls map={controlsMap}>
-        {/* Sky */}
-        {/* <Sky
-          distance={450000}
-          sunPosition={[100, 100, 20]} // ☀️ Sun way up
-          inclination={0}
-          azimuth={0.25}
-          turbidity={8}
-          rayleigh={6}
-          mieCoefficient={0.003}
-          mieDirectionalG={0.7}
-        />
-
-
-        <mesh position={[100, 100, -100]}>
-          <sphereGeometry args={[5, 32, 32]} />
-          <meshBasicMaterial emissive={"#fffacd"} toneMapped={false} />
-        </mesh>
-
-        <Cloud
-          position={[-30, 50, -100]}
-          speed={0.2} // How fast they move
-          opacity={0.4}
-          width={20}
-          depth={10}
-          segments={20}
-        />
-        <Cloud
-          position={[50, 60, -50]}
-          speed={0.25}
-          opacity={0.5}
-          width={25}
-          depth={15}
-          segments={30}
-        />
-        <Cloud
-          position={[0, 55, 80]}
-          speed={0.15}
-          opacity={0.45}
-          width={30}
-          depth={20}
-          segments={25}
-        />{" "}
-        */}
         <Wall />
         {/* Big Ground */}
         <RigidBody type="fixed" colliders="trimesh">
@@ -130,15 +87,24 @@ function Scene({
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
         <BouncyBall position={[2, 3, 80]} />
         {/* Contact Building (End of Main Road) */}
+        <spotLight
+          position={[0, 15, -90]}
+          angle={0.5}
+          penumbra={0.5}
+          intensity={1.5}
+          distance={30}
+          castShadow
+          color="#ffffff"
+        />
         <ContactBuilding
-          position={[0, 5, -90]}
+          position={[0, 0, -90]}
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         />
         {/* Projects - 4 buildings after Cross */}
         <Building
-          position={[-15, 0, 10]}
+          position={[-30, 0, -45]}
           rotation={[0, 1.6, 0]}
           color="#e74c3c"
           project={{
@@ -149,7 +115,7 @@ function Scene({
           }}
         />
         <Building
-          position={[20, 0, 10]}
+          position={[-20, 0, 10]}
           color="blue"
           project={{
             name: "Stuff",
@@ -159,8 +125,8 @@ function Scene({
           }}
         />
         <Building
-          position={[-15, 2.0, -5]}
-          rotation={[0, -1.55, 0]}
+          position={[25, 6.0, -45]}
+          rotation={[0, 1.55, 0]}
           color="#27ae60"
           project={{
             name: "Party",
@@ -170,7 +136,7 @@ function Scene({
           }}
         />
         <Building
-          position={[15, 0, -10]}
+          position={[15, 0, -5]}
           rotation={[0, -1.6, 0]}
           color="yellow"
           project={{
@@ -180,14 +146,7 @@ function Scene({
             url: "https://hyroxtrack.herokuapp.com/",
           }}
         />
-        {/* Skills Section - Left end */}
-        {/* <Skill label="JavaScript" position={[-60, 2, 30]} />
-        <Skill label="PostgreSQL" position={[-60, 2, 25]} />
-        <Skill label="Express" position={[-60, 2, 35]} />
-        <Skill label="React" position={[-65, 2, 30]} />
-        <Skill label="Node" position={[-65, 2, 35]} />
-        <Skill label="CSS" position={[-65, 2, 25]} />
-        <Skill label="Three.js" position={[-70, 2, 30]} /> */}
+
         <Skill
           label="JavaScript"
           position={[-70, 10, 17]}
@@ -298,8 +257,9 @@ function Scene({
           rotation={[0, -Math.PI / 4, 0]}
         />
         <SignPost position={[15, 0, -65]} text="Contact" />
+        <MultiSignPost position={[0, 0, 80]} />
         <ResetButton
-          position={[-25, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
+          position={[-35, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
           onReset={() => {
             ballRefs.current.forEach((ref) => {
               if (ref) ref.reset();
