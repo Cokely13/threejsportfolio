@@ -130,7 +130,7 @@ export default function CameraFollow({ targetRef }) {
       .applyQuaternion(runnerQuaternion)
       .normalize();
 
-    const followDistance = 20; // 💡 STATIC: Always the same
+    const followDistance = 30; // 💡 STATIC: Always the same
     const followOffset = direction.clone().multiplyScalar(-followDistance);
 
     const desiredCameraPosition = new THREE.Vector3(

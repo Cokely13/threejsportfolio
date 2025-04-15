@@ -342,6 +342,15 @@ function Building({
 
   const buildingRef = useRef();
   const [entered, setEntered] = useState(false);
+  const [canTrigger, setCanTrigger] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanTrigger(true);
+    }, 1000); // 1 second delay after component loads
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Updated model map with separate buildingColor, roofColor, and contrasting textColor.
   // Adjust these values as needed for your desired style.
@@ -496,11 +505,24 @@ function Building({
             ]}
             sensor
             onIntersectionEnter={({ other }) => {
-              if (other.rigidBodyObject?.name === "player") {
+              if (canTrigger && other.rigidBodyObject?.name === "player") {
+                setEntered(true);
                 onEnter?.();
               }
             }}
           />
+          {showDebug && (
+            <mesh
+              position={[
+                rotation[1] === Math.PI ? position[0] + 0.6 : position[0] - 0.6,
+                position[1] + 0.5,
+                rotation[1] === Math.PI ? position[2] - 2.5 : position[2] + 2.5,
+              ]}
+            >
+              <boxGeometry args={[0.4, 1, 0.2]} />
+              <meshStandardMaterial color="hotpink" transparent opacity={0.6} />
+            </mesh>
+          )}
         </>
       )}
 

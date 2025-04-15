@@ -22,7 +22,6 @@ import BouncyBall from "./BouncyBall";
 import MainRoad from "./MainRoad";
 import SignPost from "./SignPost";
 import MultiSignPost from "./MultiSign";
-import { PI } from "three/src/nodes/TSL.js";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -54,6 +53,34 @@ function Scene({
 
   const handlePlayerNearContact = () => {
     setShowContactPopup(true);
+  };
+
+  const PROJECTS = {
+    HyroxTrack: {
+      name: "HyroxTrack",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to log and compare results for Hyrox.",
+      url: "https://hyroxtrack.herokuapp.com/",
+    },
+    PopcornPair: {
+      name: "PopcornPair",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description:
+        "An app to track, recommend, and predict movies with friends.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+    },
+    NewHorizons: {
+      name: "NewHorizons",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "An app to plan and reflect on new adventures.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+    },
+    PlaylistBattle: {
+      name: "PlaylistBattle",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description: "A music-themed guessing game you can play with friends.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+    },
   };
 
   useEffect(() => {
@@ -108,48 +135,32 @@ function Scene({
           position={[-20, 0, -30]}
           rotation={[0, 0, 0]}
           color="#e74c3c"
-          project={{
-            name: "HyroxTrack",
-            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-            description: "An app to log and compare results for Hyrox.",
-            url: "https://hyroxtrack.herokuapp.com/",
-          }}
+          project={PROJECTS.HyroxTrack}
           playerRef={playerRef}
-          onEnter={() => setActiveProject("HyroxTrack")}
+          // onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
+          showDebug={true}
         />
         <Building
           position={[-20, 0, -5]}
           color="blue"
-          project={{
-            name: "PopcornPair",
-            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-            description: "An app to stuff.",
-            url: "https://hyroxtrack.herokuapp.com/",
-          }}
+          project={PROJECTS.PopcornPair}
+          showDebug={true}
           playerRef={playerRef}
-          onEnter={() => setActiveProject("PopcornPair")}
+          // onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
         />
         <Building
           position={[20, 0, -30]}
           rotation={[0, Math.PI, 0]}
           color="#27ae60"
-          project={{
-            name: "NewHorizons",
-            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-            description: "An app to party.",
-            url: "https://hyroxtrack.herokuapp.com/",
-          }}
+          project={PROJECTS.NewHorizons}
+          // onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
         />
         <Building
           position={[20, 0, -5]}
           rotation={[0, Math.PI, 0]}
           color="yellow"
-          project={{
-            name: "PlaylistBattle",
-            image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-            description: "A cool app.",
-            url: "https://hyroxtrack.herokuapp.com/",
-          }}
+          project={PROJECTS.PlaylistBattle}
+          // onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
         />
 
         <Skill
@@ -217,12 +228,7 @@ function Scene({
           position={[45, -0.521, 30]}
           rotation={[0, 0.7, 0]}
         />
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh position={[45, 0, 30]} rotation={[0, 0.7, 0]}>
-            <boxGeometry args={[4, 0.2, 20]} />
-            <meshBasicMaterial transparent opacity={0} />
-          </mesh>
-        </RigidBody>
+
         {/* <RigidBody type="fixed" colliders="trimesh"> */}
         <Road2
           // scale={[0.4207, 0.1002, 0.4853]}
@@ -236,12 +242,7 @@ function Scene({
           // position={[18.6471, -2.5, 71.3294]} // mirrored X position
           // rotation={[-3.0854, 0.7612, -3.2]} // mirrored rotation
         />
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh position={[-45, 0, 30]} rotation={[0, -0.7, 0]}>
-            <boxGeometry args={[4, 0.2, 20]} />
-            <meshBasicMaterial transparent opacity={0} />
-          </mesh>
-        </RigidBody>
+
         <MyHill
           position={[-75, -1, 30]}
           scale={[8, 3, 8]}
