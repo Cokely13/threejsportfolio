@@ -19,7 +19,6 @@ import CameraFollow from "./CameraFollow";
 import Road from "./Road";
 import Road2 from "./Road2";
 import MyHill from "./MyHill";
-import ResetButton from "./ResetButton";
 import BouncyBall from "./BouncyBall";
 import MainRoad from "./MainRoad";
 import SignPost from "./SignPost";
@@ -28,7 +27,9 @@ import FloatingLabel from "./FloatingLabel";
 import Chalkboard from "./Chalkboard";
 import GroundWithHole from "./GroundWithHole";
 import PulsingGlowRing from "./PulsingGlowRing";
-import HoleDecorations from "./HoleDecorations";
+import TodoBooth from "./TodoBooth";
+import TodoPopup from "./TodoPopup";
+
 import PittLabel from "./PittLabel";
 
 const controlsMap = [
@@ -47,6 +48,7 @@ function Scene({
   playerRef,
   zoomLevel,
   roadMode,
+  setShowTodoPopup,
 }) {
   const groundRef = useRef();
   const ballRefs = useRef([]);
@@ -55,6 +57,7 @@ function Scene({
   const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
   const [showChalkboard, setShowChalkboard] = useState(false);
   const [chalkboardVisible, setChalkboardVisible] = useState(false);
+  // const [showTodoPopup, setShowTodoPopup] = useState(false);
   // const [roadMode, setRoadMode] = useState("translate");
   grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
   grassTexture.repeat.set(60, 60);
@@ -359,7 +362,21 @@ function Scene({
           text="About"
           rotation={[0, -Math.PI / 4, 0]}
         />
+        <SignPost
+          position={[25, 0, 75]}
+          text="Under Construction"
+          rotation={[0, -Math.PI / 6, 0]}
+          style="warning" // Optional: add a style prop if you want to customize
+        />
         <SignPost position={[15, 0, -65]} text="Contact" />
+        <TodoBooth
+          playerRef={playerRef}
+          onEnter={() => setShowTodoPopup(true)}
+        />
+        {/* <TodoPopup
+          visible={showTodoPopup}
+          onClose={() => setShowTodoPopup(false)}
+        /> */}
         <MultiSignPost position={[0, 0, 80]} />
         {/* <mesh position={[-30, 0.02, 50]} rotation={[-Math.PI / 2, 0, 0]}>
           <circleGeometry args={[10, 64]} /> <meshBasicMaterial color="black" />

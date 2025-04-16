@@ -4,6 +4,7 @@ import { Physics } from "@react-three/rapier";
 import Scene from "./Scene";
 import ContactPopup from "./ContactPopup";
 import TeleportMenu from "./TeleportMenu";
+import TodoPopup from "./TodoPopup";
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
 import { FirstPersonControls } from "@react-three/drei";
@@ -14,6 +15,7 @@ function App() {
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(10);
   const [roadMode, setRoadMode] = useState("translate");
+  const [showTodoPopup, setShowTodoPopup] = useState(false);
   const playerRef = useRef();
 
   useEffect(() => {
@@ -68,6 +70,7 @@ function App() {
             showContactPopup={showContactPopup}
             playerRef={playerRef}
             roadMode={roadMode}
+            setShowTodoPopup={setShowTodoPopup}
           />
         </Physics>
 
@@ -113,6 +116,11 @@ function App() {
           </div>
         </div>
       )}
+      <TodoPopup
+        visible={showTodoPopup}
+        onClose={() => setShowTodoPopup(false)}
+      />
+
       <TeleportMenu playerRef={playerRef} />
     </div>
   );
