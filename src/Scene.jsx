@@ -11,7 +11,8 @@ import Skill from "./Skill";
 import ContactBuilding from "./ContactBuilding";
 import BuildingWithDoor from "./BuildingWithDoor";
 import { TextureLoader, RepeatWrapping } from "three";
-import { useLoader } from "@react-three/fiber";
+import { useLoader, useFrame } from "@react-three/fiber";
+import { Vector3 } from "three";
 import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
 import Road from "./Road";
@@ -59,6 +60,18 @@ function Scene({
   const handlePlayerNearContact = () => {
     setShowContactPopup(true);
   };
+
+  useFrame(() => {
+    if (playerRef.current) {
+      const pos = playerRef.current.translation();
+      if (pos.y < -10) {
+        console.log("Player fell! Resetting...");
+        playerRef.current.setTranslation({ x: 0, y: 1, z: 0 }, true); // 👈 Projects spawn point
+        playerRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        playerRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+      }
+    }
+  });
 
   const PROJECTS = {
     HyroxTrack: {
