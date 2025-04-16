@@ -152,10 +152,10 @@ function Building({
     }
   });
 
-  if (showDebug) {
-    console.log(`Collider name: building-${project.name}`);
-    console.log("Position:", position);
-  }
+  // if (showDebug) {
+  //   console.log(`Collider name: building-${project.name}`);
+  //   console.log("Position:", position);
+  // }
 
   return (
     <RigidBody type="fixed" colliders={false} ref={buildingRef}>

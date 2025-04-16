@@ -303,7 +303,7 @@ function Scene({
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
-        <BuildingWithDoor position={[70, 0, 20]} rotation={[0, Math.PI, 0]} />
+        <BuildingWithDoor position={[85, 0, 15]} rotation={[0, Math.PI, 0]} />
         {/* Player */}
         <Player
           onProjectEnter={setActiveProject}
@@ -373,39 +373,10 @@ function Scene({
           playerRef={playerRef}
           onEnter={() => setShowTodoPopup(true)}
         />
-        {/* <TodoPopup
-          visible={showTodoPopup}
-          onClose={() => setShowTodoPopup(false)}
-        /> */}
         <MultiSignPost position={[0, 0, 80]} />
-        {/* <mesh position={[-30, 0.02, 50]} rotation={[-Math.PI / 2, 0, 0]}>
-          <circleGeometry args={[10, 64]} /> <meshBasicMaterial color="black" />
-        </mesh> */}
-        {/* <CuboidCollider
-          sensor
-          args={[10, 5, 10]} // matches the circleGeometry radius & depth
-          position={[-30, -2.5, 50]} // centered beneath the hole
-          onIntersectionEnter={({ other }) => {
-            if (other.rigidBodyObject?.name?.startsWith("Skill")) {
-              console.log("A ball fell in the hole!");
-              other.rigidBodyObject.setTranslation(
-                { x: -30, y: 10, z: 20 },
-                true
-              ); // Reset position
-              // Optional: Set opacity to 0 and fade in (we'll add that next)
-            }
 
-            if (other.rigidBodyObject?.name === "player") {
-              console.log("The player fell in!");
-              other.rigidBodyObject.setTranslation(
-                { x: 0, y: 2, z: -20 },
-                true
-              );
-            }
-          }}
-        /> */}
         <FadeInOverlay />
-        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
+        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
       </KeyboardControls>
     </>
   );

@@ -5,7 +5,7 @@ import { RigidBody } from "@react-three/rapier";
 export default function GroundWithHole() {
   const shape = useMemo(() => {
     const s = new THREE.Shape();
-    s.absarc(0, 0, 120, 0, Math.PI * 2, false);
+    s.absarc(0, 0, 145, 0, Math.PI * 2, false);
 
     const hole = new THREE.Path();
     hole.absarc(45, -70, 10, 0, Math.PI * 2, true);
