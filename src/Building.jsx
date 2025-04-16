@@ -1,325 +1,3 @@
-// import { useGLTF } from "@react-three/drei";
-// import { RigidBody, CuboidCollider } from "@react-three/rapier";
-
-// function Building({ position, project, rotation = [0, 0, 0] }) {
-//   // 🏛️ Load your custom buildings
-//   const build1 = useGLTF("/models/build1.glb");
-//   const build2 = useGLTF("/models/build2.glb");
-
-//   // 🧠 Map projects to the correct building model
-//   const modelMap = {
-//     PopcornPair: { scene: build1.scene, scale: 1 }, // 🍿 Custom Blender building
-//     HyroxTrack: { scene: build2.scene, scale: 1 }, // 🏋️ Custom Blender building
-//     Party: { scene: useGLTF("/models/Shop.glb").scene, scale: 20 },
-//     Cool: { scene: useGLTF("/models/Cinema2.glb").scene, scale: 1 },
-//   };
-
-//   const modelInfo = modelMap[project.name];
-
-//   return (
-//     <RigidBody type="fixed" colliders={false}>
-//       {modelInfo && (
-//         <primitive
-//           object={modelInfo.scene}
-//           position={position}
-//           rotation={rotation}
-//           scale={modelInfo.scale}
-//           castShadow
-//         />
-//       )}
-//       <CuboidCollider
-//         name={`building-${project.name}`}
-//         args={[2.5, 2.5, 2.5]}
-//         position={position}
-//       />
-//     </RigidBody>
-//   );
-// }
-
-// export default Building;
-
-// import { useGLTF } from "@react-three/drei";
-// import { RigidBody, CuboidCollider } from "@react-three/rapier";
-// import { useFrame } from "@react-three/fiber"; // 👈 Add this!
-// import { useRef, useState } from "react"; // 👈 Add state
-
-// function Building({
-//   position,
-//   project,
-//   rotation = [0, 0, 0],
-//   playerRef,
-//   onEnter,
-// }) {
-//   const build1 = useGLTF("/models/build1.glb");
-//   const build2 = useGLTF("/models/build2.glb");
-//   const buildingRef = useRef();
-//   const [entered, setEntered] = useState(false);
-
-//   const modelMap = {
-//     PopcornPair: { scene: build1.scene, scale: 1 },
-//     HyroxTrack: { scene: build2.scene, scale: 1 },
-//     Party: { scene: useGLTF("/models/Shop.glb").scene, scale: 20 },
-//     Cool: { scene: useGLTF("/models/Cinema2.glb").scene, scale: 1 },
-//   };
-
-//   const modelInfo = modelMap[project.name];
-
-//   // 👇 Add this player proximity detection
-//   useFrame(() => {
-//     if (!playerRef?.current || entered) return;
-//     const playerPosition = playerRef.current.translation();
-//     const dx = playerPosition.x - position[0];
-//     const dz = playerPosition.z - position[2];
-//     const distance = Math.sqrt(dx * dx + dz * dz);
-
-//     if (distance < 5) {
-//       setEntered(true);
-//       onEnter?.(); // 🔥 Trigger popup or project activation
-//     }
-//   });
-
-//   return (
-//     <RigidBody type="fixed" colliders={false} ref={buildingRef}>
-//       {modelInfo && (
-//         <primitive
-//           object={modelInfo.scene}
-//           position={position}
-//           rotation={rotation}
-//           scale={modelInfo.scale}
-//           castShadow
-//         />
-//       )}
-//       <CuboidCollider
-//         name={`building-${project.name}`}
-//         args={[2.5, 2.5, 2.5]}
-//         position={position}
-//       />
-//     </RigidBody>
-//   );
-// }
-
-// export default Building;
-
-// import { useGLTF } from "@react-three/drei";
-// import { RigidBody, CuboidCollider } from "@react-three/rapier";
-// import { useFrame } from "@react-three/fiber";
-// import { useRef, useState } from "react";
-
-// function Building({
-//   position,
-//   project,
-//   rotation = [0, 0, 0],
-//   playerRef,
-//   onEnter,
-//   showDebug = false, // Toggle to see debug sphere
-// }) {
-//   const build1 = useGLTF("/models/build1.glb");
-//   const build2 = useGLTF("/models/build2.glb");
-//   const build3 = useGLTF("/models/build3.glb");
-//   const build4 = useGLTF("/models/build4.glb");
-//   const buildingRef = useRef();
-//   const [entered, setEntered] = useState(false);
-
-//   const modelMap = {
-//     PopcornPair: { scene: build1.scene, scale: 1 },
-//     HyroxTrack: { scene: build2.scene, scale: 1 },
-//     NewHorizons: { scene: build3.scene, scale: 1 },
-//     PlaylistBattle: { scene: build4.scene, scale: 1 },
-//   };
-
-//   const modelInfo = modelMap[project.name];
-
-//   useFrame(() => {
-//     if (!playerRef?.current || !buildingRef.current || entered) return;
-
-//     const playerPos = playerRef.current.translation();
-//     const buildingPos = buildingRef.current.translation();
-
-//     if (!playerPos || !buildingPos) return;
-
-//     const dx = playerPos.x - buildingPos.x;
-//     const dz = playerPos.z - buildingPos.z;
-//     const distance = Math.sqrt(dx * dx + dz * dz);
-
-//     if (distance < 5) {
-//       setEntered(true);
-//       onEnter?.();
-//     }
-//   });
-
-//   console.log("Collider name:", `building-${project.name}`);
-//   console.log("Position:", position);
-
-//   return (
-//     <RigidBody type="fixed" colliders={false} ref={buildingRef}>
-//       {modelInfo && (
-//         <primitive
-//           object={modelInfo.scene}
-//           position={position}
-//           rotation={rotation}
-//           scale={modelInfo.scale}
-//           castShadow
-//         />
-//       )}
-
-//       <CuboidCollider
-//         name={`building-${project.name}`}
-//         args={[2.5, 2.5, 2.5]}
-//         position={position}
-//       />
-//     </RigidBody>
-//   );
-// }
-
-// export default Building;
-// import { useGLTF, Text } from "@react-three/drei";
-// import { RigidBody, CuboidCollider } from "@react-three/rapier";
-// import { useFrame } from "@react-three/fiber";
-// import { useRef, useState, useEffect } from "react";
-// import * as THREE from "three";
-
-// function Building({
-//   position,
-//   project,
-//   rotation = [0, 0, 0],
-//   playerRef,
-//   onEnter,
-//   showDebug = false,
-// }) {
-//   // Load your building models
-//   const build1 = useGLTF("/models/build1.glb");
-//   const build2 = useGLTF("/models/build2.glb");
-//   const build3 = useGLTF("/models/build3.glb");
-//   const build4 = useGLTF("/models/build4.glb");
-
-//   const buildingRef = useRef();
-//   const [entered, setEntered] = useState(false);
-
-//   // Updated model map with varied colors and high-contrast text:
-//   // Change these values as desired
-//   const modelMap = {
-//     PopcornPair: {
-//       scene: build1.scene,
-//       buildingColor: "#F08080", // Light Coral
-//       textColor: "#FFFFFF", // White for contrast
-//       textPosition: [0, 2.1, 2.51],
-//       scale: 1,
-//     },
-//     HyroxTrack: {
-//       scene: build2.scene,
-//       buildingColor: "#20B2AA", // Light Sea Green
-//       textColor: "#FFFFFF",
-//       textPosition: [0, 2.1, 2.51],
-//       scale: 1,
-//     },
-//     NewHorizons: {
-//       scene: build3.scene,
-//       buildingColor: "#9370DB", // Medium Purple
-//       textColor: "#FFFFFF",
-//       textPosition: [0, 2.1, 2.51],
-//       scale: 1,
-//     },
-//     PlaylistBattle: {
-//       scene: build4.scene,
-//       buildingColor: "#FF8C00", // Dark Orange
-//       textColor: "#FFFFFF",
-//       textPosition: [0, 2.1, 2.51],
-//       scale: 1,
-//     },
-//   };
-
-//   const modelInfo = modelMap[project.name];
-
-//   // Override the materials in the GLTF scene with our custom building color
-//   useEffect(() => {
-//     if (modelInfo && modelInfo.scene && modelInfo.buildingColor) {
-//       modelInfo.scene.traverse((child) => {
-//         if (child.isMesh) {
-//           // Dispose of the existing material (if any)
-//           if (child.material) {
-//             child.material.dispose();
-//           }
-//           // Create a new material with no textures
-//           const newMaterial = new THREE.MeshStandardMaterial({
-//             color: modelInfo.buildingColor,
-//             roughness: 0.5,
-//             metalness: 0.2,
-//           });
-//           // Ensure no texture is overriding our color
-//           newMaterial.map = null;
-//           child.material = newMaterial;
-//           child.material.needsUpdate = true;
-//         }
-//       });
-//     }
-//   }, [modelInfo]);
-
-//   // Collision detection (same as before)
-//   useFrame(() => {
-//     if (!playerRef?.current || !buildingRef.current || entered) return;
-
-//     const playerPos = playerRef.current.translation();
-//     const buildingPos = buildingRef.current.translation();
-//     if (!playerPos || !buildingPos) return;
-
-//     const dx = playerPos.x - buildingPos.x;
-//     const dz = playerPos.z - buildingPos.z;
-//     const distance = Math.sqrt(dx * dx + dz * dz);
-
-//     if (distance < 5) {
-//       setEntered(true);
-//       onEnter?.();
-//     }
-//   });
-
-//   // Optional debug logs
-//   if (showDebug) {
-//     console.log(`Collider name: building-${project.name}`);
-//     console.log("Position:", position);
-//   }
-
-//   return (
-//     <RigidBody type="fixed" colliders={false} ref={buildingRef}>
-//       {modelInfo && (
-//         <>
-//           {/* Render the building model with the new material */}
-//           <primitive
-//             object={modelInfo.scene}
-//             position={position}
-//             rotation={rotation}
-//             scale={modelInfo.scale}
-//             castShadow
-//           />
-
-//           {/* 3D Text overlay (using high contrast color) */}
-//           <Text
-//             position={[
-//               position[0] + modelInfo.textPosition[0],
-//               position[1] + modelInfo.textPosition[1],
-//               position[2] + modelInfo.textPosition[2],
-//             ]}
-//             fontSize={0.3}
-//             color={modelInfo.textColor}
-//             anchorX="center"
-//             anchorY="middle"
-//           >
-//             {project.name}
-//           </Text>
-//         </>
-//       )}
-
-//       {/* Collider */}
-//       <CuboidCollider
-//         name={`building-${project.name}`}
-//         args={[2.5, 2.5, 2.5]}
-//         position={position}
-//       />
-//     </RigidBody>
-//   );
-// }
-
-// export default Building;
-
 import { useGLTF, Text } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
@@ -354,6 +32,35 @@ function Building({
 
   // Updated model map with separate buildingColor, roofColor, and contrasting textColor.
   // Adjust these values as needed for your desired style.
+
+  // const PROJECTS = {
+  //   HyroxTrack: {
+  //     name: "HyroxTrack",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to log and compare results for Hyrox.",
+  //     url: "https://hyroxtrack.herokuapp.com/",
+  //   },
+  //   PopcornPair: {
+  //     name: "PopcornPair",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description:
+  //       "An app to track, recommend, and predict movies with friends.",
+  //     url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+  //   },
+  //   NewHorizons: {
+  //     name: "NewHorizons",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to plan and reflect on new adventures.",
+  //     url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+  //   },
+  //   PlaylistBattle: {
+  //     name: "PlaylistBattle",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "A music-themed guessing game you can play with friends.",
+  //     url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+  //   },
+  // };
+
   const modelMap = {
     PopcornPair: {
       scene: build1.scene,

@@ -177,7 +177,7 @@ export default function ContactBuilding({
         rotation={[0, -Math.PI / 2, 0]}
       />
 
-      <Text
+      {/* <Text
         position={[position[0], position[1] + 15, position[2] + 5]}
         fontSize={5}
         color="white"
@@ -185,7 +185,7 @@ export default function ContactBuilding({
         anchorY="middle"
       >
         Contact Me
-      </Text>
+      </Text> */}
     </RigidBody>
   );
 }

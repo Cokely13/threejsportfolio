@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { KeyboardControls } from "@react-three/drei";
 import { Plane } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import Building from "./Building";
 import Player from "./Player";
 import Gate from "./Gate";
@@ -22,6 +22,9 @@ import BouncyBall from "./BouncyBall";
 import MainRoad from "./MainRoad";
 import SignPost from "./SignPost";
 import MultiSignPost from "./MultiSign";
+import FloatingLabel from "./FloatingLabel";
+import Chalkboard from "./Chalkboard";
+import GroundWithHole from "./GroundWithHole";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -45,6 +48,8 @@ function Scene({
   const [animationName, setAnimationName] = useState("rig|Idle");
   const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
   const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+  const [showChalkboard, setShowChalkboard] = useState(false);
+  const [chalkboardVisible, setChalkboardVisible] = useState(false);
   // const [roadMode, setRoadMode] = useState("translate");
   grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
   grassTexture.repeat.set(60, 60);
@@ -104,12 +109,13 @@ function Scene({
       <KeyboardControls map={controlsMap}>
         <Wall />
         {/* Big Ground */}
-        <RigidBody type="fixed" colliders="trimesh">
+        {/* <RigidBody type="fixed" colliders="trimesh">
           <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
             <circleGeometry args={[120, 64]} />
             <meshStandardMaterial map={grassTexture} />
           </mesh>
-        </RigidBody>
+        </RigidBody> */}
+        <GroundWithHole />
 
         {/* GATE */}
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
@@ -160,49 +166,91 @@ function Scene({
           rotation={[0, Math.PI, 0]}
           color="yellow"
           project={PROJECTS.PlaylistBattle}
-          // onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
+          onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
         />
 
         <Skill
           label="JavaScript"
-          position={[-70, 10, 17]}
+          position={[-60, 10, 17]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[0] = el)}
         />
         <Skill
           label="PostgreSQL"
-          position={[-73, 10, 25]}
+          position={[-65, 10, 26]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[1] = el)}
         />
         <Skill
           label="Express"
-          position={[-75, 10, 17]}
+          position={[-72, 10, 18]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[2] = el)}
         />
         <Skill
           label="React"
-          position={[-80, 10, 10]}
+          position={[-63, 10, 10]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[3] = el)}
         />
         <Skill
           label="Node"
-          position={[-79, 10, 22]}
+          position={[-79, 10, 25]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[4] = el)}
         />
         <Skill
           label="CSS"
           position={[-82, 10, 16]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[5] = el)}
         />
         <Skill
           label="Three.js"
           position={[-74, 10, 8]}
           playerRef={playerRef}
+          onDrop={() => {
+            if (!showChalkboard) {
+              setShowChalkboard(true);
+              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+            }
+          }}
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
@@ -248,7 +296,12 @@ function Scene({
           scale={[8, 3, 8]}
           rotation={[0, 1, 0]}
         />
+        <FloatingLabel text="Projects" position={[0, 20, -10]} />
+        <FloatingLabel text="Skills" position={[-70, 20, 20]} />
+        <FloatingLabel text="About" position={[70, 20, 20]} />
+        <FloatingLabel text="Contact" position={[0, 20, -90]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
+        {chalkboardVisible && <Chalkboard fadeIn />}
         <SignPost
           position={[-30, 0, 35]}
           text="Skills"
@@ -269,6 +322,32 @@ function Scene({
             });
           }}
         />
+        {/* <mesh position={[-30, 0.02, 50]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[10, 64]} /> <meshBasicMaterial color="black" />
+        </mesh> */}
+        {/* <CuboidCollider
+          sensor
+          args={[10, 5, 10]} // matches the circleGeometry radius & depth
+          position={[-30, -2.5, 50]} // centered beneath the hole
+          onIntersectionEnter={({ other }) => {
+            if (other.rigidBodyObject?.name?.startsWith("Skill")) {
+              console.log("A ball fell in the hole!");
+              other.rigidBodyObject.setTranslation(
+                { x: -30, y: 10, z: 20 },
+                true
+              ); // Reset position
+              // Optional: Set opacity to 0 and fade in (we'll add that next)
+            }
+
+            if (other.rigidBodyObject?.name === "player") {
+              console.log("The player fell in!");
+              other.rigidBodyObject.setTranslation(
+                { x: 0, y: 2, z: -20 },
+                true
+              );
+            }
+          }}
+        /> */}
         <FadeInOverlay />
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>

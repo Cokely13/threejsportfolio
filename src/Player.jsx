@@ -18,25 +18,53 @@ export default function Player({ onProjectEnter, playerRef }) {
       description: "An app to log and compare results for Hyrox.",
       url: "https://hyroxtrack.herokuapp.com/",
     },
+    PopcornPair: {
+      name: "PopcornPair",
+      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      description:
+        "An app to track, recommend, and predict movies with friends.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+    },
     NewHorizons: {
       name: "NewHorizons",
       image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to Party.",
-      url: "https://hyroxtrack.herokuapp.com/",
+      description: "An app to plan and reflect on new adventures.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
     },
     PlaylistBattle: {
       name: "PlaylistBattle",
       image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to Cool.",
-      url: "https://hyroxtrack.herokuapp.com/",
-    },
-    PopcornPair: {
-      name: "PopcornPair",
-      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to Stuff.",
-      url: "https://hyroxtrack.herokuapp.com/",
+      description: "A music-themed guessing game you can play with friends.",
+      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
     },
   };
+
+  // const PROJECTS = {
+  //   HyroxTrack: {
+  //     name: "HyroxTrack",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to log and compare results for Hyrox.",
+  //     url: "https://hyroxtrack.herokuapp.com/",
+  //   },
+  //   NewHorizons: {
+  //     name: "NewHorizons",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to Party.",
+  //     url: "https://hyroxtrack.herokuapp.com/",
+  //   },
+  //   PlaylistBattle: {
+  //     name: "PlaylistBattle",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to Cool.",
+  //     url: "https://hyroxtrack.herokuapp.com/",
+  //   },
+  //   PopcornPair: {
+  //     name: "PopcornPair",
+  //     image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+  //     description: "An app to Stuff.",
+  //     url: "https://hyroxtrack.herokuapp.com/",
+  //   },
+  // };
 
   useFrame((state, delta) => {
     if (!body.current) return;
