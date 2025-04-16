@@ -128,21 +128,27 @@ const Skill = forwardRef(function Skill(
               (ballPosition.z - playerPosition.z) ** 2
           );
 
-          // if (distance < 15) {
-          //   setActivated(true);
-          //   ballRef.current.setBodyType("dynamic");
-          // }
           if (distance < 15) {
             setActivated(true);
             ballRef.current.setBodyType("dynamic");
-
-            // 💥 Give it a little bounce when it wakes up
             ballRef.current.applyImpulse({ x: 0, y: 2, z: 0 }, true);
-
-            // Optional: Add a little spin too (just for fun)
             ballRef.current.applyTorqueImpulse({ x: 0, y: 5, z: 0 }, true);
             if (onDrop) onDrop();
           }
+        }
+      } else {
+        // ✅ Reset if it falls too low
+        const pos = ballRef.current.translation();
+        if (pos.y < -10) {
+          setActivated(false);
+          ballRef.current.setBodyType("kinematicPosition");
+          ballRef.current.setTranslation(
+            { x: position[0], y: initialY, z: position[2] },
+            true
+          );
+          ballRef.current.setRotation({ x: 0, y: 0, z: 0, w: 1 }, true);
+          ballRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+          ballRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
         }
       }
     }
