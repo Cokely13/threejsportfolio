@@ -1,6 +1,7 @@
 // Scene.jsx
 import { useRef, useState, useEffect } from "react";
 import { KeyboardControls } from "@react-three/drei";
+import * as THREE from "three";
 import { Plane } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import Building from "./Building";
@@ -26,6 +27,9 @@ import MultiSignPost from "./MultiSign";
 import FloatingLabel from "./FloatingLabel";
 import Chalkboard from "./Chalkboard";
 import GroundWithHole from "./GroundWithHole";
+import PulsingGlowRing from "./PulsingGlowRing";
+import HoleDecorations from "./HoleDecorations";
+import PittLabel from "./PittLabel";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -129,6 +133,35 @@ function Scene({
           </mesh>
         </RigidBody> */}
         <GroundWithHole />
+        {/* <HoleDecorations position={[45, 0, 70]} /> */}
+        {/* 🔥 Fancy hole decoration */}
+        <>
+          {/* Flat black circle to mask edge */}
+          <mesh position={[45, 0.02, 70]} rotation={[-Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[10, 64]} />
+            <meshBasicMaterial color="black" />
+          </mesh>
+
+          {/* Deep inner cylinder to fake depth */}
+          <mesh position={[45, -5, 70]}>
+            <cylinderGeometry args={[10, 10, 10, 64, 1, true]} />
+            <meshStandardMaterial color="black" side={THREE.BackSide} />
+          </mesh>
+
+          {/* Glowing animated ring */}
+          <PulsingGlowRing position={[45, 0.021, 70]} />
+
+          {/* Soft inner glow */}
+          <mesh position={[45, 0.015, 70]} rotation={[-Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[9.8, 64]} />
+            <meshBasicMaterial
+              color="#00ffff"
+              opacity={0.2}
+              transparent
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+        </>
 
         {/* GATE */}
         <Gate playerRef={playerRef} position={[0, 0, -10]} />
@@ -315,6 +348,7 @@ function Scene({
         <FloatingLabel text="Contact" position={[0, 20, -90]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         {chalkboardVisible && <Chalkboard fadeIn />}
+        <PittLabel playerRef={playerRef} />
         <SignPost
           position={[-30, 0, 35]}
           text="Skills"
@@ -327,14 +361,6 @@ function Scene({
         />
         <SignPost position={[15, 0, -65]} text="Contact" />
         <MultiSignPost position={[0, 0, 80]} />
-        <ResetButton
-          position={[-35, 0, 0]} // 🛑 Choose where you want it (near the hill maybe?)
-          onReset={() => {
-            ballRefs.current.forEach((ref) => {
-              if (ref) ref.reset();
-            });
-          }}
-        />
         {/* <mesh position={[-30, 0.02, 50]} rotation={[-Math.PI / 2, 0, 0]}>
           <circleGeometry args={[10, 64]} /> <meshBasicMaterial color="black" />
         </mesh> */}
