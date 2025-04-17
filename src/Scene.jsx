@@ -34,6 +34,8 @@ import SwingingGate from "./SwingingGate";
 import Ramp from "./Ramp";
 import PittLabel from "./PittLabel";
 import ContactPlatform from "./ContactPlatform";
+import Stairs from "./Stairs";
+import Platform from "./Platform";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -168,7 +170,6 @@ function Scene({
             />
           </mesh>
         </>
-
         {/* GATE
         <Gate playerRef={playerRef} position={[0, 0, -10]} /> */}
         <SwingingGate playerRef={playerRef} />
@@ -189,19 +190,22 @@ function Scene({
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         /> */}
-        <ContactPlatform position={[0, 1, -90]} radius={20} height={8} />
-        <Ramp
-          position={[0, -1, -55]}
-          rotation={[0, Math.PI, 0]}
-          width={4}
-          height={2}
-          depth={8}
-        />
+        <ContactPlatform position={[0, 1, -90]} radius={13} height={19} />
+        {/* <Ramp
+          position={[0, -1, -48]} // tweak Y so its top aligns with the platform (Y=5)
+          rotation={[0, -1.5, 0]} // rotate if you need it facing forwards/backwards
+          scale={[10, 11, 9]} // your desired X/Y/Z scale
+        /> */}
         <ContactBuilding
-          position={[0, 5.5, -90]} // 2 = height of platform + building base
+          position={[0, 11, -90]} // 2 = height of platform + building base
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
+        />
+        <Platform
+          position={[10, 0, 10]}
+          rotation={[0, 0, 0]}
+          scale={[5, 5, 5]}
         />
         {/* Projects - 4 buildings after Cross */}
         <Building
@@ -235,7 +239,6 @@ function Scene({
           project={PROJECTS.PlaylistBattle}
           onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
         />
-
         <Skill
           label="JavaScript"
           position={[-60, 10, 17]}
@@ -343,7 +346,6 @@ function Scene({
           position={[45, -0.521, 30]}
           rotation={[0, 0.7, 0]}
         /> */}
-
         {/* <RigidBody type="fixed" colliders="trimesh"> */}
         {/* <Road2
 
@@ -351,7 +353,6 @@ function Scene({
           position={[-45, -0.521, 30]}
           rotation={[0, -0.7, 0]}
         /> */}
-
         <MyHill
           position={[-75, -1, 30]}
           scale={[8, 3, 8]}
@@ -386,10 +387,14 @@ function Scene({
           onEnter={() => setShowTodoPopup(true)}
         />
         <MultiSignPost position={[0, 0, 80]} />
-
         <Roads position={[0, 4, 0]} />
-
-        <FadeInOverlay />
+        {/* <Stairs
+          src="/models/stairs.glb"
+          position={[0, 0, 0]}
+          rotation={[0, Math.PI, 0]}
+          scale={[6, 6, 6]}
+        /> */}
+        + <FadeInOverlay />
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>

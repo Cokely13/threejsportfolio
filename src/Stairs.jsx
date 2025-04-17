@@ -1,37 +1,34 @@
-// components/Stairs.jsx
-import { RigidBody, CuboidCollider } from "@react-three/rapier";
-import * as THREE from "three";
+// components/BlenderStairs.jsx
+import { useGLTF } from "@react-three/drei";
+import { RigidBody, MeshCollider } from "@react-three/rapier";
 
 export default function Stairs({
+  src = "/models/stairs.glb",
   position = [0, 0, 0],
-  steps = 8,
-  stepSize = [4, 0.5, 1], // [width, height, depth]
-  color = "#888",
+  rotation = [0, 0, 0],
+  scale = [1, 1, 1],
 }) {
-  const totalHeight = steps * stepSize[1];
-  const totalDepth = steps * stepSize[2];
+  // load your glb
+  const { scene } = useGLTF(src);
 
   return (
-    <group position={position}>
-      {/* 🎯 Visual steps */}
-      {Array.from({ length: steps }).map((_, i) => (
-        <mesh key={i} position={[0, i * stepSize[1], -i * stepSize[2]]}>
-          <boxGeometry args={stepSize} />
-          <meshStandardMaterial color={color} />
-        </mesh>
-      ))}
-
-      {/* 🛠️ Invisible ramp collider */}
-      <RigidBody type="fixed" friction={1} restitution={0}>
-        <mesh
-          position={[0, totalHeight / 2, -totalDepth / 2]}
-          rotation={[-Math.atan(totalHeight / totalDepth), 0, 0]}
-          visible={false} // Make this true for debugging if needed
-        >
-          <boxGeometry args={[stepSize[0], totalHeight, totalDepth]} />
-          <meshStandardMaterial color="red" transparent opacity={0.3} />
-        </mesh>
-      </RigidBody>
-    </group>
+    <RigidBody
+      type="fixed"
+      colliders={false} // we’ll add our own mesh collider
+      friction={1} // give it some grip
+      restitution={0} // no bounce
+    >
+      {/* the visible stairs */}
+      <primitive
+        object={scene}
+        position={position}
+        rotation={rotation}
+        scale={scale}
+        receiveShadow
+        castShadow
+      />
+      {/* a precise “triangle mesh” collider matching your Blender-exported geometry */}
+      <MeshCollider type="trimesh" />
+    </RigidBody>
   );
 }
