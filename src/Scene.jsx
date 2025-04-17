@@ -28,6 +28,7 @@ import Chalkboard from "./Chalkboard";
 import GroundWithHole from "./GroundWithHole";
 import PulsingGlowRing from "./PulsingGlowRing";
 import TodoBooth from "./TodoBooth";
+import Roads from "./Roads";
 import TodoPopup from "./TodoPopup";
 
 import PittLabel from "./PittLabel";
@@ -312,33 +313,27 @@ function Scene({
         />
         {/* Hills */}
         {/* <Hills /> */}
-        <MainRoad
+        {/* <MainRoad
           // scale={[3, 2, 6]}
           // position={[0, 0, -20]}
           // rotation={[3.1401, 0, 0]}
           scale={[5, 5, 5]}
           position={[0, 0.03, 0]}
           rotation={[0, 0, 0]}
-        />
-        <Road
+        /> */}
+        {/* <Road
           scale={[0.8, 0.9, 0.9]}
           position={[45, -0.521, 30]}
           rotation={[0, 0.7, 0]}
-        />
+        /> */}
 
         {/* <RigidBody type="fixed" colliders="trimesh"> */}
-        <Road2
-          // scale={[0.4207, 0.1002, 0.4853]}
-          // position={[-18.6471, -2.5, 71.3294]}
-          // rotation={[-3.0854, -0.7612, 3.2]}
+        {/* <Road2
 
           scale={[-0.8, 0.9, 0.9]}
           position={[-45, -0.521, 30]}
           rotation={[0, -0.7, 0]}
-          // scale={[-0.4207, 0.1002, 0.4853]} // flipped scale
-          // position={[18.6471, -2.5, 71.3294]} // mirrored X position
-          // rotation={[-3.0854, 0.7612, -3.2]} // mirrored rotation
-        />
+        /> */}
 
         <MyHill
           position={[-75, -1, 30]}
@@ -374,9 +369,10 @@ function Scene({
           onEnter={() => setShowTodoPopup(true)}
         />
         <MultiSignPost position={[0, 0, 80]} />
+        <Roads position={[0, 4, 0]} />
 
         <FadeInOverlay />
-        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
+        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>
   );
