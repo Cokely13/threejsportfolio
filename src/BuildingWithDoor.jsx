@@ -11,7 +11,7 @@ function BuildingWithDoor({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
         object={scene}
         position={position}
         rotation={rotation}
-        scale={[2, 1, 3]} // or adjust if needed
+        scale={[3, 2, 4]} // or adjust if needed
         castShadow
       />
       <CuboidCollider

@@ -30,6 +30,7 @@ import PulsingGlowRing from "./PulsingGlowRing";
 import TodoBooth from "./TodoBooth";
 import Roads from "./Roads";
 import TodoPopup from "./TodoPopup";
+import SwingingGate from "./SwingingGate";
 
 import PittLabel from "./PittLabel";
 
@@ -167,8 +168,9 @@ function Scene({
           </mesh>
         </>
 
-        {/* GATE */}
-        <Gate playerRef={playerRef} position={[0, 0, -10]} />
+        {/* GATE
+        <Gate playerRef={playerRef} position={[0, 0, -10]} /> */}
+        <SwingingGate playerRef={playerRef} />
         <BouncyBall position={[2, 3, 80]} />
         {/* Contact Building (End of Main Road) */}
         <spotLight
@@ -304,7 +306,7 @@ function Scene({
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
-        <BuildingWithDoor position={[85, 0, 15]} rotation={[0, Math.PI, 0]} />
+        <BuildingWithDoor position={[75, 0, 10]} rotation={[0, Math.PI, 0]} />
         {/* Player */}
         <Player
           onProjectEnter={setActiveProject}
