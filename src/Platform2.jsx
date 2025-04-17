@@ -2,8 +2,8 @@
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 
-export default function Platform({
-  src = "/models/rampPlat2.glb", // your combined Blender GLB
+export default function Platform2({
+  src = "/models/rampPlat.glb", // your combined Blender GLB
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = [1, 1, 1],

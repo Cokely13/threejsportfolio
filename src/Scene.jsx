@@ -36,6 +36,7 @@ import PittLabel from "./PittLabel";
 import ContactPlatform from "./ContactPlatform";
 import Stairs from "./Stairs";
 import Platform from "./Platform";
+import Platform2 from "./Platform2";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -190,22 +191,22 @@ function Scene({
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         /> */}
-        <ContactPlatform position={[0, 1, -90]} radius={13} height={19} />
+        {/* <ContactPlatform position={[0, 1, -90]} radius={13} height={19} /> */}
         {/* <Ramp
           position={[0, -1, -48]} // tweak Y so its top aligns with the platform (Y=5)
           rotation={[0, -1.5, 0]} // rotate if you need it facing forwards/backwards
           scale={[10, 11, 9]} // your desired X/Y/Z scale
         /> */}
         <ContactBuilding
-          position={[0, 11, -90]} // 2 = height of platform + building base
+          position={[0, 9, -90]} // 2 = height of platform + building base
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         />
-        <Platform
-          position={[10, 0, 10]}
-          rotation={[0, 0, 0]}
-          scale={[5, 5, 5]}
+        <Platform2
+          position={[0, 0, -65]}
+          rotation={[0, -Math.PI / 2, 0]}
+          scale={[6, 8, 8]}
         />
         {/* Projects - 4 buildings after Cross */}
         <Building
@@ -324,7 +325,12 @@ function Scene({
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
-        <BuildingWithDoor position={[75, 0, 10]} rotation={[0, Math.PI, 0]} />
+        <BuildingWithDoor position={[90, 9, 10]} rotation={[0, Math.PI, 0]} />
+        <Platform
+          position={[55, 0, 12]}
+          rotation={[0, Math.PI, 0]}
+          scale={[8, 8, 10]}
+        />
         {/* Player */}
         <Player
           onProjectEnter={setActiveProject}
@@ -360,7 +366,7 @@ function Scene({
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 20]} />
-        <FloatingLabel text="About" position={[70, 20, 20]} />
+        <FloatingLabel text="About" position={[75, 30, 20]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         {chalkboardVisible && <Chalkboard fadeIn />}
