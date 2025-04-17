@@ -360,7 +360,7 @@ function Scene({
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 20]} />
         <FloatingLabel text="About" position={[70, 20, 20]} />
-        <FloatingLabel text="Contact" position={[0, 20, -80]} />
+        <FloatingLabel text="Contact" position={[0, 30, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         {chalkboardVisible && <Chalkboard fadeIn />}
         <PittLabel playerRef={playerRef} />
