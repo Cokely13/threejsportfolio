@@ -31,8 +31,9 @@ import TodoBooth from "./TodoBooth";
 import Roads from "./Roads";
 import TodoPopup from "./TodoPopup";
 import SwingingGate from "./SwingingGate";
-
+import Ramp from "./Ramp";
 import PittLabel from "./PittLabel";
+import ContactPlatform from "./ContactPlatform";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -182,8 +183,22 @@ function Scene({
           castShadow
           color="#ffffff"
         />
-        <ContactBuilding
+        {/* <ContactBuilding
           position={[0, 0, -90]}
+          playerRef={playerRef}
+          onEnter={handlePlayerNearContact}
+          popupVisible={showContactPopup}
+        /> */}
+        <ContactPlatform position={[0, 1, -90]} radius={20} height={8} />
+        <Ramp
+          position={[0, -1, -55]}
+          rotation={[0, Math.PI, 0]}
+          width={4}
+          height={2}
+          depth={8}
+        />
+        <ContactBuilding
+          position={[0, 5.5, -90]} // 2 = height of platform + building base
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
@@ -345,7 +360,7 @@ function Scene({
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 20]} />
         <FloatingLabel text="About" position={[70, 20, 20]} />
-        <FloatingLabel text="Contact" position={[0, 20, -90]} />
+        <FloatingLabel text="Contact" position={[0, 20, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         {chalkboardVisible && <Chalkboard fadeIn />}
         <PittLabel playerRef={playerRef} />
@@ -371,10 +386,11 @@ function Scene({
           onEnter={() => setShowTodoPopup(true)}
         />
         <MultiSignPost position={[0, 0, 80]} />
+
         <Roads position={[0, 4, 0]} />
 
         <FadeInOverlay />
-        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
+        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>
   );
