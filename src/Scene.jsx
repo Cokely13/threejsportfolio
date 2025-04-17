@@ -374,7 +374,7 @@ function Scene({
         <Roads position={[0, 4, 0]} />
 
         <FadeInOverlay />
-        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
+        {/* <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} /> */}
       </KeyboardControls>
     </>
   );
