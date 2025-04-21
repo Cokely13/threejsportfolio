@@ -36,18 +36,18 @@ export default function Wall() {
       {/* Visible wall */}
       <primitive
         object={scene}
-        position={[2, -8, -20]}
+        position={[2, -32, -20]}
         rotation={[0, -Math.PI / 3.9, 0]}
-        scale={[2.2, 2.2, 2.2]}
+        scale={[2.2, 8, 2.2]}
       />
 
       {/* Aligned Collider */}
       <MeshCollider type="trimesh">
         <mesh
           geometry={scene.children[0].geometry}
-          position={[2, -8, -20]}
+          position={[2, -32, -20]}
           rotation={[0, -Math.PI / 3.9, 0]}
-          scale={[2.2, 2.2, 2.2]}
+          scale={[2.2, 8, 2.2]}
         >
           <meshBasicMaterial transparent opacity={0} />
         </mesh>

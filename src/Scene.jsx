@@ -10,7 +10,7 @@ import Gate from "./Gate";
 import FadeInOverlay from "./FadeInOverlay";
 import Skill from "./Skill";
 import ContactBuilding from "./ContactBuilding";
-import BuildingWithDoor from "./BuildingWithDoor";
+import AboutBuilding from "./AboutBuilding";
 import { TextureLoader, RepeatWrapping } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
@@ -37,6 +37,8 @@ import ContactPlatform from "./ContactPlatform";
 import Stairs from "./Stairs";
 import Platform from "./Platform";
 import Platform2 from "./Platform2";
+import ProjectInfo3D from "./ProjectInfo3D";
+import { PROJECTS } from "./Projects";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -48,6 +50,7 @@ const controlsMap = [
 ];
 
 function Scene({
+  activeProject = { activeProject },
   setActiveProject,
   setShowContactPopup,
   showContactPopup,
@@ -55,6 +58,7 @@ function Scene({
   zoomLevel,
   roadMode,
   setShowTodoPopup,
+  setShowAboutPopup,
 }) {
   const groundRef = useRef();
   const ballRefs = useRef([]);
@@ -134,18 +138,8 @@ function Scene({
     <>
       <KeyboardControls map={controlsMap}>
         <Wall />
-        {/* Big Ground */}
-        {/* <RigidBody type="fixed" colliders="trimesh">
-          <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-            <circleGeometry args={[120, 64]} />
-            <meshStandardMaterial map={grassTexture} />
-          </mesh>
-        </RigidBody> */}
         <GroundWithHole />
-        {/* <HoleDecorations position={[45, 0, 70]} /> */}
-        {/* 🔥 Fancy hole decoration */}
         <>
-          {/* Flat black circle to mask edge */}
           <mesh position={[45, 0.02, 70]} rotation={[-Math.PI / 2, 0, 0]}>
             <circleGeometry args={[10, 64]} />
             <meshBasicMaterial color="black" />
@@ -325,7 +319,11 @@ function Scene({
           ref={(el) => (ballRefs.current[6] = el)}
         />
         {/* About Building - Right end */}
-        <BuildingWithDoor position={[90, 9, 10]} rotation={[0, Math.PI, 0]} />
+        <AboutBuilding
+          position={[90, 9, 10]}
+          rotation={[0, Math.PI, 0]}
+          onEnter={() => setShowAboutPopup(true)}
+        />
         <Platform
           position={[55, 0, 12]}
           rotation={[0, Math.PI, 0]}
@@ -347,22 +345,10 @@ function Scene({
           position={[0, 0.03, 0]}
           rotation={[0, 0, 0]}
         /> */}
-        {/* <Road
-          scale={[0.8, 0.9, 0.9]}
-          position={[45, -0.521, 30]}
-          rotation={[0, 0.7, 0]}
-        /> */}
-        {/* <RigidBody type="fixed" colliders="trimesh"> */}
-        {/* <Road2
-
-          scale={[-0.8, 0.9, 0.9]}
-          position={[-45, -0.521, 30]}
-          rotation={[0, -0.7, 0]}
-        /> */}
         <MyHill
-          position={[-75, -1, 30]}
+          position={[-45, -1, 12]}
           scale={[8, 3, 8]}
-          rotation={[0, 1, 0]}
+          rotation={[0, 0, 0]}
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 20]} />
@@ -394,13 +380,8 @@ function Scene({
         />
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
-        {/* <Stairs
-          src="/models/stairs.glb"
-          position={[0, 0, 0]}
-          rotation={[0, Math.PI, 0]}
-          scale={[6, 6, 6]}
-        /> */}
-        + <FadeInOverlay />
+        <FadeInOverlay />
+        {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
       </KeyboardControls>
     </>

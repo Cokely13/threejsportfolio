@@ -1,0 +1,39 @@
+/* components/AboutPopup.css */
+.about-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.about-popup {
+  background: #222;
+  color: #eee;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.about-popup h2 {
+  margin-top: 0;
+}
+
+.about-popup ul {
+  padding-left: 1.2rem;
+}
+
+.about-popup button {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  background: #00e5ff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}

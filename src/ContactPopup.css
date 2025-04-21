@@ -1,0 +1,80 @@
+/* ContactPopup.css */
+
+.contact-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 15, 15, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.contact-popup {
+  background: #222;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.contact-popup h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #00ffff;
+  text-align: center;
+}
+
+.contact-popup p {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-popup form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-popup input,
+.contact-popup textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.contact-popup input::placeholder,
+.contact-popup textarea::placeholder {
+  color: #999;
+}
+
+.contact-popup button,
+.contact-popup .close-btn {
+  padding: 0.75rem 1rem;
+  background: #00ffff;
+  color: #222;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.contact-popup button:hover,
+.contact-popup .close-btn:hover {
+  background: #0af;
+}
+
+.contact-popup .close-btn {
+  background: #555;
+  color: white;
+  margin-top: 1rem;
+}

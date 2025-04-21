@@ -5,6 +5,7 @@ import Scene from "./Scene";
 import ContactPopup from "./ContactPopup";
 import TeleportMenu from "./TeleportMenu";
 import TodoPopup from "./TodoPopup";
+import AboutPopup from "./AboutPopup";
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
 import { FirstPersonControls } from "@react-three/drei";
@@ -13,6 +14,7 @@ import ZoomControls from "./ZoomControls";
 function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showContactPopup, setShowContactPopup] = useState(false);
+  const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(10);
   const [roadMode, setRoadMode] = useState("translate");
   const [showTodoPopup, setShowTodoPopup] = useState(false);
@@ -65,12 +67,14 @@ function App() {
         {/* gravity={[0, -9.81, 0]} */}
         <Physics gravity={[0, -30, 0]}>
           <Scene
+            activeProject={activeProject}
             setActiveProject={setActiveProject}
             setShowContactPopup={setShowContactPopup}
             showContactPopup={showContactPopup}
             playerRef={playerRef}
             roadMode={roadMode}
             setShowTodoPopup={setShowTodoPopup}
+            setShowAboutPopup={setShowAboutPopup}
           />
         </Physics>
 
@@ -94,6 +98,10 @@ function App() {
       <ContactPopup
         visible={showContactPopup}
         onClose={() => setShowContactPopup(false)}
+      />
+      <AboutPopup
+        visible={showAboutPopup}
+        onClose={() => setShowAboutPopup(false)}
       />
       {activeProject && (
         <div className="project-card-overlay">
