@@ -37,8 +37,6 @@ import ContactPlatform from "./ContactPlatform";
 import Stairs from "./Stairs";
 import Platform from "./Platform";
 import Platform2 from "./Platform2";
-import ProjectInfo3D from "./ProjectInfo3D";
-import { PROJECTS } from "./Projects";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
