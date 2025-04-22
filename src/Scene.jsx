@@ -353,7 +353,8 @@ function Scene({
         <FloatingLabel text="About" position={[75, 30, 20]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
-        {chalkboardVisible && <Chalkboard fadeIn />}
+        {/* {chalkboardVisible && <Chalkboard fadeIn />} */}
+        <Chalkboard fadeIn={chalkboardVisible} />
         <PittLabel playerRef={playerRef} />
         <SignPost
           position={[-30, 0, 35]}
