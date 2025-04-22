@@ -127,86 +127,94 @@
 
 // src/App.jsx
 // src/App.jsx
+import React, { useState, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import Scene from "./Scene";
-import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "./LoadingScreen";
 import ContactPopup from "./ContactPopup";
 import AboutPopup from "./AboutPopup";
 import ProjectInfoOverlay from "./ProjectInfoOverlay";
 import TodoPopup from "./TodoPopup";
 import TeleportMenu from "./TeleportMenu";
+import PortfolioView from "./PortfolioView";
 import "./styles.css";
-import "./preload"; // optional: preloads your models/textures
+import "./preload";
 
-function App() {
+export default function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(10);
-  const [roadMode, setRoadMode] = useState("translate");
   const [showTodoPopup, setShowTodoPopup] = useState(false);
+  const [viewMode, setViewMode] = useState("explore"); // or "portfolio"
   const playerRef = useRef();
-
-  // useEffect(() => {
-  //   if (activeProject) {
-  //     const timeout = setTimeout(() => setActiveProject(null), 10000);
-  //     return () => clearTimeout(timeout);
-  //   }
-  // }, [activeProject]);
 
   return (
     <div className="canvas-container">
-      <Canvas
-        shadows
-        camera={{ position: [0, 80, 250], fov: 80 }}
-        onCreated={({ gl }) => gl.setClearColor("#87ceeb")}
-      >
-        - {/* only scene used to be here */}+{" "}
-        {/* everything goes inside Suspense now */}
-        <Suspense fallback={<LoadingScreen />}>
-          <ambientLight intensity={1.5} />
-          <directionalLight position={[10, 20, 10]} intensity={1.2} />
-          <OrbitControls
-            minPolarAngle={Math.PI / 6}
-            maxPolarAngle={Math.PI / 2.2}
-          />
-          <Physics gravity={[0, -30, 0]}>
-            <Scene
-              activeProject={activeProject}
-              setActiveProject={setActiveProject}
-              setShowContactPopup={setShowContactPopup}
-              showContactPopup={showContactPopup}
-              playerRef={playerRef}
-              setShowTodoPopup={setShowTodoPopup}
-              setShowAboutPopup={setShowAboutPopup}
-            />
-          </Physics>
-        </Suspense>
-      </Canvas>
+      {/* only show the toggle for the *other* mode */}
+      <div className="mode-toggle">
+        {viewMode !== "explore" && (
+          <button onClick={() => setViewMode("explore")}>Explore Mode</button>
+        )}
+        {viewMode !== "portfolio" && (
+          <button onClick={() => setViewMode("portfolio")}>
+            Portfolio Mode
+          </button>
+        )}
+      </div>
 
-      <ContactPopup
-        visible={showContactPopup}
-        onClose={() => setShowContactPopup(false)}
-      />
-      <AboutPopup
-        visible={showAboutPopup}
-        onClose={() => setShowAboutPopup(false)}
-      />
-      <ProjectInfoOverlay
-        project={activeProject}
-        onClose={() => setActiveProject(null)}
-      />
-      <TodoPopup
-        visible={showTodoPopup}
-        onClose={() => setShowTodoPopup(false)}
-      />
-      <TeleportMenu playerRef={playerRef} />
+      {viewMode === "explore" ? (
+        <>
+          <Canvas
+            className="three-canvas"
+            shadows
+            camera={{ position: [0, 80, 250], fov: 80 }}
+            onCreated={({ gl }) => gl.setClearColor("#87ceeb")}
+          >
+            <Suspense fallback={<LoadingScreen />}>
+              <ambientLight intensity={1.5} />
+              <directionalLight position={[10, 20, 10]} intensity={1.2} />
+              <OrbitControls
+                minPolarAngle={Math.PI / 6}
+                maxPolarAngle={Math.PI / 2.2}
+              />
+              <Physics gravity={[0, -30, 0]}>
+                <Scene
+                  activeProject={activeProject}
+                  setActiveProject={setActiveProject}
+                  setShowContactPopup={setShowContactPopup}
+                  showContactPopup={showContactPopup}
+                  playerRef={playerRef}
+                  setShowTodoPopup={setShowTodoPopup}
+                  setShowAboutPopup={setShowAboutPopup}
+                />
+              </Physics>
+            </Suspense>
+          </Canvas>
+
+          <ContactPopup
+            visible={showContactPopup}
+            onClose={() => setShowContactPopup(false)}
+          />
+          <AboutPopup
+            visible={showAboutPopup}
+            onClose={() => setShowAboutPopup(false)}
+          />
+          <ProjectInfoOverlay
+            project={activeProject}
+            onClose={() => setActiveProject(null)}
+          />
+          <TodoPopup
+            visible={showTodoPopup}
+            onClose={() => setShowTodoPopup(false)}
+          />
+          <TeleportMenu playerRef={playerRef} />
+        </>
+      ) : (
+        <PortfolioView />
+      )}
     </div>
   );
 }
-
-export default App;

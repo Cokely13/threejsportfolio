@@ -124,3 +124,18 @@ body,
 .teleport-menu button:hover {
   background-color: #0f70d4;
 }
+
+.mode-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.mode-toggle button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #444;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
