@@ -8,6 +8,7 @@ import TodoPopup from "./TodoPopup";
 import AboutPopup from "./AboutPopup";
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
+import ProjectInfoOverlay from "./ProjectInfoOverlay";
 import { FirstPersonControls } from "@react-three/drei";
 import ZoomControls from "./ZoomControls";
 
@@ -20,12 +21,12 @@ function App() {
   const [showTodoPopup, setShowTodoPopup] = useState(false);
   const playerRef = useRef();
 
-  useEffect(() => {
-    if (activeProject) {
-      const timeout = setTimeout(() => setActiveProject(null), 3000);
-      return () => clearTimeout(timeout);
-    }
-  }, [activeProject]);
+  // useEffect(() => {
+  //   if (activeProject) {
+  //     const timeout = setTimeout(() => setActiveProject(null), 10000);
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [activeProject]);
 
   return (
     <div className="canvas-container">
@@ -103,7 +104,7 @@ function App() {
         visible={showAboutPopup}
         onClose={() => setShowAboutPopup(false)}
       />
-      {activeProject && (
+      {/* {activeProject && (
         <div className="project-card-overlay">
           <img
             src={activeProject.image}
@@ -123,7 +124,12 @@ function App() {
             </a>
           </div>
         </div>
-      )}
+      )} */}
+
+      <ProjectInfoOverlay
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
       <TodoPopup
         visible={showTodoPopup}
         onClose={() => setShowTodoPopup(false)}
