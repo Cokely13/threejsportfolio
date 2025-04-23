@@ -388,14 +388,38 @@ function Scene({
           arrowCount={0}
           arrowColor="#ffffff"
         /> */}
-        {/* <WelcomeMat
-          position={[-19, 0.01, 70]}
+        <WelcomeMat
+          position={[-15, 0.01, -5.5]}
           width={4}
           height={5}
           color="#ffeb3b"
           ringColor="#ffee58"
           thickness={0.3}
-        /> */}
+        />
+        <WelcomeMat
+          position={[-15, 0.01, -30.5]}
+          width={4}
+          height={5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[15, 0.01, -4.5]}
+          width={4}
+          height={5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[15, 0.01, -29.5]}
+          width={4}
+          height={5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
         <FadeInOverlay />
