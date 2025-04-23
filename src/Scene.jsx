@@ -420,6 +420,22 @@ function Scene({
           ringColor="#ffee58"
           thickness={0.3}
         />
+        <WelcomeMat
+          position={[78, 9, 12]}
+          width={6}
+          height={8}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[1, 9, -82]}
+          width={5}
+          height={6}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
         <FadeInOverlay />
