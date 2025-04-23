@@ -176,43 +176,95 @@ export default function SwingingGate({ playerRef }) {
       </group>
 
       {/* fancier welcome sign */}
-      <group position={[0, 13, 0]}>
-        {/* metal hooks (just 1.5 units above the board) */}
-        {[-2, 2].map((x) => (
-          <mesh key={x} position={[x, 1.5, 0]}>
-            <cylinderGeometry args={[0.1, 0.1, 1, 8]} />
-            <meshStandardMaterial color="#555" />
-          </mesh>
-        ))}
-
-        {/* carved wooden sign (0.3 corner radius) */}
-        <RoundedBox
-          args={[16, 3, 0.5]}
-          radius={0.3}
-          smoothness={8}
-          position={[0, 0, 0]}
-        >
-          <meshStandardMaterial
-            color="#8B5E3C"
-            metalness={0.2}
-            roughness={0.7}
-          />
-        </RoundedBox>
-
-        {/* text overlay, just slightly in front */}
-        <Text
-          position={[0, 0, 0.3]}
-          fontSize={0.6}
-          color="#fde8cd"
-          outlineWidth={0.02}
-          outlineColor="#000"
-          anchorX="center"
-          anchorY="middle"
-          // font="/fonts/Pacifico-Regular.ttf"
-        >
-          Welcome to{"\n"}Ryan Cokely’s{"\n"}Portfolio World!
-        </Text>
-      </group>
+      {/* fancy welcome sign */}
     </group>
   );
 }
+
+// src/SwingingGate.jsx
+// import { useRef, useState } from "react";
+// import { useFrame } from "@react-three/fiber";
+// import { Text, RoundedBox } from "@react-three/drei";
+
+// export default function SwingingGate({ playerRef }) {
+//   const leftPivot = useRef();
+//   const rightPivot = useRef();
+//   const [open, setOpen] = useState(false);
+
+//   useFrame(() => {
+//     if (!playerRef.current) return;
+//     const { x, z } = playerRef.current.translation();
+//     const dist = Math.hypot(x, z - 110);
+//     if (dist < 10) setOpen(true);
+
+//     if (open) {
+//       leftPivot.current.rotation.y = Math.max(
+//         leftPivot.current.rotation.y - 0.02,
+//         -Math.PI / 2
+//       );
+//       rightPivot.current.rotation.y = Math.min(
+//         rightPivot.current.rotation.y + 0.02,
+//         Math.PI / 2
+//       );
+//     }
+//   });
+
+//   return (
+//     <group position={[0, 0, 110]}>
+//       {/* …frame & gates (unchanged)… */}
+
+//       {/* fancy welcome sign */}
+//       <group position={[0, 13, 0]}>
+//         {/* metal hooks */}
+//         {[-2, 2].map((x) => (
+//           <mesh key={x} position={[x, 1.5, 0]}>
+//             <cylinderGeometry args={[0.1, 0.1, 1, 8]} />
+//             <meshStandardMaterial color="#555" />
+//           </mesh>
+//         ))}
+
+//         {/* carved wooden board */}
+//         <RoundedBox
+//           args={[16, 3, 0.5]}
+//           radius={0.3}
+//           smoothness={8}
+//           position={[0, 0, 0]}
+//         >
+//           <meshStandardMaterial
+//             color="#8B5E3C"
+//             metalness={0.2}
+//             roughness={0.7}
+//           />
+//         </RoundedBox>
+
+//         {/* drop‑shadow Text */}
+//         <Text
+//           position={[0.02, 0.02, 0.29]} // slight offset for shadow
+//           fontSize={1.2}
+//           color="#000"
+//           anchorX="center"
+//           anchorY="middle"
+//           lineHeight={1.1}
+//         >
+//           Welcome to{"\n"}Ryan Cokely’s{"\n"}Portfolio World!
+//         </Text>
+
+//         {/* gold main Text */}
+//         <Text
+//           position={[0, 0, 0.3]}
+//           fontSize={1.2}
+//           color="gold"
+//           anchorX="center"ly
+//           anchorY="middle"
+//           lineHeight={1.1}
+//           material-toneMapped={false}
+//           // add a subtle glow:
+//           material-emissive="gold"
+//           material-emissiveIntensity={0.3}
+//         >
+//           Welcome to{"\n"}Ryan Cokely’s{"\n"}Portfolio World!
+//         </Text>
+//       </group>
+//     </group>
+//   );
+// }

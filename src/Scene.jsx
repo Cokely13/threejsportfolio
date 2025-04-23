@@ -37,6 +37,8 @@ import ContactPlatform from "./ContactPlatform";
 import Stairs from "./Stairs";
 import Platform from "./Platform";
 import Platform2 from "./Platform2";
+import PathGuide from "./PathGuide";
+import WelcomeMat from "./WelcomeMat";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -376,6 +378,24 @@ function Scene({
           playerRef={playerRef}
           onEnter={() => setShowTodoPopup(true)}
         />
+        +{" "}
+        {/* <PathGuide
+          start={[-20, 0.5, 70]}
+          end={[-20, 0.5, 70]}
+          turnOffset={10}
+          tubeRadius={1}
+          tubeColor="#00ff00"
+          arrowCount={0}
+          arrowColor="#ffffff"
+        /> */}
+        {/* <WelcomeMat
+          position={[-19, 0.01, 70]}
+          width={4}
+          height={5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        /> */}
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
         <FadeInOverlay />
