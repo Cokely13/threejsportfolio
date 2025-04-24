@@ -62,7 +62,7 @@ export default function TodoBooth({
           anchorX="center"
           anchorY="middle"
         >
-          TO DO
+          UNDER CONSTRUCTION
         </Text>
       </RigidBody>
 
