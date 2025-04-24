@@ -86,40 +86,37 @@
 // }
 
 // src/CameraFollow.jsx
+// src/CameraFollow.jsx
+// src/CameraFollow.jsx
 import { useThree, useFrame } from "@react-three/fiber";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import * as THREE from "three";
 
 export default function CameraFollow({ targetRef }) {
   const { camera } = useThree();
 
-  // smoothed world‑space position of the target
-  const smoothed = useRef(new THREE.Vector3());
+  // 1) capture the canvas’s initial camera setup once, as our intro start:
+  const startConfig = useRef({
+    position: new THREE.Vector3(),
+    fov: camera.fov,
+  });
+  useEffect(() => {
+    // on mount, copy the camera’s current position & fov
+    startConfig.current.position.copy(camera.position);
+    startConfig.current.fov = camera.fov;
+  }, [camera]);
 
-  // intro timing
+  const smoothed = useRef(new THREE.Vector3());
   const [introDone, setIntroDone] = useState(false);
   const introTime = useRef(0);
 
-  // cache start / end configs
-  const {
-    startPos,
-    startFov,
-    endFov,
-    dollyDistance,
-    dollyHeight,
-    introDuration,
-  } = useMemo(
+  // end-of-intro “follow” config:
+  const { endFov, dollyDistance, dollyHeight, introDuration } = useMemo(
     () => ({
-      // where the camera begins:
-      startPos: new THREE.Vector3(0, 80, 250),
-      startFov: 80,
-      // final camera FOV
-      endFov: 50,
-      // relative offset from player at end of intro
-      dollyDistance: 30,
-      dollyHeight: 6,
-      // how long intro lasts (seconds)
-      introDuration: 3,
+      endFov: 75, // your chosen final FOV
+      dollyDistance: 5, // how far behind the player
+      dollyHeight: 2, // how high above player
+      introDuration: 2, // seconds
     }),
     []
   );
@@ -128,53 +125,48 @@ export default function CameraFollow({ targetRef }) {
     const tRef = targetRef.current;
     if (!tRef) return;
 
-    // get player world pos
+    // read the player’s world position
     const p = tRef.translation();
     if (!p) return;
     const playerPos = new THREE.Vector3(p.x, p.y, p.z);
 
-    // 1) smooth the target pos
-    smoothed.current.lerp(playerPos, 1.2 * delta);
+    // smooth it:
+    smoothed.current.lerp(playerPos, Math.min(1, delta * 5));
 
-    // 2) compute the follower offset (behind the player)
+    // compute “behind” offset from player orientation:
     const rot = tRef.rotation();
     const quat = new THREE.Quaternion(rot.x, rot.y, rot.z, rot.w);
     const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(quat);
     const offset = forward.clone().multiplyScalar(-dollyDistance);
     offset.y = dollyHeight;
 
-    // 3) desired end‑of‑intro camera pos
     const desired = smoothed.current.clone().add(offset);
 
     if (!introDone) {
-      // accumulate intro time
+      // animate from captured start → desired
       introTime.current = Math.min(introTime.current + delta, introDuration);
       const t = introTime.current / introDuration;
-
-      // simple ease‑out cubic
       const ease = 1 - Math.pow(1 - t, 3);
 
-      // lerp camera position
-      camera.position.lerpVectors(startPos, desired, ease);
-
-      // lerp FOV
-      camera.fov = THREE.MathUtils.lerp(startFov, endFov, ease);
+      // lerp position
+      camera.position.lerpVectors(startConfig.current.position, desired, ease);
+      // lerp fov
+      camera.fov = THREE.MathUtils.lerp(startConfig.current.fov, endFov, ease);
       camera.updateProjectionMatrix();
 
       if (t >= 1) setIntroDone(true);
     } else {
-      // regular follow
+      // smooth follow
       camera.position.lerp(desired, 0.05);
-      // ensure FOV is back to endFov
       camera.fov += (endFov - camera.fov) * 0.05;
       camera.updateProjectionMatrix();
     }
 
-    // always look at a little ahead of the player
+    // always look slightly ahead / up
     const lookAt = smoothed.current
       .clone()
       .add(forward.clone().multiplyScalar(4))
-      .setY(smoothed.current.y + 2);
+      .setY(smoothed.current.y + 1);
     camera.lookAt(lookAt);
   });
 
