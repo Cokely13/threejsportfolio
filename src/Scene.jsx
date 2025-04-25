@@ -351,8 +351,8 @@ function Scene({
           rotation={[0, 0, 0]}
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
-        <FloatingLabel text="Skills" position={[-70, 20, 20]} />
-        <FloatingLabel text="About" position={[75, 30, 20]} />
+        <FloatingLabel text="Skills" position={[-70, 20, 15]} />
+        <FloatingLabel text="About" position={[80, 30, 15]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         <Chalkboard fadeIn={chalkboardVisible} />
