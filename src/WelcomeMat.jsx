@@ -5,6 +5,7 @@ import * as THREE from "three";
 
 export default function WelcomeMat({
   position = [0, 0.01, -20],
+  rotation = [0, 0, 0],
   width = 10,
   height = 4,
   color = "#ffeb3b",
@@ -57,7 +58,7 @@ export default function WelcomeMat({
   });
 
   return (
-    <group ref={groupRef} position={position}>
+    <group ref={groupRef} position={position} rotation={rotation}>
       {/* mat base */}
       <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[width, height]} />

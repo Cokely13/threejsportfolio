@@ -303,33 +303,33 @@ export default function AboutBuilding({
 
         {/* — DoorFrame (tweak these numbers) — */}
         <DoorFrame
-          position={[4, -0.2, -0.4]}
+          position={[4, -0.2, -0.48]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[1, 1, 1]}
         />
 
         {/* — Two windows (left & right) — */}
         <Window
-          position={[4, 5, 2.15]}
+          position={[4.1, 5, 2.15]}
           rotation={[0, Math.PI / 2, 0]}
-          scale={[1, 1, 0.1]}
+          scale={[0.5, 1, 0.1]}
         />
         <Window
-          position={[4, 5, -3]}
+          position={[4.1, 5, -3]}
           rotation={[0, Math.PI / 2, 0]}
-          scale={[1, 1, 0.1]}
+          scale={[0.5, 1, 0.1]}
         />
 
         {/* — Marquee above the door — */}
-        <Marquee
+        {/* <Marquee
           position={[4, 4.4, -0.45]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[1.5, 0.3, 0.1]}
-        />
+        /> */}
 
         {/* — Lanterns flanking the door — */}
         <Lantern position={[4, 2.5, 1]} rotation={[0, 0, 0]} />
-        <Lantern position={[4, 2.5, -1.8]} rotation={[0, 0, 0]} />
+        <Lantern position={[4, 2.5, -1.9]} rotation={[0, 0, 0]} />
 
         {/* — trigger‐zone sensor — */}
         <CuboidCollider

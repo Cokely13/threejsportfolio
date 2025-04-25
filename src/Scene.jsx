@@ -389,49 +389,55 @@ function Scene({
           arrowColor="#ffffff"
         /> */}
         <WelcomeMat
-          position={[-15, 0.01, -5.5]}
-          width={4}
-          height={5}
+          position={[-16.3, 0.01, -5.5]}
+          rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+          width={2.3}
+          height={8.5}
           color="#ffeb3b"
           ringColor="#ffee58"
           thickness={0.3}
         />
         <WelcomeMat
-          position={[-15, 0.01, -30.5]}
-          width={4}
-          height={5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[15, 0.01, -4.5]}
-          width={4}
-          height={5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[15, 0.01, -29.5]}
-          width={4}
-          height={5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[78, 9, 12]}
-          width={6}
+          position={[-16, 0.1, -30.5]}
+          rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+          width={2.3}
           height={8}
           color="#ffeb3b"
           ringColor="#ffee58"
           thickness={0.3}
         />
         <WelcomeMat
-          position={[1, 9, -82]}
-          width={5}
-          height={6}
+          position={[16.2, 0.01, -4.5]}
+          rotation={[Math.PI / 2, 0, Math.PI / 2]}
+          width={2.3}
+          height={8.5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[16.2, 0.01, -29.5]}
+          rotation={[Math.PI / 2, 0, Math.PI / 2]}
+          width={2}
+          height={8.5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[77.6, 12.2, 12]}
+          rotation={[Math.PI / 2, 0, Math.PI / 2]}
+          width={7}
+          height={8.5}
+          color="#ffeb3b"
+          ringColor="#ffee58"
+          thickness={0.3}
+        />
+        <WelcomeMat
+          position={[1, 9, -82.8]}
+          rotation={[Math.PI / 2, 0, 0]}
+          width={2}
+          height={8.2}
           color="#ffeb3b"
           ringColor="#ffee58"
           thickness={0.3}
