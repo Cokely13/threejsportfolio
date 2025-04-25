@@ -398,7 +398,7 @@ function Scene({
           thickness={0.3}
         />
         <WelcomeMat
-          position={[-16, 0.1, -30.5]}
+          position={[-16.4, 0.1, -30.5]}
           rotation={[Math.PI / 2, 0, -Math.PI / 2]}
           width={2.3}
           height={8}
