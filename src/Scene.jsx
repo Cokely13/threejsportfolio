@@ -39,6 +39,10 @@ import Platform from "./Platform";
 import Platform2 from "./Platform2";
 import PathGuide from "./PathGuide";
 import WelcomeMat from "./WelcomeMat";
+import Project1 from "./Project1";
+import Project2 from "./Project2";
+import Project3 from "./Project3";
+import Project4 from "./Project4";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -203,7 +207,7 @@ function Scene({
           scale={[6, 8, 8]}
         />
         {/* Projects - 4 buildings after Cross */}
-        <Building
+        {/* <Building
           position={[-20, 0, -30]}
           rotation={[0, 0, 0]}
           color="#e74c3c"
@@ -211,29 +215,60 @@ function Scene({
           playerRef={playerRef}
           // onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
           showDebug={true}
+        /> */}
+        <Project1
+          position={[-20, 0, -30]}
+          rotation={[0, 0, 0]}
+          color="#e74c3c"
+          project={PROJECTS.HyroxTrack}
+          playerRef={playerRef}
+          onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
+          showDebug={true}
         />
-        <Building
+        {/* <Building
           position={[-20, 0, -5]}
           color="blue"
           project={PROJECTS.PopcornPair}
           showDebug={true}
           playerRef={playerRef}
           // onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
+        /> */}
+        <Project2
+          position={[-20, 0, -5]}
+          color="blue"
+          project={PROJECTS.PopcornPair}
+          showDebug={true}
+          playerRef={playerRef}
+          onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
         />
-        <Building
+        <Project3
           position={[20, 0, -30]}
           rotation={[0, Math.PI, 0]}
           color="#27ae60"
           project={PROJECTS.NewHorizons}
-          // onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
+          onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
         />
-        <Building
+        {/* <Building
+        //   position={[20, 0, -30]}
+        //   rotation={[0, Math.PI, 0]}
+        //   color="#27ae60"
+        //   project={PROJECTS.NewHorizons}
+        // onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
+        // /> */}
+        <Project4
           position={[20, 0, -5]}
           rotation={[0, Math.PI, 0]}
           color="yellow"
           project={PROJECTS.PlaylistBattle}
           onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
         />
+        {/* <Building
+          position={[20, 0, -5]}
+          rotation={[0, Math.PI, 0]}
+          color="yellow"
+          project={PROJECTS.PlaylistBattle}
+          onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
+        /> */}
         <Skill
           label="JavaScript"
           position={[-60, 10, 17]}
