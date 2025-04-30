@@ -225,12 +225,144 @@
 // }
 
 // src/AboutBuilding.jsx
+// import React, { useEffect, useRef } from "react";
+// import { useGLTF, useTexture } from "@react-three/drei";
+// import { RigidBody, CuboidCollider } from "@react-three/rapier";
+// import * as THREE from "three";
+
+// // your new decorative pieces
+// import DoorFrame from "./DoorFrame";
+// import Window from "./Window";
+// import Lantern from "./Lantern";
+// import Marquee from "./Marquee";
+
+// export default function AboutBuilding({
+//   position = [0, 0, 0],
+//   rotation = [0, 0, 0],
+//   scale = [3, 2, 4],
+//   onEnter,
+// }) {
+//   // 1) load model
+//   const { scene } = useGLTF("/models/firstBuild.glb");
+//   const sceneRef = useRef();
+
+//   // 2) load PBR textures (unchanged)
+//   const [wallColorMap, wallNormalMap, wallRoughnessMap] = useTexture([
+//     "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_Color.jpg",
+//     "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_NormalDX.jpg",
+//     "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_Roughness.jpg",
+//   ]);
+//   const [roofColorMap, roofNormalMap, roofRoughnessMap] = useTexture([
+//     "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_Color.jpg",
+//     "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_NormalDX.jpg",
+//     "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_Roughness.jpg",
+//   ]);
+
+//   // 3) set wrapping & tiling
+//   [wallColorMap, wallNormalMap, wallRoughnessMap].forEach((t) => {
+//     t.wrapS = t.wrapT = THREE.RepeatWrapping;
+//     t.repeat.set(4, 4);
+//   });
+//   [roofColorMap, roofNormalMap, roofRoughnessMap].forEach((t) => {
+//     t.wrapS = t.wrapT = THREE.RepeatWrapping;
+//     t.repeat.set(6, 6);
+//   });
+
+//   // 4) build materials
+//   const wallMaterial = new THREE.MeshStandardMaterial({
+//     map: wallColorMap,
+//     normalMap: wallNormalMap,
+//     roughnessMap: wallRoughnessMap,
+//     roughness: 1,
+//     metalness: 0,
+//   });
+//   const roofMaterial = new THREE.MeshStandardMaterial({
+//     map: roofColorMap,
+//     normalMap: roofNormalMap,
+//     roughnessMap: roofRoughnessMap,
+//     roughness: 1,
+//     metalness: 0,
+//   });
+
+//   // 5) apply materials on mount
+//   useEffect(() => {
+//     scene.traverse((c) => {
+//       if (!c.isMesh) return;
+//       c.castShadow = c.receiveShadow = true;
+//       if (c.name.toLowerCase().includes("roof")) c.material = roofMaterial;
+//       else c.material = wallMaterial;
+//       c.material.needsUpdate = true;
+//     });
+//   }, [scene, wallMaterial, roofMaterial]);
+
+//   return (
+//     <group position={position} rotation={rotation} scale={scale}>
+//       <RigidBody type="fixed" colliders={false}>
+//         {/* — your building shell — */}
+//         <primitive ref={sceneRef} object={scene} castShadow />
+
+//         {/* — DoorFrame (tweak these numbers) — */}
+//         <DoorFrame
+//           position={[4, -0.2, -0.48]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[1, 1, 1]}
+//         />
+
+//         {/* — Two windows (left & right) — */}
+//         <Window
+//           position={[4.1, 5, 2.15]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[0.5, 1, 0.1]}
+//         />
+//         <Window
+//           position={[4.1, 5, -3]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[0.5, 1, 0.1]}
+//         />
+
+//         {/* — Marquee above the door — */}
+//         {/* <Marquee
+//           position={[4, 4.4, -0.45]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[1.5, 0.3, 0.1]}
+//         /> */}
+
+//         {/* — Lanterns flanking the door — */}
+//         <Lantern position={[4, 2.5, 1]} rotation={[0, 0, 0]} />
+//         <Lantern position={[4, 2.5, -1.9]} rotation={[0, 0, 0]} />
+
+//         {/* — trigger‐zone sensor — */}
+//         <CuboidCollider
+//           sensor
+//           args={[3, 3, 3]}
+//           position={[0, 2, 1]}
+//           onIntersectionEnter={({ other }) => {
+//             if (other.rigidBodyObject?.name === "player") onEnter();
+//           }}
+//         />
+
+//         {/* — debug wireframe for collider — */}
+//         <mesh>
+//           <boxGeometry args={[3 * 2, 3 * 2, 3 * 2]} />
+//           <meshBasicMaterial
+//             color="hotpink"
+//             wireframe
+//             transparent
+//             opacity={0.3}
+//           />
+//         </mesh>
+//       </RigidBody>
+//     </group>
+//   );
+// }
+
+// AboutBuilding.jsx
 import React, { useEffect, useRef } from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import * as THREE from "three";
 
-// your new decorative pieces
+// decorative pieces
 import DoorFrame from "./DoorFrame";
 import Window from "./Window";
 import Lantern from "./Lantern";
@@ -242,73 +374,53 @@ export default function AboutBuilding({
   scale = [3, 2, 4],
   onEnter,
 }) {
-  // 1) load model
+  const ref = useRef();
   const { scene } = useGLTF("/models/firstBuild.glb");
-  const sceneRef = useRef();
 
-  // 2) load PBR textures (unchanged)
-  const [wallColorMap, wallNormalMap, wallRoughnessMap] = useTexture([
-    "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_Color.jpg",
-    "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_NormalDX.jpg",
-    "/textures/MixConcrete-JPG/Concrete042A_2K-JPG_Roughness.jpg",
-  ]);
-  const [roofColorMap, roofNormalMap, roofRoughnessMap] = useTexture([
-    "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_Color.jpg",
-    "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_NormalDX.jpg",
-    "/textures/mixedRoofTile-JPG/RoofingTiles010_2K-JPG_Roughness.jpg",
-  ]);
+  // Simple two-color scheme: base vs. roof
+  const baseMaterial = useRef(
+    new THREE.MeshStandardMaterial({
+      color: "#BBBBBB",
+      roughness: 1,
+      metalness: 0,
+    })
+  ).current;
+  const roofMaterial = useRef(
+    new THREE.MeshStandardMaterial({
+      color: "#333333",
+      roughness: 1,
+      metalness: 0,
+    })
+  ).current;
 
-  // 3) set wrapping & tiling
-  [wallColorMap, wallNormalMap, wallRoughnessMap].forEach((t) => {
-    t.wrapS = t.wrapT = THREE.RepeatWrapping;
-    t.repeat.set(4, 4);
-  });
-  [roofColorMap, roofNormalMap, roofRoughnessMap].forEach((t) => {
-    t.wrapS = t.wrapT = THREE.RepeatWrapping;
-    t.repeat.set(6, 6);
-  });
-
-  // 4) build materials
-  const wallMaterial = new THREE.MeshStandardMaterial({
-    map: wallColorMap,
-    normalMap: wallNormalMap,
-    roughnessMap: wallRoughnessMap,
-    roughness: 1,
-    metalness: 0,
-  });
-  const roofMaterial = new THREE.MeshStandardMaterial({
-    map: roofColorMap,
-    normalMap: roofNormalMap,
-    roughnessMap: roofRoughnessMap,
-    roughness: 1,
-    metalness: 0,
-  });
-
-  // 5) apply materials on mount
+  // Apply baseMaterial to "Cube" and roofMaterial to "Cube001"
   useEffect(() => {
     scene.traverse((c) => {
       if (!c.isMesh) return;
       c.castShadow = c.receiveShadow = true;
-      if (c.name.toLowerCase().includes("roof")) c.material = roofMaterial;
-      else c.material = wallMaterial;
+      if (c.name === "Cube") {
+        c.material = baseMaterial;
+      } else if (c.name === "Cube001") {
+        c.material = roofMaterial;
+      }
       c.material.needsUpdate = true;
     });
-  }, [scene, wallMaterial, roofMaterial]);
+  }, [scene, baseMaterial, roofMaterial]);
 
   return (
     <group position={position} rotation={rotation} scale={scale}>
-      <RigidBody type="fixed" colliders={false}>
-        {/* — your building shell — */}
-        <primitive ref={sceneRef} object={scene} castShadow />
+      <RigidBody ref={ref} type="fixed" colliders={false}>
+        {/* Building shell */}
+        <primitive object={scene} castShadow />
 
-        {/* — DoorFrame (tweak these numbers) — */}
+        {/* Door frame */}
         <DoorFrame
           position={[4, -0.2, -0.48]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[1, 1, 1]}
         />
 
-        {/* — Two windows (left & right) — */}
+        {/* Windows */}
         <Window
           position={[4.1, 5, 2.15]}
           rotation={[0, Math.PI / 2, 0]}
@@ -320,18 +432,18 @@ export default function AboutBuilding({
           scale={[0.5, 1, 0.1]}
         />
 
-        {/* — Marquee above the door — */}
+        {/* Marquee above door */}
         {/* <Marquee
           position={[4, 4.4, -0.45]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[1.5, 0.3, 0.1]}
         /> */}
 
-        {/* — Lanterns flanking the door — */}
+        {/* Lanterns */}
         <Lantern position={[4, 2.5, 1]} rotation={[0, 0, 0]} />
         <Lantern position={[4, 2.5, -1.9]} rotation={[0, 0, 0]} />
 
-        {/* — trigger‐zone sensor — */}
+        {/* Trigger collider */}
         <CuboidCollider
           sensor
           args={[3, 3, 3]}
@@ -341,9 +453,9 @@ export default function AboutBuilding({
           }}
         />
 
-        {/* — debug wireframe for collider — */}
-        <mesh>
-          <boxGeometry args={[3 * 2, 3 * 2, 3 * 2]} />
+        {/* Debug collider visualization */}
+        <mesh position={[0, 2, 1]}>
+          <boxGeometry args={[6, 6, 6]} />
           <meshBasicMaterial
             color="hotpink"
             wireframe

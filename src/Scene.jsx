@@ -43,6 +43,8 @@ import Project1 from "./Project1";
 import Project2 from "./Project2";
 import Project3 from "./Project3";
 import Project4 from "./Project4";
+import Seesaw from "./Seesaw";
+import SkeeBall from "./Skeeball";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -196,16 +198,21 @@ function Scene({
           scale={[10, 11, 9]} // your desired X/Y/Z scale
         /> */}
         <ContactBuilding
-          position={[0, 9, -90]} // 2 = height of platform + building base
+          position={[0, 9.4, -90]} // 2 = height of platform + building base
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         />
         <Platform2
+          position={[0, 0, -55]}
+          rotation={[0, -Math.PI / 2, 0]}
+          scale={[8, 8, 10]}
+        />
+        {/* <Platform
           position={[0, 0, -65]}
           rotation={[0, -Math.PI / 2, 0]}
-          scale={[6, 8, 8]}
-        />
+          scale={[8, 8, 10]}
+        /> */}
         {/* Projects - 4 buildings after Cross */}
         {/* <Building
           position={[-20, 0, -30]}
@@ -225,14 +232,6 @@ function Scene({
           onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
           showDebug={true}
         />
-        {/* <Building
-          position={[-20, 0, -5]}
-          color="blue"
-          project={PROJECTS.PopcornPair}
-          showDebug={true}
-          playerRef={playerRef}
-          // onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
-        /> */}
         <Project2
           position={[-20, 0, -5]}
           color="blue"
@@ -248,13 +247,6 @@ function Scene({
           project={PROJECTS.NewHorizons}
           onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
         />
-        {/* <Building
-        //   position={[20, 0, -30]}
-        //   rotation={[0, Math.PI, 0]}
-        //   color="#27ae60"
-        //   project={PROJECTS.NewHorizons}
-        // onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
-        // /> */}
         <Project4
           position={[20, 0, -5]}
           rotation={[0, Math.PI, 0]}
@@ -262,16 +254,9 @@ function Scene({
           project={PROJECTS.PlaylistBattle}
           onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
         />
-        {/* <Building
-          position={[20, 0, -5]}
-          rotation={[0, Math.PI, 0]}
-          color="yellow"
-          project={PROJECTS.PlaylistBattle}
-          onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
-        /> */}
         <Skill
           label="JavaScript"
-          position={[-60, 10, 17]}
+          position={[-70, 10, 20]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -283,7 +268,7 @@ function Scene({
         />
         <Skill
           label="PostgreSQL"
-          position={[-65, 10, 26]}
+          position={[-70, 10, 0]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -295,7 +280,7 @@ function Scene({
         />
         <Skill
           label="Express"
-          position={[-72, 10, 18]}
+          position={[-70, 10, 11]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -307,7 +292,7 @@ function Scene({
         />
         <Skill
           label="React"
-          position={[-63, 10, 10]}
+          position={[-78, 10, -3]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -319,7 +304,7 @@ function Scene({
         />
         <Skill
           label="Node"
-          position={[-79, 10, 25]}
+          position={[-78, 10, 25]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -331,7 +316,7 @@ function Scene({
         />
         <Skill
           label="CSS"
-          position={[-82, 10, 16]}
+          position={[-84, 10, 16]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -343,7 +328,7 @@ function Scene({
         />
         <Skill
           label="Three.js"
-          position={[-74, 10, 8]}
+          position={[-84, 10, 8]}
           playerRef={playerRef}
           onDrop={() => {
             if (!showChalkboard) {
@@ -387,13 +372,13 @@ function Scene({
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 15]} />
-        <FloatingLabel text="About" position={[80, 30, 15]} />
+        <FloatingLabel text="About" position={[80, 35, 15]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
         <SignPost position={[-12, 0, 20]} text="Projects" />
         <Chalkboard fadeIn={chalkboardVisible} />
         <PittLabel playerRef={playerRef} />
         <SignPost
-          position={[-30, 0, 35]}
+          position={[-30, 0, 15]}
           text="Skills"
           rotation={[0, Math.PI / 4, 0]}
         />
@@ -469,16 +454,25 @@ function Scene({
           thickness={0.3}
         />
         <WelcomeMat
-          position={[1, 9, -82.8]}
+          position={[1, 11, -82.8]}
           rotation={[Math.PI / 2, 0, 0]}
-          width={2}
-          height={8.2}
+          width={1.8}
+          height={4}
           color="#ffeb3b"
           ringColor="#ffee58"
           thickness={0.3}
         />
+        {/* <Seesaw
+          playerRef={playerRef}
+          position={[-50, 0, 55]}
+          width={50}
+          length={5}
+          pivotHeight={1}
+          maxAngle={Math.PI / 6}
+        /> */}
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
+        <SkeeBall position={[-40, 0, 50]} />
         <FadeInOverlay />
         {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />

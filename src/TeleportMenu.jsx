@@ -14,10 +14,10 @@ export default function TeleportMenu({ playerRef }) {
   return (
     <div className="teleport-menu">
       <button onClick={() => teleport(0, 1, 115)}>Home</button>
-      <button onClick={() => teleport(50, 1, 45)}>About</button>
+      <button onClick={() => teleport(50, 5, 45)}>About</button>
       <button onClick={() => teleport(-50, 1, 65)}>Skills</button>
-      <button onClick={() => teleport(0, 1, 0)}>Projects</button>
-      <button onClick={() => teleport(0, 1, -60)}>Contact</button>
+      <button onClick={() => teleport(0, 5, 0)}>Projects</button>
+      <button onClick={() => teleport(0, 5, -60)}>Contact</button>
     </div>
   );
 }

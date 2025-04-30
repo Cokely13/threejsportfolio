@@ -63,29 +63,29 @@ export default function ContactBuilding({
         rotation={[0, -Math.PI / 2, 0]}
       />
       <DoorFrame
-        position={[1, 9, -83]}
+        position={[1, 9.0, -83]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       />
 
       {/* — Two windows (left & right) — */}
       <Window
-        position={[-5, 15, -81.8]}
+        position={[-5, 14, -81.8]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 0.1]}
       />
       <Window
-        position={[6, 15, -81.8]}
+        position={[6, 14, -81.8]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
       />
 
       {/* — Marquee above the door — */}
-      <Marquee
+      {/* <Marquee
         position={[0.8, 15, -81.5]}
         rotation={[0, 0, 0]}
         scale={[1.5, 0.3, 0.1]}
-      />
+      /> */}
 
       {/* — Lanterns flanking the door — */}
       <Lantern position={[4, 12, -82]} rotation={[0, 0, 0]} />

@@ -94,7 +94,7 @@ export default function Project1({
   const { scene } = useGLTF("/models/build2.glb");
   const style = {
     baseColor: "#7f8c8d",
-    roofColor: "#c0392b",
+    roofColor: "grey",
     trimColor: "#2c3e50",
     textColor: "#ecf0f1",
   };
@@ -102,7 +102,6 @@ export default function Project1({
   useEffect(() => {
     scene.traverse((child) => {
       if (!child.isMesh) return;
-      console.log("Mesh name:", child.name);
       let color;
       switch (child.name) {
         case "Cube":

@@ -101,7 +101,6 @@ export default function Project2({
   useEffect(() => {
     scene.traverse((child) => {
       if (!child.isMesh) return;
-      console.log("Mesh name:", child.name);
       let color;
       switch (child.name) {
         case "Cube":
