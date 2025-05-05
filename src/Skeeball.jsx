@@ -209,29 +209,19 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
 
       <CuboidCollider
         sensor
-        // args are [halfWidth, halfHeight, halfDepth]
-        args={[
-          (rampWidth + 10.5) / 2, // half of the wall’s total width
-          wallHeight / 2, // half the wall’s height
-          3 / 2, // half of the 3-unit deep sensor
-        ]}
-        // place it just in front of the wall’s front face:
-        position={[
-          0,
-          wallHeight / 2,
-          hoopZOffset + wallThickness / 2 + 25 - 3 / 2,
-        ]}
-        onIntersectionEnter={({ other }) => {
-          // whenever any dynamic ball enters, grab its id and respawn it
-          console.log("HEY!!!");
-          const id = other.rigidBodyObject.userData?.id;
-          if (id) {
-            removeBall(id);
-            // choose a new X for the respawn
-            const xs = [-3, 0, 3];
-            const x = xs[Math.floor(Math.random() * xs.length)];
-            spawnBall([x, rampHeight + 2, -rampLength]);
-          }
+        args={[(rampWidth + 10.5) / 2, wallHeight / 2, 3 / 2]}
+        position={[0, wallHeight / 2, hoopZOffset + 25 - 3 / 2]}
+        onIntersectionEnter={(e) => {
+          console.log("🏀 Miss sensor event:", e);
+          const ballId = e.rigidBody?.userData?.id;
+          if (!ballId) return; // again, only balls have an `id`
+          console.log("Missed ball:", ballId);
+          // remove _that_ ball and respawn just one
+          removeBall(ballId, [
+            Math.random() < 0.5 ? -3 : 3,
+            rampHeight + 2,
+            -rampLength,
+          ]);
         }}
       />
 
@@ -275,8 +265,11 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
             sensor
             args={[2.5, 1.5, 0.4]}
             position={[x, 1, hoopZOffset + 2]}
-            onIntersectionEnter={() => {
-              console.log("Points!", hoopPoints[idx]);
+            onIntersectionEnter={(e) => {
+              console.log("🏀 Hoop sensor event:", e);
+              const ballId = e.rigidBody?.userData?.id;
+              if (!ballId) return; // ignore anything without an id (i.e. your player)
+              console.log("Points!", hoopPoints[idx], "from ball", ballId);
               setScore((s) => s + hoopPoints[idx]);
               showPopup({
                 x,
