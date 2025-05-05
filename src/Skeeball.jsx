@@ -223,6 +223,7 @@
 // }
 
 // SkeeBall.jsx
+// SkeeBall.jsx
 import React, { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
@@ -232,7 +233,7 @@ import { v4 as uuidv4 } from "uuid";
 
 /**
  * A simple Skee-Ball mini-game: roll balls up a ramp into hoops to score.
- * Adds boundary walls to keep balls in area, scoring popups, and scoreboard visibility logic.
+ * Scoreboard floats above the ramp and only appears while inside the play area.
  */
 export default function SkeeBall({ position = [0, 0, 0] }) {
   const [balls, setBalls] = useState([]);
@@ -240,14 +241,15 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
   const [showScore, setShowScore] = useState(false);
   const [popups, setPopups] = useState([]);
   const didInit = useRef(false);
+  const inGame = useRef(false);
 
-  // spawn a new ball at given spawnPosition
+  // spawn a new ball
   function spawnBall(spawnPosition) {
     const id = uuidv4();
     setBalls((b) => [...b, { id, spawnPosition }]);
   }
 
-  // remove and respawn
+  // remove and schedule respawn
   function removeBall(id) {
     setBalls((b) => {
       const ball = b.find((x) => x.id === id);
@@ -256,7 +258,7 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
     });
   }
 
-  // show a floating +pts popup at x,y,z
+  // show floating +points
   function showPopup({ x, y, z, pts }) {
     const id = uuidv4();
     setPopups((p) => [...p, { id, x, y, z, pts }]);
@@ -276,6 +278,7 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
   const sideWallWidth = (rampWidth - entranceWidth) / 2 + 5;
   const entranceZ = -rampLength + 1 - 5;
 
+  // initial spawn
   useEffect(() => {
     if (didInit.current) return;
     didInit.current = true;
@@ -285,24 +288,57 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
     xs.forEach((x) => spawnBall([x, y, startZ]));
   }, []);
 
+  // compute world-space pos for the floating scoreboard
+  const scorePos = [0, rampHeight + 15, hoopZOffset + 15];
+
   return (
     <group position={position}>
-      {/* Entry sensor: show/hide and reset scoreboard */}
+      {/* Play-area sensor */}
       <CuboidCollider
         sensor
-        args={[(entranceWidth * 7) / 2, wallHeight / 2, 25]}
-        position={[0, wallHeight / 2, entranceZ + 16]}
-        onIntersectionEnter={() => setShowScore(true)}
+        args={[(entranceWidth * 7) / 2, wallHeight, 30]}
+        position={[0, wallHeight, entranceZ + 16]}
+        onIntersectionEnter={() => {
+          if (!inGame.current) {
+            inGame.current = true;
+            setShowScore(true);
+          }
+        }}
         onIntersectionExit={() => {
-          setShowScore(false);
-          setScore(0);
+          if (inGame.current) {
+            inGame.current = false;
+            setShowScore(false);
+            setScore(0);
+          }
         }}
       />
-      {/* Debug entrance sensor */}
-      <mesh position={[0, wallHeight / 2, entranceZ + 16]}>
-        <boxGeometry args={[entranceWidth * 7, wallHeight, 50]} />
+      {/* Debug sensor box */}
+      {/* <mesh position={[0, wallHeight / 2, entranceZ + 16]}>
+        <boxGeometry args={[entranceWidth * 7, wallHeight, 55]} />
         <meshBasicMaterial wireframe color="cyan" />
-      </mesh>
+      </mesh> */}
+
+      {/* Floating world-space scoreboard */}
+      {showScore && (
+        <group position={scorePos} rotation={[0, Math.PI, 0]}>
+          <Html transform occlude center>
+            <div
+              style={{
+                background: "rgba(0,0,0,0.6)",
+                padding: "8px 16px",
+                borderRadius: 4,
+                color: "white",
+                fontSize: "144px",
+                fontWeight: "bold",
+                pointerEvents: "none",
+              }}
+            >
+              Score: {score}
+            </div>
+          </Html>
+        </group>
+      )}
+
       {/* Ramp */}
       <RigidBody type="fixed" colliders="cuboid">
         <mesh
@@ -315,6 +351,7 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
           <meshStandardMaterial color="#888" />
         </mesh>
       </RigidBody>
+
       {/* Front walls with opening */}
       {[-1, 1].map((side) => (
         <RigidBody key={side} type="fixed" colliders="cuboid">
@@ -332,7 +369,8 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
           </mesh>
         </RigidBody>
       ))}
-      {/* Side and back walls unchanged */}
+
+      {/* Side/back walls */}
       {[-1, 1].map((side) => (
         <RigidBody key={`side-${side}`} type="fixed" colliders="cuboid">
           <mesh
@@ -355,7 +393,8 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
           <meshStandardMaterial color="#444" />
         </mesh>
       </RigidBody>
-      {/* Hoops and sensors unchanged */}
+
+      {/* Hoops & sensors */}
       {hoopX.map((x, idx) => (
         <group key={x}>
           <mesh
@@ -385,11 +424,18 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
             onIntersectionEnter={() => {
               console.log("Points!", hoopPoints[idx]);
               setScore((s) => s + hoopPoints[idx]);
+              showPopup({
+                x,
+                y: 2.5,
+                z: hoopZOffset + 2,
+                pts: hoopPoints[idx],
+              });
             }}
           />
         </group>
       ))}
-      {/* popups and balls unchanged */}
+
+      {/* Popups */}
       {popups.map(({ id, x, y, z, pts }) => (
         <Html key={id} position={[x, y, z]} center>
           <div
@@ -404,13 +450,8 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
           </div>
         </Html>
       ))}
-      {showScore && (
-        <Html position={[0, 2.5, hoopZOffset + 1]} center>
-          <div style={{ color: "white", fontSize: "24px", fontWeight: "bold" }}>
-            Score: {score}
-          </div>
-        </Html>
-      )}
+
+      {/* Balls */}
       {balls.map(({ id, spawnPosition }) => (
         <Ball
           key={id}
