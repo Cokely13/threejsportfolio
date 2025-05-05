@@ -73,6 +73,7 @@ export default function Player({ onProjectEnter, playerRef }) {
     <RigidBody
       ref={body}
       name="player"
+      userData={{ isPlayer: true }}
       restitution={0.1}
       friction={1}
       linearDamping={4}
