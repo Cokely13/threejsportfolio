@@ -3,7 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
-import * as THREE from "three";
+// import * as THREE from "three";
+import { PositionalAudio } from "@react-three/drei";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -21,6 +22,8 @@ export default function SkeeBall({
   const [ballsRemaining, setBallsRemaining] = useState(3);
   const [gameOver, setGameOver] = useState(false);
   const [showScore, setShowScore] = useState(false);
+  const scoreSound = useRef();
+  const missSound = useRef();
   const [popups, setPopups] = useState([]);
   const didInit = useRef(false);
   const inGame = useRef(false);
@@ -167,6 +170,23 @@ export default function SkeeBall({
           </div>
         </Html>
       )}
+      {/* attach a positional “ding” for scoring */}
+      <PositionalAudio
+        ref={scoreSound}
+        url="/sounds/ding.wav"
+        distance={5}
+        loop={false}
+        volume={0.5}
+      />
+
+      {/* attach a positional “whoosh” for misses */}
+      <PositionalAudio
+        ref={missSound}
+        url="/sounds/whoosh.wav"
+        distance={5}
+        loop={false}
+        volume={0.5}
+      />
       {/* Play-area sensor */}
       <CuboidCollider
         sensor
@@ -275,6 +295,7 @@ export default function SkeeBall({
           const ballId = e.rigidBody?.userData?.id;
           if (!ballId) return; // ignore non‐balls
           console.log("Front miss:", ballId);
+          missSound.current.play();
           removeBall(ballId);
           setBallsRemaining((n) => Math.max(0, n - 1));
         }}
@@ -318,6 +339,7 @@ export default function SkeeBall({
           const ballId = e.rigidBody?.userData?.id;
           if (!ballId) return;
           console.log("Missed ball:", ballId);
+          missSound.current.play();
           removeBall(ballId);
           setBallsRemaining((n) => Math.max(0, n - 1));
         }}
@@ -365,6 +387,7 @@ export default function SkeeBall({
 
               console.log("Hoop scored!", hoopPoints[idx], "pts");
               // setScore((s) => s + hoopPoints[idx]);
+              scoreSound.current.play();
               setScore((s) => s + hoopPoints[idx]);
               showPopup({
                 x,

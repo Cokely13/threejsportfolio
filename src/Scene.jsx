@@ -44,6 +44,7 @@ import Project3 from "./Project3";
 import Project4 from "./Project4";
 import Seesaw from "./Seesaw";
 import SkeeBall from "./Skeeball";
+import { PositionalAudio } from "@react-three/drei";
 
 const controlsMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -69,6 +70,7 @@ function Scene({
   rulesOpen = { rulesOpen },
 }) {
   const groundRef = useRef();
+  const fallSound = useRef();
   const ballRefs = useRef([]);
   const [animationName, setAnimationName] = useState("rig|Idle");
   const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
@@ -89,8 +91,12 @@ function Scene({
   useFrame(() => {
     if (playerRef.current) {
       const pos = playerRef.current.translation();
-      if (pos.y < -10) {
+      if (pos.y < -1) {
+        fallSound.current?.play();
+      }
+      if (pos.y < -15) {
         console.log("Player fell! Resetting...");
+
         playerRef.current.setTranslation({ x: 0, y: 20, z: 0 }, true); // 👈 Projects spawn point
         playerRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
         playerRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
@@ -145,6 +151,13 @@ function Scene({
   return (
     <>
       <KeyboardControls map={controlsMap}>
+        <PositionalAudio
+          ref={fallSound}
+          url="/sounds/fall.wav"
+          distance={10}
+          loop={false}
+          volume={0.8}
+        />
         <Wall />
         <GroundWithHole />
         <>

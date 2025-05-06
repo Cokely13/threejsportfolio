@@ -113,7 +113,7 @@ export default function ProjectInfoOverlay({ project, onClose }) {
     image,
   } = project;
 
-  console.log("project", project);
+  // console.log("project", project);
 
   // if no screenshots array, default to single `image`
   const slides = screenshots.length ? screenshots : [image];

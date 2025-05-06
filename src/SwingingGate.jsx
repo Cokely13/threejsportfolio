@@ -1,6 +1,4 @@
 // src/SwingingGate.jsx
-// src/SwingingGate.jsx
-// src/SwingingGate.jsx
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Text, RoundedBox } from "@react-three/drei";

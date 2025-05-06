@@ -446,7 +446,7 @@ export default function AboutBuilding({
         {/* Trigger collider */}
         <CuboidCollider
           sensor
-          args={[3, 3, 3]}
+          args={[5, 5, 5]}
           position={[0, 2, 1]}
           onIntersectionEnter={({ other }) => {
             if (other.rigidBodyObject?.name === "player") onEnter();
@@ -454,15 +454,15 @@ export default function AboutBuilding({
         />
 
         {/* Debug collider visualization */}
-        <mesh position={[0, 2, 1]}>
-          <boxGeometry args={[6, 6, 6]} />
+        {/* <mesh position={[0, 2, 1]}>
+          <boxGeometry args={[5, 5, 5]} />
           <meshBasicMaterial
             color="hotpink"
             wireframe
             transparent
             opacity={0.3}
           />
-        </mesh>
+        </mesh> */}
       </RigidBody>
     </group>
   );
