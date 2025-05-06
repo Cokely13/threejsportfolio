@@ -12,6 +12,7 @@ import AboutPopup from "./AboutPopup";
 import ProjectInfoOverlay from "./ProjectInfoOverlay";
 import TodoPopup from "./TodoPopup";
 import TeleportMenu from "./TeleportMenu";
+import GamesRulesPopup from "./GamesRulesPopup";
 import PortfolioView from "./PortfolioView";
 import "./styles.css";
 import "./preload";
@@ -21,6 +22,7 @@ export default function App() {
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [showTodoPopup, setShowTodoPopup] = useState(false);
+  const [showRulesPopup, setShowRulesPopup] = useState(false);
   const [viewMode, setViewMode] = useState("explore"); // "explore" or "portfolio"
   const playerRef = useRef();
 
@@ -98,6 +100,8 @@ export default function App() {
                   playerRef={playerRef}
                   setShowTodoPopup={setShowTodoPopup}
                   setShowAboutPopup={setShowAboutPopup}
+                  onEnterGameArea={() => setShowRulesPopup(true)}
+                  rulesOpen={showRulesPopup}
                 />
               </Physics>
             </Suspense>
@@ -106,6 +110,10 @@ export default function App() {
           <ContactPopup
             visible={showContactPopup}
             onClose={handleCloseContact}
+          />
+          <GamesRulesPopup // ← new popup
+            visible={showRulesPopup}
+            onClose={() => setShowRulesPopup(false)}
           />
           <AboutPopup visible={showAboutPopup} onClose={handleCloseAbout} />
           <ProjectInfoOverlay

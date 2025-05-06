@@ -1,27 +1,3 @@
-// // components/AboutPopup.jsx
-// import React from "react";
-// import "./AboutPopup.css";
-
-// export default function AboutPopup({ visible, onClose }) {
-//   if (!visible) return null;
-
-//   return (
-//     <div className="about-popup-overlay" onClick={onClose}>
-//       <div className="about-popup" onClick={(e) => e.stopPropagation()}>
-//         <h2>👋 About Me</h2>
-//         <ul>
-//           <li>JavaScript enthusiast since age 12</li>
-//           <li>Built 30+ React apps</li>
-//           <li>3x Open‑Source contributor</li>
-//           <li>Mountain biker & coffee snob ☕️</li>
-//           <li>Currently learning WebAssembly</li>
-//         </ul>
-//         <button onClick={onClose}>Close</button>
-//       </div>
-//     </div>
-//   );
-// }
-
 // components/AboutPopup.jsx
 import React from "react";
 import "./AboutPopup.css";

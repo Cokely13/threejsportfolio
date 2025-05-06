@@ -10,7 +10,11 @@ import { v4 as uuidv4 } from "uuid";
  * A simple Skee-Ball mini-game: roll balls up a ramp into hoops to score.
  * Scoreboard floats above the ramp and only appears while inside the play area.
  */
-export default function SkeeBall({ position = [0, 0, 0] }) {
+export default function SkeeBall({
+  position = [0, 0, 0],
+  onEnterGameArea,
+  rulesOpen,
+}) {
   const [balls, setBalls] = useState([]);
   const [record, setRecord] = useState({ name: "", score: 0 });
   const [score, setScore] = useState(0);
@@ -99,6 +103,7 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
           if (e.rigidBody?.userData?.isPlayer && !inGame.current) {
             inGame.current = true;
             setShowScore(true);
+            onEnterGameArea();
           }
         }}
         onIntersectionExit={(e) => {
@@ -118,7 +123,7 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
       />
 
       {/* Floating world-space scoreboard */}
-      {showScore && (
+      {showScore && !rulesOpen && (
         <group position={scorePos} rotation={[0, Math.PI, 0]}>
           <Html transform occlude center>
             <div

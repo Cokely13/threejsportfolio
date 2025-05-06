@@ -63,8 +63,10 @@ function Scene({
   playerRef,
   zoomLevel,
   roadMode,
+  onEnterGameArea,
   setShowTodoPopup,
   setShowAboutPopup,
+  rulesOpen = { rulesOpen },
 }) {
   const groundRef = useRef();
   const ballRefs = useRef([]);
@@ -472,7 +474,11 @@ function Scene({
         /> */}
         <MultiSignPost position={[0, 0, 80]} />
         <Roads position={[0, 4, 0]} />
-        <SkeeBall position={[-40, 0, 50]} />
+        <SkeeBall
+          position={[-40, 0, 50]}
+          onEnterGameArea={onEnterGameArea}
+          rulesOpen={rulesOpen}
+        />
         <FadeInOverlay />
         {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
         <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
