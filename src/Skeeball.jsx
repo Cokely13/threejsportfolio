@@ -266,10 +266,18 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
             args={[2.5, 1.5, 0.4]}
             position={[x, 1, hoopZOffset + 2]}
             onIntersectionEnter={(e) => {
-              console.log("🏀 Hoop sensor event:", e);
-              const ballId = e.rigidBody?.userData?.id;
-              if (!ballId) return; // ignore anything without an id (i.e. your player)
-              console.log("Points!", hoopPoints[idx], "from ball", ballId);
+              // 1. ignore non-ball bodies
+              const rb = e.rigidBody;
+              const ballId = rb?.userData?.id;
+              if (!ballId) return;
+
+              // 2. tally points + popup
+              console.log(
+                "🏀 Hoop score!",
+                hoopPoints[idx],
+                "pts from ball",
+                ballId
+              );
               setScore((s) => s + hoopPoints[idx]);
               showPopup({
                 x,
@@ -277,6 +285,14 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
                 z: hoopZOffset + 2,
                 pts: hoopPoints[idx],
               });
+
+              // 3. remove this ball and schedule *one* respawn at the front
+              //    exactly like your back-wall logic
+              removeBall(
+                ballId,
+                // respawn it at the same lane X, just in front of the ramp:
+                [x, rampHeight + 2, -rampLength]
+              );
             }}
           />
         </group>
