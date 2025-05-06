@@ -177,6 +177,35 @@ export default function SkeeBall({ position = [0, 0, 0] }) {
         </RigidBody>
       ))}
 
+      {/* Front‐opening “miss” sensor → lose a ball */}
+      <CuboidCollider
+        sensor
+        // half‐extents: [width/2, height/2, depth/2]
+        args={[
+          entranceWidth / 2, // half the opening width
+          wallHeight / 2, // half the wall height
+          1 / 2, // thin depth
+        ]}
+        // sit it flush with the front face of your walls:
+        position={[
+          0,
+          wallHeight / 2,
+          entranceZ - 11.5, // just outside the opening
+        ]}
+        onIntersectionEnter={(e) => {
+          const ballId = e.rigidBody?.userData?.id;
+          if (!ballId) return; // ignore non‐balls
+          console.log("Front miss:", ballId);
+          removeBall(ballId);
+          setBallsRemaining((n) => Math.max(0, n - 1));
+        }}
+      />
+      {/* Debug mesh so you can see exactly where the front sensor is */}
+      <mesh position={[0, wallHeight / 2, entranceZ - 11.5]}>
+        <boxGeometry args={[entranceWidth, wallHeight, 1]} />
+        <meshBasicMaterial wireframe color="blue" />
+      </mesh>
+
       {/* Side/back walls */}
       {[-1, 1].map((side) => (
         <RigidBody key={`side-${side}`} type="fixed" colliders="cuboid">
