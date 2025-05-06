@@ -19,6 +19,7 @@ export default function SkeeBall({
   const [record, setRecord] = useState({ name: "", score: 0 });
   const [score, setScore] = useState(0);
   const [ballsRemaining, setBallsRemaining] = useState(3);
+  const [gameOver, setGameOver] = useState(false);
   const [showScore, setShowScore] = useState(false);
   const [popups, setPopups] = useState([]);
   const didInit = useRef(false);
@@ -52,6 +53,26 @@ export default function SkeeBall({
       }
     }
   }, [ballsRemaining]);
+
+  useEffect(() => {
+    if (ballsRemaining === 0) {
+      setGameOver(true);
+    }
+  }, [ballsRemaining]);
+
+  function resetGame() {
+    // reset score & ballsRemaining
+    setScore(0);
+    setBallsRemaining(3);
+    setGameOver(false);
+    // clear all existing balls
+    setBalls([]);
+    // respawn 3 fresh balls
+    const startZ = -rampLength;
+    const y = rampHeight + 2;
+    const xs = [-3, 0, +3];
+    xs.forEach((x) => spawnBall([x, y, startZ]));
+  }
 
   // remove a ball immediately (no auto-respawn here)
   function removeBall(id) {
@@ -98,6 +119,54 @@ export default function SkeeBall({
 
   return (
     <group position={position}>
+      {/* ——— Game Over Overlay ——— */}
+      {gameOver && (
+        <Html fullscreen portal={document.body}>
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "rgba(0,0,0,0.8)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontSize: "2rem",
+              zIndex: 1000,
+            }}
+          >
+            <div style={{ marginBottom: "1rem" }}>Game Over!</div>
+            <div style={{ marginBottom: "2rem" }}>Want to play again?</div>
+            <div>
+              <button
+                onClick={resetGame}
+                style={{
+                  marginRight: "1rem",
+                  padding: "0.5rem 1rem",
+                  fontSize: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setGameOver(false)}
+                style={{
+                  padding: "0.5rem 1rem",
+                  fontSize: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </Html>
+      )}
       {/* Play-area sensor */}
       <CuboidCollider
         sensor

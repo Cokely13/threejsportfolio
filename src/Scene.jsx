@@ -6,7 +6,6 @@ import { Plane } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import Building from "./Building";
 import Player from "./Player";
-import Gate from "./Gate";
 import FadeInOverlay from "./FadeInOverlay";
 import Skill from "./Skill";
 import ContactBuilding from "./ContactBuilding";
@@ -174,8 +173,7 @@ function Scene({
             />
           </mesh>
         </>
-        {/* GATE
-        <Gate playerRef={playerRef} position={[0, 0, -10]} /> */}
+        {/* /* GATE */}
         <SwingingGate playerRef={playerRef} onEnter={onEnterWelcome} />
         <BouncyBall position={[2, 3, 80]} />
         {/* Contact Building (End of Main Road) */}
