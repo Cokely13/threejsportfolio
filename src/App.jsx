@@ -14,17 +14,29 @@ import TodoPopup from "./TodoPopup";
 import TeleportMenu from "./TeleportMenu";
 import GamesRulesPopup from "./GamesRulesPopup";
 import PortfolioView from "./PortfolioView";
+import WelcomePopup from "./WelcomePopup";
 import "./styles.css";
 import "./preload";
 
 export default function App() {
   const [activeProject, setActiveProject] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [showTodoPopup, setShowTodoPopup] = useState(false);
   const [showRulesPopup, setShowRulesPopup] = useState(false);
+  const [welcomeSeen, setWelcomeSeen] = useState(false);
   const [viewMode, setViewMode] = useState("explore"); // "explore" or "portfolio"
   const playerRef = useRef();
+
+  const features = [
+    "Explore 3D portfolio world",
+    "Visit Contact, About & Project areas",
+    "Play the Skee-Ball mini-game",
+    "Track your high-score leaderboard",
+    "Teleport between sections",
+    "And more surprises!",
+  ];
 
   // Helper to teleport the player
   const teleportPlayer = (x, y, z, yaw = 0) => {
@@ -101,11 +113,22 @@ export default function App() {
                   setShowTodoPopup={setShowTodoPopup}
                   setShowAboutPopup={setShowAboutPopup}
                   onEnterGameArea={() => setShowRulesPopup(true)}
+                  onEnterWelcome={() => {
+                    if (!welcomeSeen) {
+                      setShowWelcome(true);
+                      setWelcomeSeen(true);
+                    }
+                  }}
                   rulesOpen={showRulesPopup}
                 />
               </Physics>
             </Suspense>
           </Canvas>
+          <WelcomePopup
+            visible={showWelcome}
+            onClose={() => setShowWelcome(false)}
+            features={features}
+          />
 
           <ContactPopup
             visible={showContactPopup}

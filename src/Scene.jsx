@@ -61,6 +61,7 @@ function Scene({
   setShowContactPopup,
   showContactPopup,
   playerRef,
+  onEnterWelcome,
   zoomLevel,
   roadMode,
   onEnterGameArea,
@@ -175,7 +176,7 @@ function Scene({
         </>
         {/* GATE
         <Gate playerRef={playerRef} position={[0, 0, -10]} /> */}
-        <SwingingGate playerRef={playerRef} />
+        <SwingingGate playerRef={playerRef} onEnter={onEnterWelcome} />
         <BouncyBall position={[2, 3, 80]} />
         {/* Contact Building (End of Main Road) */}
         <spotLight

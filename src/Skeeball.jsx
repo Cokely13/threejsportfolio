@@ -357,7 +357,7 @@ function Ball({ id, spawnPosition, onFallOut }) {
       type="dynamic"
       colliders="ball"
       restitution={0.9}
-      friction={0.00001}
+      friction={0.00000001}
       position={spawnPosition}
       userData={{ id }}
     >
