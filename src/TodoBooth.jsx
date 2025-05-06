@@ -8,8 +8,8 @@ export default function TodoBooth({
   playerRef,
   onEnter,
   // you can override where the booth sits:
-  position = [-20, 0, 70],
-  rotation = [0, Math.PI / 2, 0],
+  position = [15, 0, 90],
+  rotation = [0, -0.55, 0],
   matWidth = 5,
   matHeight = 4,
 }) {

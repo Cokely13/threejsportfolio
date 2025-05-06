@@ -374,12 +374,13 @@ function Scene({
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 15]} />
+        <FloatingLabel text="SkeeBall" position={[-50, 30, 75]} />
         <FloatingLabel text="About" position={[80, 35, 15]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
-        <SignPost position={[-12, 0, 20]} text="Projects" />
+        {/* <SignPost position={[-12, 0, 20]} text="Projects" /> */}
         <Chalkboard fadeIn={chalkboardVisible} />
         <PittLabel playerRef={playerRef} />
-        <SignPost
+        {/* <SignPost
           position={[-30, 0, 15]}
           text="Skills"
           rotation={[0, Math.PI / 4, 0]}
@@ -395,7 +396,7 @@ function Scene({
           rotation={[0, -Math.PI / 6, 0]}
           style="warning" // Optional: add a style prop if you want to customize
         />
-        <SignPost position={[15, 0, -65]} text="Contact" />
+        <SignPost position={[15, 0, -65]} text="Contact" /> */}
         <TodoBooth
           playerRef={playerRef}
           onEnter={() => setShowTodoPopup(true)}
@@ -472,7 +473,7 @@ function Scene({
           pivotHeight={1}
           maxAngle={Math.PI / 6}
         /> */}
-        <MultiSignPost position={[0, 0, 80]} />
+        {/* <MultiSignPost position={[0, 0, 80]} /> */}
         <Roads position={[0, 4, 0]} />
         <SkeeBall
           position={[-40, 0, 50]}

@@ -72,6 +72,11 @@ export default function SkeeBall({
   const hoopX = [-rampWidth * 0.3, 0, rampWidth * 0.3];
   const hoopPoints = [10, 20, 30];
   const hoopZOffset = rampLength / 2 + 2;
+  const staggerSpacing = 6; // how far apart (in world units)
+  const hoopZBase = hoopZOffset + 5; // your original “hoopZOffset + 2”
+  const hoopZStagger = hoopX.map(
+    (_, idx) => hoopZBase + (idx - 1) * staggerSpacing
+  );
   const wallHeight = 3;
   const wallThickness = 0.2;
   const entranceWidth = 4;
@@ -259,7 +264,7 @@ export default function SkeeBall({
         <group key={x}>
           {/* ring mesh */}
           <mesh
-            position={[x, 1, hoopZOffset + 2]}
+            position={[x, 1, hoopZStagger[idx]]}
             rotation={[0, Math.PI, 0]}
             castShadow
           >
@@ -275,7 +280,7 @@ export default function SkeeBall({
             />
           </mesh>
           {/* debug box */}
-          <mesh position={[x, 1, hoopZOffset + 2]}>
+          <mesh position={[x, 1, hoopZStagger[idx]]}>
             <boxGeometry args={[2.5, 1.5, 0.4]} />
             <meshBasicMaterial wireframe color="hotpink" />
           </mesh>
@@ -283,7 +288,7 @@ export default function SkeeBall({
           <CuboidCollider
             sensor
             args={[2.5, 1.5, 0.4]}
-            position={[x, 1, hoopZOffset + 2]}
+            position={[x, 1, hoopZStagger[idx]]}
             onIntersectionEnter={(e) => {
               const rb = e.rigidBody;
               const ballId = rb?.userData?.id;
