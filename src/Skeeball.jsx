@@ -211,10 +211,10 @@ export default function SkeeBall({
         }}
       />
       {/* Debug mesh so you can see exactly where the front sensor is */}
-      <mesh position={[0, wallHeight / 2, entranceZ - 11.5]}>
+      {/* <mesh position={[0, wallHeight / 2, entranceZ - 11.5]}>
         <boxGeometry args={[entranceWidth, wallHeight, 1]} />
         <meshBasicMaterial wireframe color="blue" />
-      </mesh>
+      </mesh> */}
 
       {/* Side/back walls */}
       {[-1, 1].map((side) => (
@@ -254,10 +254,10 @@ export default function SkeeBall({
         }}
       />
       {/* Debug mesh */}
-      <mesh position={[0, wallHeight / 2, hoopZOffset + 25 - 3 / 2]}>
+      {/* <mesh position={[0, wallHeight / 2, hoopZOffset + 25 - 3 / 2]}>
         <boxGeometry args={[rampWidth + 10.5, wallHeight, 3]} />
         <meshBasicMaterial wireframe color="red" />
-      </mesh>
+      </mesh> */}
 
       {/* Hoops & sensors */}
       {hoopX.map((x, idx) => (
@@ -280,10 +280,10 @@ export default function SkeeBall({
             />
           </mesh>
           {/* debug box */}
-          <mesh position={[x, 1, hoopZStagger[idx]]}>
+          {/* <mesh position={[x, 1, hoopZStagger[idx]]}>
             <boxGeometry args={[2.5, 1.5, 0.4]} />
             <meshBasicMaterial wireframe color="hotpink" />
-          </mesh>
+          </mesh> */}
           {/* scoring sensor */}
           <CuboidCollider
             sensor
