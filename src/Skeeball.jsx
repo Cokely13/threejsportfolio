@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { PositionalAudio } from "@react-three/drei";
 import { v4 as uuidv4 } from "uuid";
 import { Edges } from "@react-three/drei";
+import GameOverPopup from "./GameOverPopup";
 
 /**
  * A simple Skee-Ball mini-game: roll balls up a ramp into hoops to score.
@@ -16,6 +17,8 @@ export default function SkeeBall({
   position = [0, 0, 0],
   onEnterGameArea,
   rulesOpen,
+  onGameOver,
+  resetTrigger,
 }) {
   const [balls, setBalls] = useState([]);
   const [record, setRecord] = useState({ name: "", score: 0 });
@@ -59,8 +62,14 @@ export default function SkeeBall({
   }, [ballsRemaining]);
 
   useEffect(() => {
+    if (resetTrigger > 0) {
+      resetGame();
+    }
+  }, [resetTrigger]);
+
+  useEffect(() => {
     if (ballsRemaining === 0) {
-      setGameOver(true);
+      onGameOver(true);
     }
   }, [ballsRemaining]);
 
@@ -68,7 +77,7 @@ export default function SkeeBall({
     // reset score & ballsRemaining
     setScore(0);
     setBallsRemaining(3);
-    setGameOver(false);
+    onGameOver(false);
     // clear all existing balls
     setBalls([]);
     // respawn 3 fresh balls
@@ -124,7 +133,7 @@ export default function SkeeBall({
   return (
     <group position={position}>
       {/* ——— Game Over Overlay ——— */}
-      {gameOver && (
+      {/* {gameOver && (
         <Html fullscreen portal={document.body}>
           <div
             style={{
@@ -170,7 +179,12 @@ export default function SkeeBall({
             </div>
           </div>
         </Html>
-      )}
+      )} */}
+      <GameOverPopup
+        visible={gameOver}
+        onYes={resetGame}
+        onNo={() => setGameOver(false)}
+      />
       {/* attach a positional “ding” for scoring */}
       <PositionalAudio
         ref={scoreSound}
@@ -247,7 +261,12 @@ export default function SkeeBall({
       )}
 
       {/* Ramp */}
-      <RigidBody type="fixed" colliders="cuboid">
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        // position={[0, rampHeight / 2, -rampLength / 2]}
+        // rotation={[-Math.PI / 6, 0, 0]}
+      >
         <mesh
           rotation={[-Math.PI / 6, 0, 0]}
           position={[0, rampHeight / 2, -rampLength / 2]}

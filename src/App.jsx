@@ -18,6 +18,7 @@ import WelcomePopup from "./WelcomePopup";
 import ProjectsPopup from "./ProjectsPopup";
 import AboutSectionPopup from "./AboutSectionPopup";
 import ContactSectionPopup from "./ContactSectionPopup";
+import GameOverPopup from "./GameOverPopup";
 import "./styles.css";
 import "./preload";
 
@@ -35,6 +36,8 @@ export default function App() {
   const [showTodoPopup, setShowTodoPopup] = useState(false);
   const [showRulesPopup, setShowRulesPopup] = useState(false);
   const [welcomeSeen, setWelcomeSeen] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(0);
   const [viewMode, setViewMode] = useState("explore"); // "explore" or "portfolio"
   const playerRef = useRef();
 
@@ -70,6 +73,11 @@ export default function App() {
     // Teleport to just outside the ContactBuilding
     teleportPlayer(-0, 4, -55, Math.PI);
   };
+
+  function handlePlayAgain() {
+    setGameOver(false);
+    setResetTrigger((t) => t + 1);
+  }
 
   const handleCloseAbout = () => {
     setShowAboutPopup(false);
@@ -149,6 +157,8 @@ export default function App() {
                   onEnterContact={handleEnterContact}
                   showContactMat={showContactMat}
                   onEnterGameArea={() => setShowRulesPopup(true)}
+                  onGameOver={setGameOver}
+                  resetTrigger={resetTrigger}
                   onEnterWelcome={() => {
                     if (!welcomeSeen) {
                       setShowWelcome(true);
@@ -174,6 +184,11 @@ export default function App() {
             visible={showRulesPopup}
             onClose={() => setShowRulesPopup(false)}
           />
+          <GameOverPopup
+            visible={gameOver}
+            onYes={handlePlayAgain}
+            onNo={() => setGameOver(false)}
+          />
           <AboutPopup visible={showAboutPopup} onClose={handleCloseAbout} />
           <ProjectInfoOverlay
             project={activeProject}
@@ -183,20 +198,6 @@ export default function App() {
             visible={showTodoPopup}
             onClose={() => setShowTodoPopup(false)}
           />
-          {/* <ProjectsPopup
-            visible={showProjects}
-            onClose={() => setShowProjects(false)}
-          />
-
-          <AboutSectionPopup
-            visible={showAboutSection}
-            onClose={() => setShowAboutSection(false)}
-          />
-
-          <ContactSectionPopup
-            visible={showContactSection}
-            onClose={() => setShowContactSection(false)}
-          /> */}
           <ProjectsPopup
             visible={showProjects}
             onClose={handleCloseProjectsSection}

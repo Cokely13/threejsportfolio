@@ -73,6 +73,8 @@ function Scene({
   onEnterProjects,
   showProjectsMat,
   onEnterAbout,
+  onGameOver = { onGameOver },
+  resetTrigger = { resetTrigger },
   showAboutMat,
   onEnterContact,
   showContactMat,
@@ -539,6 +541,8 @@ function Scene({
           position={[-40, 0, 50]}
           onEnterGameArea={onEnterGameArea}
           rulesOpen={rulesOpen}
+          onGameOver={onGameOver}
+          resetTrigger={resetTrigger}
         />
         <FadeInOverlay />
         {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
