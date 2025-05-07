@@ -1,0 +1,45 @@
+/* Scoreboard.css */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+.scoreboard {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 10px rgba(0, 255, 238, 0.7),
+    inset 0 0 5px rgba(0, 255, 238, 0.3);
+  font-family: "Orbitron", monospace;
+  color: #00ffeeb0;
+  text-align: center;
+  min-width: 240px;
+}
+
+.scoreboard h1 {
+  margin: 0;
+  font-size: 7rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px #00ffeeb0;
+}
+
+.scoreboard .stat {
+  margin: 0.5rem 0;
+  font-size: 6rem;
+}
+
+.scoreboard hr {
+  border: 0;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 255, 238, 0.8),
+    rgba(255, 0, 238, 0.8)
+  );
+  margin: 0.75rem 0;
+}
+
+.scoreboard .high-score {
+  font-size: 5rem;
+  color: #ff00f0;
+  text-shadow: 0 0 6px rgba(255, 0, 240, 0.8);
+}

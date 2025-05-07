@@ -8,6 +8,7 @@ import { PositionalAudio } from "@react-three/drei";
 import { v4 as uuidv4 } from "uuid";
 import { Edges } from "@react-three/drei";
 import GameOverPopup from "./GameOverPopup";
+import "./Scoreboard.css";
 
 /**
  * A simple Skee-Ball mini-game: roll balls up a ramp into hoops to score.
@@ -232,7 +233,7 @@ export default function SkeeBall({
       />
 
       {/* Floating world-space scoreboard */}
-      {showScore && !rulesOpen && (
+      {/* {showScore && !rulesOpen && (
         <group position={scorePos} rotation={[0, Math.PI, 0]}>
           <Html transform occlude center>
             <div
@@ -251,6 +252,22 @@ export default function SkeeBall({
               <div>Balls Remaining: {ballsRemaining}</div>
               <hr style={{ margin: "8px 0", borderColor: "white" }} />
               <div style={{ fontSize: "48px" }}>
+                Today’s High Score:
+                <br />
+                {record.name} — {record.score}
+              </div>
+            </div>
+          </Html>
+        </group>
+      )} */}
+      {showScore && !rulesOpen && (
+        <group position={scorePos} rotation={[0, Math.PI, 0]}>
+          <Html transform occlude center>
+            <div className="scoreboard">
+              <h1>Score: {score}</h1>
+              <p className="stat">Balls Remaining: {ballsRemaining}</p>
+              <hr />
+              <div className="high-score">
                 Today’s High Score:
                 <br />
                 {record.name} — {record.score}
@@ -329,28 +346,17 @@ export default function SkeeBall({
       {/* Front‐opening “miss” sensor → lose a ball */}
       <CuboidCollider
         sensor
-        // half‐extents: [width/2, height/2, depth/2]
-        args={[
-          entranceWidth / 2, // half the opening width
-          wallHeight / 2, // half the wall height
-          1 / 2, // thin depth
-        ]}
-        // sit it flush with the front face of your walls:
-        position={[
-          0,
-          wallHeight / 2,
-          entranceZ - 11.5, // just outside the opening
-        ]}
+        args={[entranceWidth / 2, wallHeight / 2, 1 / 2]}
+        position={[0, wallHeight / 2, entranceZ - 11.5]}
         onIntersectionEnter={(e) => {
           const ballId = e.rigidBody?.userData?.id;
           if (!ballId) return; // ignore non‐balls
-          console.log("Front miss:", ballId);
           missSound.current.play();
           removeBall(ballId);
           setBallsRemaining((n) => Math.max(0, n - 1));
         }}
       />
-      {/* Debug mesh so you can see exactly where the front sensor is */}
+
       {/* <mesh position={[0, wallHeight / 2, entranceZ - 11.5]}>
         <boxGeometry args={[entranceWidth, wallHeight, 1]} />
         <meshBasicMaterial wireframe color="blue" />
@@ -422,7 +428,7 @@ export default function SkeeBall({
         onIntersectionEnter={(e) => {
           const ballId = e.rigidBody?.userData?.id;
           if (!ballId) return;
-          console.log("Missed ball:", ballId);
+
           missSound.current.play();
           removeBall(ballId);
           setBallsRemaining((n) => Math.max(0, n - 1));
@@ -469,7 +475,6 @@ export default function SkeeBall({
               const ballId = rb?.userData?.id;
               if (!ballId) return;
 
-              console.log("Hoop scored!", hoopPoints[idx], "pts");
               // setScore((s) => s + hoopPoints[idx]);
               scoreSound.current.play();
               setScore((s) => s + hoopPoints[idx]);
@@ -525,7 +530,10 @@ export default function SkeeBall({
 function Ball({ id, spawnPosition, onFallOut }) {
   const ref = useRef();
   useFrame(() => {
-    if (ref.current.translation().y < -5) onFallOut();
+    if (ref.current) {
+      const { y } = ref.current.translation();
+      if (y < -5) onFallOut();
+    }
   });
   return (
     <RigidBody

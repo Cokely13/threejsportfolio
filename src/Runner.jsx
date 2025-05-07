@@ -14,7 +14,6 @@ export default function Runner({
 
   useEffect(() => {
     if (actions && Object.keys(actions).length > 0) {
-      console.log("Available animation keys:", Object.keys(actions));
       for (const clip in animations) {
         actions[animations[clip].name].loop = THREE.LoopRepeat;
       }
