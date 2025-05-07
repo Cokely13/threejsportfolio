@@ -3,9 +3,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
-// import * as THREE from "three";
+import * as THREE from "three";
 import { PositionalAudio } from "@react-three/drei";
 import { v4 as uuidv4 } from "uuid";
+import { Edges } from "@react-three/drei";
 
 /**
  * A simple Skee-Ball mini-game: roll balls up a ramp into hoops to score.
@@ -254,7 +255,20 @@ export default function SkeeBall({
           receiveShadow
         >
           <boxGeometry args={[rampWidth, rampHeight, rampLength]} />
-          <meshStandardMaterial color="#888" />
+          <meshPhysicalMaterial
+            color="lightblue"
+            transmission={0.9} // really let light pass through
+            transparent
+            opacity={0.25} // mostly clear
+            roughness={0}
+            metalness={0}
+            side={THREE.DoubleSide}
+          />
+          <Edges
+            scale={1.01}
+            threshold={15} // angle threshold for edges
+            color="darkgray"
+          />
         </mesh>
       </RigidBody>
 
@@ -265,13 +279,30 @@ export default function SkeeBall({
             position={[
               side * (entranceWidth / 2 + sideWallWidth / 2),
               wallHeight / 2 - 1,
-              entranceZ - 11,
+              entranceZ - 11.2,
             ]}
           >
             <boxGeometry
-              args={[sideWallWidth, wallHeight - 1, wallThickness]}
+              args={[sideWallWidth, wallHeight + 2, wallThickness]}
             />
-            <meshStandardMaterial color="#444" />
+            {/* <meshStandardMaterial color="#444" /> */}
+            {/* Glass material */}
+            <meshPhysicalMaterial
+              color="#e0f7fa"
+              transmission={0.9} // really let light pass through
+              transparent
+              opacity={0.25} // mostly clear
+              roughness={0}
+              metalness={0}
+              side={THREE.DoubleSide}
+            />
+
+            {/* Thin white outline */}
+            <Edges
+              scale={1.01}
+              threshold={15} // angle threshold for edges
+              color="white"
+            />
           </mesh>
         </RigidBody>
       ))}
@@ -317,16 +348,50 @@ export default function SkeeBall({
             ]}
           >
             <boxGeometry args={[wallThickness, wallHeight, rampLength + 46]} />
-            <meshStandardMaterial color="#444" />
+            {/* <meshStandardMaterial color="#444" /> */}
+            {/* Glass material */}
+            <meshPhysicalMaterial
+              color="#e0f7fa"
+              transmission={0.9} // really let light pass through
+              transparent
+              opacity={0.25} // mostly clear
+              roughness={0}
+              metalness={0}
+              side={THREE.DoubleSide}
+            />
+
+            {/* Thin white outline */}
+            <Edges
+              scale={1.01}
+              threshold={15} // angle threshold for edges
+              color="white"
+            />
           </mesh>
         </RigidBody>
       ))}
       <RigidBody type="fixed" colliders="cuboid">
         <mesh
-          position={[0, wallHeight / 2, hoopZOffset + wallThickness / 2 + 25]}
+          position={[0, wallHeight / 2, hoopZOffset + wallThickness / 2 + 25.1]}
         >
-          <boxGeometry args={[rampWidth + 10.5, wallHeight, wallThickness]} />
-          <meshStandardMaterial color="#444" />
+          <boxGeometry args={[rampWidth + 10, wallHeight, wallThickness]} />
+          {/* <meshStandardMaterial color="#444" /> */}
+          {/* Glass material */}
+          <meshPhysicalMaterial
+            color="#e0f7fa"
+            transmission={0.9} // really let light pass through
+            transparent
+            opacity={0.25} // mostly clear
+            roughness={0}
+            metalness={0}
+            side={THREE.DoubleSide}
+          />
+
+          {/* Thin white outline */}
+          <Edges
+            scale={1.01}
+            threshold={15} // angle threshold for edges
+            color="white"
+          />
         </mesh>
       </RigidBody>
 

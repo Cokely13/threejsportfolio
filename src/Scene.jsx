@@ -394,7 +394,7 @@ function Scene({
         />
         <FloatingLabel text="Projects" position={[0, 20, -10]} />
         <FloatingLabel text="Skills" position={[-70, 20, 15]} />
-        <FloatingLabel text="SkeeBall" position={[-50, 30, 75]} />
+        <FloatingLabel text="SkeeBall" position={[-40, 30, 75]} />
         <FloatingLabel text="About" position={[80, 35, 15]} />
         <FloatingLabel text="Contact" position={[0, 30, -80]} />
         {/* <SignPost position={[-12, 0, 20]} text="Projects" /> */}
