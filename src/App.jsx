@@ -25,8 +25,11 @@ export default function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showWelcome, setShowWelcome] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
+  const [showProjectsMat, setShowProjectsMat] = useState(true);
   const [showAboutSection, setShowAboutSection] = useState(false);
+  const [showAboutMat, setShowAboutMat] = useState(true);
   const [showContactSection, setShowContactSection] = useState(false);
+  const [showContactMat, setShowContactMat] = useState(true);
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [showTodoPopup, setShowTodoPopup] = useState(false);
@@ -80,6 +83,27 @@ export default function App() {
     teleportPlayer(0, 5, 0);
   };
 
+  const handleEnterProjects = () => {
+    setShowProjects(true);
+  };
+  // called when user closes the Projects popup
+  const handleCloseProjectsSection = () => {
+    setShowProjects(false);
+    setShowProjectsMat(false);
+  };
+
+  const handleEnterAbout = () => setShowAboutSection(true);
+  const handleCloseAboutSection = () => {
+    setShowAboutSection(false);
+    setShowAboutMat(false);
+  };
+
+  const handleEnterContact = () => setShowContactSection(true);
+  const handleCloseContactSection = () => {
+    setShowContactSection(false);
+    setShowContactMat(false);
+  };
+
   return (
     <div className="canvas-container">
       {/* only show the toggle for the *other* mode */}
@@ -118,9 +142,12 @@ export default function App() {
                   playerRef={playerRef}
                   setShowTodoPopup={setShowTodoPopup}
                   setShowAboutPopup={setShowAboutPopup}
-                  onEnterProjects={() => setShowProjects(true)}
-                  onEnterAboutSection={() => setShowAboutSection(true)}
-                  onEnterContactSection={() => setShowContactSection(true)}
+                  onEnterProjects={handleEnterProjects}
+                  showProjectsMat={showProjectsMat}
+                  onEnterAbout={handleEnterAbout}
+                  showAboutMat={showAboutMat}
+                  onEnterContact={handleEnterContact}
+                  showContactMat={showContactMat}
                   onEnterGameArea={() => setShowRulesPopup(true)}
                   onEnterWelcome={() => {
                     if (!welcomeSeen) {
@@ -156,7 +183,7 @@ export default function App() {
             visible={showTodoPopup}
             onClose={() => setShowTodoPopup(false)}
           />
-          <ProjectsPopup
+          {/* <ProjectsPopup
             visible={showProjects}
             onClose={() => setShowProjects(false)}
           />
@@ -169,6 +196,18 @@ export default function App() {
           <ContactSectionPopup
             visible={showContactSection}
             onClose={() => setShowContactSection(false)}
+          /> */}
+          <ProjectsPopup
+            visible={showProjects}
+            onClose={handleCloseProjectsSection}
+          />
+          <AboutSectionPopup
+            visible={showAboutSection}
+            onClose={handleCloseAboutSection}
+          />
+          <ContactSectionPopup
+            visible={showContactSection}
+            onClose={handleCloseContactSection}
           />
           <TeleportMenu playerRef={playerRef} />
         </>

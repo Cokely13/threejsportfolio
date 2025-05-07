@@ -8,7 +8,7 @@ export default function ProjectsPopup({ visible, onClose }) {
     <div className="projects-popup-overlay" onClick={onClose}>
       <div className="projects-popup" onClick={(e) => e.stopPropagation()}>
         <h2>📂 Projects</h2>
-        <ul>Check out the projects!</ul>
+        <ul>Enter any of the buildings for more details on each project!</ul>
         <button onClick={onClose}>Close</button>
       </div>
     </div>

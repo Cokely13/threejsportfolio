@@ -12,7 +12,7 @@ export default function ContactSectionPopup({ visible, onClose }) {
       >
         <h2>📬 Get In Touch</h2>
         <ul>
-          <li>Email: ryan.cokely@gmail.com</li>
+          <li>Head up the ramp and enter the building!</li>
           <li>
             GitHub:{" "}
             <a
@@ -23,7 +23,7 @@ export default function ContactSectionPopup({ visible, onClose }) {
               github.com/Cokely13
             </a>
           </li>
-          <li>Freelance: Available</li>
+          {/* <li>Freelance: Available</li> */}
         </ul>
         <button onClick={onClose}>Close</button>
       </div>

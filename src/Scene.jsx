@@ -71,8 +71,11 @@ function Scene({
   setShowAboutPopup,
   rulesOpen = { rulesOpen },
   onEnterProjects,
-  onEnterAboutSection,
-  onEnterContactSection,
+  showProjectsMat,
+  onEnterAbout,
+  showAboutMat,
+  onEnterContact,
+  showContactMat,
 }) {
   const groundRef = useRef();
   const fallSound = useRef();
@@ -491,30 +494,36 @@ function Scene({
           maxAngle={Math.PI / 6}
         /> */}
         {/* <MultiSignPost position={[0, 0, 80]} /> */}
-        <AreaMat
-          width={8}
-          height={4}
-          rotation={[0, 0, 0]}
-          position={[0, 0.1, -37]}
-          areaName={"Contact"}
-          onEnter={onEnterContactSection}
-        />
-        <AreaMat
-          width={8}
-          height={4}
-          rotation={[0, 0, 0]}
-          position={[0, 0.1, -3]}
-          areaName={"Projects"}
-          onEnter={onEnterProjects}
-        />
-        <AreaMat
-          width={8}
-          height={4}
-          position={[40, 0.1, 12]}
-          onEnter={onEnterAboutSection}
-          areaName={"About"}
-          textRotation={[-Math.PI / 2, 0, Math.PI]}
-        />
+        {showContactMat && (
+          <AreaMat
+            width={8}
+            height={4}
+            rotation={[0, 0, 0]}
+            position={[0, 0.1, -42]}
+            areaName={"Contact"}
+            onEnter={onEnterContact}
+          />
+        )}
+        {showProjectsMat && (
+          <AreaMat
+            width={8}
+            height={4}
+            rotation={[0, 0, 0]}
+            position={[0, 0.1, -3]}
+            areaName={"Projects"}
+            onEnter={onEnterProjects}
+          />
+        )}
+        {showAboutMat && (
+          <AreaMat
+            width={8}
+            height={4}
+            position={[40, 0.1, 12]}
+            onEnter={onEnterAbout}
+            areaName={"About"}
+            textRotation={[-Math.PI / 2, 0, Math.PI]}
+          />
+        )}
         <Roads position={[0, 4, 0]} />
         <EntryMat
           position={[0, 0.01, 130]}

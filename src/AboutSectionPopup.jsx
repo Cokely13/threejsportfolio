@@ -9,8 +9,8 @@ export default function AboutSectionPopup({ visible, onClose }) {
       <div className="about-section-popup" onClick={(e) => e.stopPropagation()}>
         <h2>👤 About This Section</h2>
         <p>
-          Here you can learn more about my background, skills, and the story
-          behind this portfolio. Feel free to explore all the details!
+          Head up the ramp to learn more about my background, and the story
+          behind this portfolio!
         </p>
         <button onClick={onClose}>Close</button>
       </div>
