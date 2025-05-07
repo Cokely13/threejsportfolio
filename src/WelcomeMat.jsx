@@ -8,7 +8,7 @@ export default function WelcomeMat({
   rotation = [0, 0, 0],
   width = 10,
   height = 4,
-  color = "#ffeb3b",
+  color = "#000000",
   ringColor = "#ffee58",
   thickness = 0.2,
   pulseSpeed = 2, // how fast it pulses
@@ -60,9 +60,13 @@ export default function WelcomeMat({
   return (
     <group ref={groupRef} position={position} rotation={rotation}>
       {/* mat base */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+      {/* <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[width, height]} />
         <meshStandardMaterial color={color} roughness={0.5} metalness={0.1} />
+      </mesh> */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.001, 0]}>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial color="#000000" roughness={0.5} metalness={0.1} />
       </mesh>
 
       {/* glowing rectangular frame */}
