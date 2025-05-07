@@ -1,0 +1,164 @@
+// import React, { useRef, useMemo } from "react";
+// import { useFrame } from "@react-three/fiber";
+// import * as THREE from "three";
+
+// export default function EntryMat({
+//   position = [0, 0.01, -20],
+//   rotation = [0, 0, 0],
+//   width = 10,
+//   height = 4,
+//   color = "#ffeb3b",
+//   ringColor = "#ffee58",
+//   thickness = 0.2,
+//   pulseSpeed = 2, // how fast it pulses
+//   pulseAmount = 0.05, // scale variation
+// }) {
+//   const groupRef = useRef();
+//   const frameRef = useRef();
+
+//   // 1) Build a rectangular frame shape with a hole
+//   const frameGeo = useMemo(() => {
+//     const shape = new THREE.Shape()
+//       .moveTo(-width / 2, -height / 2)
+//       .lineTo(-width / 2, height / 2)
+//       .lineTo(width / 2, height / 2)
+//       .lineTo(width / 2, -height / 2)
+//       .lineTo(-width / 2, -height / 2);
+
+//     const hole = new THREE.Path();
+//     const w2 = width / 2 - thickness;
+//     const h2 = height / 2 - thickness;
+//     hole
+//       .moveTo(-w2, -h2)
+//       .lineTo(-w2, h2)
+//       .lineTo(w2, h2)
+//       .lineTo(w2, -h2)
+//       .lineTo(-w2, -h2);
+
+//     shape.holes.push(hole);
+//     return new THREE.ShapeGeometry(shape);
+//   }, [width, height, thickness]);
+
+//   // 2) On every frame, pulse both the group scale and the frame emissive
+//   useFrame((state) => {
+//     const t = state.clock.getElapsedTime();
+//     const pulse = 1 + Math.sin(t * pulseSpeed) * pulseAmount;
+
+//     // scale the entire mat
+//     if (groupRef.current) {
+//       groupRef.current.scale.set(pulse, pulse, pulse);
+//     }
+
+//     // pulse the frame glow
+//     if (frameRef.current) {
+//       frameRef.current.material.emissiveIntensity =
+//         0.5 + Math.sin(t * pulseSpeed) * 0.3;
+//     }
+//   });
+
+//   return (
+//     <group ref={groupRef} position={position} rotation={rotation}>
+//       {/* mat base */}
+//       <mesh rotation={[-Math.PI / 2, 0, 0]}>
+//         <planeGeometry args={[width, height]} />
+//         <meshStandardMaterial color={color} roughness={0.5} metalness={0.1} />
+//       </mesh>
+
+//       {/* glowing rectangular frame */}
+//       <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={frameGeo} ref={frameRef}>
+//         <meshStandardMaterial
+//           color={ringColor}
+//           emissive={ringColor}
+//           emissiveIntensity={1}
+//           transparent
+//           opacity={0.8}
+//           side={THREE.DoubleSide}
+//         />
+//       </mesh>
+//     </group>
+//   );
+// }
+
+// EntryMat.jsx
+import React, { useRef, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import * as THREE from "three";
+
+export default function EntryMat({
+  position = [0, 0.01, -20],
+  rotation = [0, 0, 0],
+  width = 10,
+  height = 4,
+  thickness = 0.2,
+  pulseSpeed = 2,
+  pulseAmount = 0.05,
+  onEnter, // ← accept callback
+}) {
+  const groupRef = useRef();
+  const frameRef = useRef();
+
+  const frameGeo = useMemo(() => {
+    const shape = new THREE.Shape()
+      .moveTo(-width / 2, -height / 2)
+      .lineTo(-width / 2, height / 2)
+      .lineTo(width / 2, height / 2)
+      .lineTo(width / 2, -height / 2)
+      .closePath();
+    const hole = new THREE.Path();
+    const w2 = width / 2 - thickness;
+    const h2 = height / 2 - thickness;
+    hole
+      .moveTo(-w2, -h2)
+      .lineTo(-w2, h2)
+      .lineTo(w2, h2)
+      .lineTo(w2, -h2)
+      .closePath();
+    shape.holes.push(hole);
+    return new THREE.ShapeGeometry(shape);
+  }, [width, height, thickness]);
+
+  // pulse animation
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    const pulse = 1 + Math.sin(t * pulseSpeed) * pulseAmount;
+    groupRef.current?.scale.set(pulse, pulse, pulse);
+    if (frameRef.current)
+      frameRef.current.material.emissiveIntensity =
+        0.5 + Math.sin(t * pulseSpeed) * 0.3;
+  });
+
+  return (
+    <group ref={groupRef} position={position} rotation={rotation}>
+      {/* 1) the collider sensor sits at the same spot as your mat */}
+      <CuboidCollider
+        sensor
+        args={[width / 2, 0.1, height / 2]}
+        position={[0, 0.05, 0]}
+        onIntersectionEnter={(e) => {
+          if (e.rigidBody?.userData?.isPlayer) {
+            onEnter?.();
+          }
+        }}
+      />
+
+      {/* 2) the visible mat */}
+      {/* <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial color="#ffeb3b" roughness={0.5} metalness={0.1} />
+      </mesh>
+
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={frameGeo} ref={frameRef}>
+        <meshStandardMaterial
+          color="#ffee58"
+          emissive="#ffee58"
+          emissiveIntensity={1}
+          transparent
+          opacity={0.8}
+          side={THREE.DoubleSide}
+        />
+      </mesh> */}
+    </group>
+  );
+}

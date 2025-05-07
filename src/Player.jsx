@@ -78,7 +78,7 @@ export default function Player({ onProjectEnter, playerRef }) {
       friction={1}
       linearDamping={4}
       angularDamping={0.9}
-      position={[0, 5, 130]}
+      position={[0, 5, 140]}
       enabledRotations={[false, true, false]}
       colliders={false}
       onCollisionEnter={handleCollisionEnter}

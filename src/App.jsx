@@ -15,12 +15,18 @@ import TeleportMenu from "./TeleportMenu";
 import GamesRulesPopup from "./GamesRulesPopup";
 import PortfolioView from "./PortfolioView";
 import WelcomePopup from "./WelcomePopup";
+import ProjectsPopup from "./ProjectsPopup";
+import AboutSectionPopup from "./AboutSectionPopup";
+import ContactSectionPopup from "./ContactSectionPopup";
 import "./styles.css";
 import "./preload";
 
 export default function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
+  const [showAboutSection, setShowAboutSection] = useState(false);
+  const [showContactSection, setShowContactSection] = useState(false);
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [showTodoPopup, setShowTodoPopup] = useState(false);
@@ -112,6 +118,9 @@ export default function App() {
                   playerRef={playerRef}
                   setShowTodoPopup={setShowTodoPopup}
                   setShowAboutPopup={setShowAboutPopup}
+                  onEnterProjects={() => setShowProjects(true)}
+                  onEnterAboutSection={() => setShowAboutSection(true)}
+                  onEnterContactSection={() => setShowContactSection(true)}
                   onEnterGameArea={() => setShowRulesPopup(true)}
                   onEnterWelcome={() => {
                     if (!welcomeSeen) {
@@ -146,6 +155,20 @@ export default function App() {
           <TodoPopup
             visible={showTodoPopup}
             onClose={() => setShowTodoPopup(false)}
+          />
+          <ProjectsPopup
+            visible={showProjects}
+            onClose={() => setShowProjects(false)}
+          />
+
+          <AboutSectionPopup
+            visible={showAboutSection}
+            onClose={() => setShowAboutSection(false)}
+          />
+
+          <ContactSectionPopup
+            visible={showContactSection}
+            onClose={() => setShowContactSection(false)}
           />
           <TeleportMenu playerRef={playerRef} />
         </>
