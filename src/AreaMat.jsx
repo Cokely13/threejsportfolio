@@ -110,6 +110,7 @@ export default function AreaMat({
   matColor = "#333333", // dark grey mat
   textColor = "red", // red label
   areaName = "Area", // default label text
+  textRotation = [-Math.PI / 2, 0, 0],
   onEnter = () => {},
 }) {
   const group = useRef();
@@ -129,8 +130,8 @@ export default function AreaMat({
       {/* Area label */}
       <Text
         position={[0, 0.02, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        fontSize={1}
+        rotation={textRotation}
+        fontSize={2}
         color={textColor}
         anchorX="center"
         anchorY="middle"

@@ -227,10 +227,10 @@ const SKILLS = [
 ];
 
 export default function Chalkboard({
-  position = [-95, 10, 15],
+  position = [-95, 10, 10],
   rotation = [0, 1.5, 0],
-  boardWidth = 22,
-  boardHeight = 12,
+  boardWidth = 30,
+  boardHeight = 15,
   fadeIn = false,
   fadeSpeed = 0.5,
 }) {
@@ -250,9 +250,9 @@ export default function Chalkboard({
   });
 
   // positions for two rows
-  const row1X = useMemo(() => [-7.5, -2.5, 2.5, 7.5], []);
-  const row2X = useMemo(() => [-5, 0, 5], []);
-  const row1Y = 2.5;
+  const row1X = useMemo(() => [-10, -3.5, 3.5, 10], []);
+  const row2X = useMemo(() => [-7.5, 0, 7.5], []);
+  const row1Y = 3.5;
   const row2Y = -2.5;
 
   // half-depth for collider thickness
@@ -295,7 +295,7 @@ export default function Chalkboard({
               </mesh>
               <Text
                 position={[0, -2, 0.1]}
-                fontSize={0.5}
+                fontSize={1}
                 color="white"
                 anchorX="center"
                 anchorY="top"
