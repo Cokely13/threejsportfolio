@@ -16,6 +16,7 @@ import GamesRulesPopup from "./GamesRulesPopup";
 import PortfolioView from "./PortfolioView";
 import WelcomePopup from "./WelcomePopup";
 import ProjectsPopup from "./ProjectsPopup";
+import SkillsPopup from "./SkillsPopup";
 import AboutSectionPopup from "./AboutSectionPopup";
 import ContactSectionPopup from "./ContactSectionPopup";
 import GameOverPopup from "./GameOverPopup";
@@ -37,6 +38,8 @@ export default function App() {
   const [activeProject, setActiveProject] = useState(null);
   const [showWelcome, setShowWelcome] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showSkillsMat, setShowSkillsMat] = useState(true);
   const [showProjectsMat, setShowProjectsMat] = useState(true);
   const [showAboutSection, setShowAboutSection] = useState(false);
   const [showAboutMat, setShowAboutMat] = useState(true);
@@ -105,6 +108,16 @@ export default function App() {
   const handleEnterProjects = () => {
     setShowProjects(true);
   };
+
+  const handleEnterSkills = () => {
+    setShowSkills(true);
+  };
+
+  const handleCloseSkillsSection = () => {
+    setShowSkills(false);
+    setShowSkillsMat(false);
+  };
+
   // called when user closes the Projects popup
   const handleCloseProjectsSection = () => {
     setShowProjects(false);
@@ -164,6 +177,8 @@ export default function App() {
                     setShowAboutPopup={setShowAboutPopup}
                     onEnterProjects={handleEnterProjects}
                     showProjectsMat={showProjectsMat}
+                    showSkillsMat={showSkillsMat}
+                    onEnterSkills={handleEnterSkills}
                     onEnterAbout={handleEnterAbout}
                     showAboutMat={showAboutMat}
                     onEnterContact={handleEnterContact}
@@ -214,6 +229,10 @@ export default function App() {
             <ProjectsPopup
               visible={showProjects}
               onClose={handleCloseProjectsSection}
+            />
+            <SkillsPopup
+              visible={showSkills}
+              onClose={handleCloseSkillsSection}
             />
             <AboutSectionPopup
               visible={showAboutSection}

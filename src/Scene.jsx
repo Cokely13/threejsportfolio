@@ -72,6 +72,8 @@ function Scene({
   rulesOpen = { rulesOpen },
   onEnterProjects,
   showProjectsMat,
+  onEnterSkills,
+  showSkillsMat,
   onEnterAbout,
   onGameOver = { onGameOver },
   resetTrigger = { resetTrigger },
@@ -507,6 +509,16 @@ function Scene({
           position={[0, 0.1, -3]}
           areaName={"Projects"}
           onEnter={onEnterProjects}
+        />
+      )}
+      {showSkillsMat && (
+        <AreaMat
+          width={8}
+          height={4}
+          position={[-42, 0.1, 12]}
+          textRotation={[-Math.PI / 2, 0, Math.PI * 2]}
+          areaName={"Skills"}
+          onEnter={onEnterSkills}
         />
       )}
       {showAboutMat && (
