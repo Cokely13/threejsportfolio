@@ -105,7 +105,7 @@ function Scene({
         fallSound.current?.play();
       }
       if (pos.y < -15) {
-        console.log("Player fell! Resetting...");
+        // console.log("Player fell! Resetting...");
 
         playerRef.current.setTranslation({ x: 0, y: 7, z: 0 }, true); // 👈 Projects spawn point
         playerRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
