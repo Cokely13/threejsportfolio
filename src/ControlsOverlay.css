@@ -1,0 +1,40 @@
+/* ControlsOverlay.css */
+
+.controls-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 10px;
+  border-radius: 6px;
+  align-items: center;
+  z-index: 10;
+}
+
+.key {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  color: #fff;
+  user-select: none;
+}
+
+.key.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.controls-hide,
+.controls-toggle {
+  margin-left: 8px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}

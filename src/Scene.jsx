@@ -160,85 +160,85 @@ function Scene({
 
   return (
     <>
-      <KeyboardControls map={controlsMap}>
-        <PositionalAudio
-          ref={fallSound}
-          url="/sounds/fall.wav"
-          distance={10}
-          loop={false}
-          volume={0.8}
-        />
-        <Wall />
-        <GroundWithHole />
-        <>
-          <mesh position={[45, 0.02, 70]} rotation={[-Math.PI / 2, 0, 0]}>
-            <circleGeometry args={[10, 64]} />
-            <meshBasicMaterial color="black" />
-          </mesh>
+      {/* <KeyboardControls map={controlsMap}> */}
+      <PositionalAudio
+        ref={fallSound}
+        url="/sounds/fall.wav"
+        distance={10}
+        loop={false}
+        volume={0.8}
+      />
+      <Wall />
+      <GroundWithHole />
+      <>
+        <mesh position={[45, 0.02, 70]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[10, 64]} />
+          <meshBasicMaterial color="black" />
+        </mesh>
 
-          {/* Deep inner cylinder to fake depth */}
-          <mesh position={[45, -5, 70]}>
-            <cylinderGeometry args={[10, 10, 10, 64, 1, true]} />
-            <meshStandardMaterial color="black" side={THREE.BackSide} />
-          </mesh>
+        {/* Deep inner cylinder to fake depth */}
+        <mesh position={[45, -5, 70]}>
+          <cylinderGeometry args={[10, 10, 10, 64, 1, true]} />
+          <meshStandardMaterial color="black" side={THREE.BackSide} />
+        </mesh>
 
-          {/* Glowing animated ring */}
-          <PulsingGlowRing position={[45, 0.021, 70]} />
+        {/* Glowing animated ring */}
+        <PulsingGlowRing position={[45, 0.021, 70]} />
 
-          {/* Soft inner glow */}
-          <mesh position={[45, 0.015, 70]} rotation={[-Math.PI / 2, 0, 0]}>
-            <circleGeometry args={[9.8, 64]} />
-            <meshBasicMaterial
-              color="#00ffff"
-              opacity={0.2}
-              transparent
-              side={THREE.DoubleSide}
-            />
-          </mesh>
-        </>
-        {/* /* GATE */}
-        <SwingingGate playerRef={playerRef} />
-        <BouncyBall position={[2, 3, 80]} />
-        {/* Contact Building (End of Main Road) */}
-        <spotLight
-          position={[0, 15, -90]}
-          angle={0.5}
-          penumbra={0.5}
-          intensity={1.5}
-          distance={30}
-          castShadow
-          color="#ffffff"
-        />
-        {/* <ContactBuilding
+        {/* Soft inner glow */}
+        <mesh position={[45, 0.015, 70]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[9.8, 64]} />
+          <meshBasicMaterial
+            color="#00ffff"
+            opacity={0.2}
+            transparent
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      </>
+      {/* /* GATE */}
+      <SwingingGate playerRef={playerRef} />
+      <BouncyBall position={[2, 3, 80]} />
+      {/* Contact Building (End of Main Road) */}
+      <spotLight
+        position={[0, 15, -90]}
+        angle={0.5}
+        penumbra={0.5}
+        intensity={1.5}
+        distance={30}
+        castShadow
+        color="#ffffff"
+      />
+      {/* <ContactBuilding
           position={[0, 0, -90]}
           playerRef={playerRef}
           onEnter={handlePlayerNearContact}
           popupVisible={showContactPopup}
         /> */}
-        {/* <ContactPlatform position={[0, 1, -90]} radius={13} height={19} /> */}
-        {/* <Ramp
+      {/* <ContactPlatform position={[0, 1, -90]} radius={13} height={19} /> */}
+      {/* <Ramp
           position={[0, -1, -48]} // tweak Y so its top aligns with the platform (Y=5)
           rotation={[0, -1.5, 0]} // rotate if you need it facing forwards/backwards
           scale={[10, 11, 9]} // your desired X/Y/Z scale
         /> */}
-        <ContactBuilding
-          position={[0, 9.4, -90]} // 2 = height of platform + building base
-          playerRef={playerRef}
-          onEnter={handlePlayerNearContact}
-          popupVisible={showContactPopup}
-        />
-        <Platform2
-          position={[0, 0, -55]}
-          rotation={[0, -Math.PI / 2, 0]}
-          scale={[8, 8, 10]}
-        />
-        {/* <Platform
+      <ContactBuilding
+        position={[0, 9.4, -90]} // 2 = height of platform + building base
+        playerRef={playerRef}
+        onEnter={handlePlayerNearContact}
+        popupVisible={showContactPopup}
+      />
+      <Platform2
+        position={[0, 0, -55]}
+        rotation={[0, -Math.PI / 2, 0]}
+        scale={[8, 8, 10]}
+      />
+      {/* <Platform
           position={[0, 0, -65]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[8, 8, 10]}
         /> */}
-        {/* Projects - 4 buildings after Cross */}
-        {/* <Building
+      {/* Projects - 4 buildings after Cross */}
+      {/* <Building
           position={[-20, 0, -30]}
           rotation={[0, 0, 0]}
           color="#e74c3c"
@@ -247,141 +247,141 @@ function Scene({
           // onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
           showDebug={true}
         /> */}
-        <Project1
-          position={[-20, 0, -30]}
-          rotation={[0, 0, 0]}
-          color="#e74c3c"
-          project={PROJECTS.HyroxTrack}
-          playerRef={playerRef}
-          onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
-          showDebug={true}
-        />
-        <Project2
-          position={[-20, 0, -5]}
-          color="blue"
-          project={PROJECTS.PopcornPair}
-          showDebug={true}
-          playerRef={playerRef}
-          onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
-        />
-        <Project3
-          position={[20, 0, -30]}
-          rotation={[0, Math.PI, 0]}
-          color="#27ae60"
-          project={PROJECTS.NewHorizons}
-          onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
-        />
-        <Project4
-          position={[20, 0, -5]}
-          rotation={[0, Math.PI, 0]}
-          color="yellow"
-          project={PROJECTS.PlaylistBattle}
-          onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
-        />
-        <Skill
-          label="JavaScript"
-          position={[-70, 10, 20]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[0] = el)}
-        />
-        <Skill
-          label="PostgreSQL"
-          position={[-70, 10, 0]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[1] = el)}
-        />
-        <Skill
-          label="Express"
-          position={[-70, 10, 11]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[2] = el)}
-        />
-        <Skill
-          label="React"
-          position={[-78, 10, -3]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[3] = el)}
-        />
-        <Skill
-          label="Node"
-          position={[-78, 10, 25]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[4] = el)}
-        />
-        <Skill
-          label="CSS"
-          position={[-84, 10, 16]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[5] = el)}
-        />
-        <Skill
-          label="Three.js"
-          position={[-84, 10, 8]}
-          playerRef={playerRef}
-          onDrop={() => {
-            if (!showChalkboard) {
-              setShowChalkboard(true);
-              setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
-            }
-          }}
-          ref={(el) => (ballRefs.current[6] = el)}
-        />
-        {/* About Building - Right end */}
-        <AboutBuilding
-          position={[90, 9, 10]}
-          rotation={[0, Math.PI, 0]}
-          onEnter={() => setShowAboutPopup(true)}
-        />
-        <Platform
-          position={[55, 0, 12]}
-          rotation={[0, Math.PI, 0]}
-          scale={[8, 8, 10]}
-        />
-        {/* Player */}
-        <Player
-          onProjectEnter={setActiveProject}
-          playerRef={playerRef}
-          position={[0, 1, -20]}
-        />
-        {/* Hills */}
-        {/* <Hills /> */}
-        {/* <MainRoad
+      <Project1
+        position={[-20, 0, -30]}
+        rotation={[0, 0, 0]}
+        color="#e74c3c"
+        project={PROJECTS.HyroxTrack}
+        playerRef={playerRef}
+        onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
+        showDebug={true}
+      />
+      <Project2
+        position={[-20, 0, -5]}
+        color="blue"
+        project={PROJECTS.PopcornPair}
+        showDebug={true}
+        playerRef={playerRef}
+        onEnter={() => setActiveProject(PROJECTS.PopcornPair)}
+      />
+      <Project3
+        position={[20, 0, -30]}
+        rotation={[0, Math.PI, 0]}
+        color="#27ae60"
+        project={PROJECTS.NewHorizons}
+        onEnter={() => setActiveProject(PROJECTS.NewHorizons)}
+      />
+      <Project4
+        position={[20, 0, -5]}
+        rotation={[0, Math.PI, 0]}
+        color="yellow"
+        project={PROJECTS.PlaylistBattle}
+        onEnter={() => setActiveProject(PROJECTS.PlaylistBattle)}
+      />
+      <Skill
+        label="JavaScript"
+        position={[-70, 10, 20]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[0] = el)}
+      />
+      <Skill
+        label="PostgreSQL"
+        position={[-70, 10, 0]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[1] = el)}
+      />
+      <Skill
+        label="Express"
+        position={[-70, 10, 11]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[2] = el)}
+      />
+      <Skill
+        label="React"
+        position={[-78, 10, -3]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[3] = el)}
+      />
+      <Skill
+        label="Node"
+        position={[-78, 10, 25]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[4] = el)}
+      />
+      <Skill
+        label="CSS"
+        position={[-84, 10, 16]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[5] = el)}
+      />
+      <Skill
+        label="Three.js"
+        position={[-84, 10, 8]}
+        playerRef={playerRef}
+        onDrop={() => {
+          if (!showChalkboard) {
+            setShowChalkboard(true);
+            setTimeout(() => setChalkboardVisible(true), 1000); // 1s delay
+          }
+        }}
+        ref={(el) => (ballRefs.current[6] = el)}
+      />
+      {/* About Building - Right end */}
+      <AboutBuilding
+        position={[90, 9, 10]}
+        rotation={[0, Math.PI, 0]}
+        onEnter={() => setShowAboutPopup(true)}
+      />
+      <Platform
+        position={[55, 0, 12]}
+        rotation={[0, Math.PI, 0]}
+        scale={[8, 8, 10]}
+      />
+      {/* Player */}
+      <Player
+        onProjectEnter={setActiveProject}
+        playerRef={playerRef}
+        position={[0, 1, -20]}
+      />
+      {/* Hills */}
+      {/* <Hills /> */}
+      {/* <MainRoad
           // scale={[3, 2, 6]}
           // position={[0, 0, -20]}
           // rotation={[3.1401, 0, 0]}
@@ -389,20 +389,16 @@ function Scene({
           position={[0, 0.03, 0]}
           rotation={[0, 0, 0]}
         /> */}
-        <MyHill
-          position={[-45, -1, 12]}
-          scale={[8, 3, 8]}
-          rotation={[0, 0, 0]}
-        />
-        <FloatingLabel text="Projects" position={[0, 20, -10]} />
-        <FloatingLabel text="Skills" position={[-70, 20, 15]} />
-        <FloatingLabel text="SkeeBall" position={[-40, 30, 75]} />
-        <FloatingLabel text="About" position={[80, 35, 15]} />
-        <FloatingLabel text="Contact" position={[0, 30, -80]} />
-        {/* <SignPost position={[-12, 0, 20]} text="Projects" /> */}
-        <Chalkboard fadeIn={chalkboardVisible} />
-        <PittLabel playerRef={playerRef} />
-        {/* <SignPost
+      <MyHill position={[-45, -1, 12]} scale={[8, 3, 8]} rotation={[0, 0, 0]} />
+      <FloatingLabel text="Projects" position={[0, 20, -10]} />
+      <FloatingLabel text="Skills" position={[-70, 20, 15]} />
+      <FloatingLabel text="SkeeBall" position={[-40, 30, 75]} />
+      <FloatingLabel text="About" position={[80, 35, 15]} />
+      <FloatingLabel text="Contact" position={[0, 30, -80]} />
+      {/* <SignPost position={[-12, 0, 20]} text="Projects" /> */}
+      <Chalkboard fadeIn={chalkboardVisible} />
+      <PittLabel playerRef={playerRef} />
+      {/* <SignPost
           position={[-30, 0, 15]}
           text="Skills"
           rotation={[0, Math.PI / 4, 0]}
@@ -419,12 +415,9 @@ function Scene({
           style="warning" // Optional: add a style prop if you want to customize
         />
         <SignPost position={[15, 0, -65]} text="Contact" /> */}
-        <TodoBooth
-          playerRef={playerRef}
-          onEnter={() => setShowTodoPopup(true)}
-        />
-        +{" "}
-        {/* <PathGuide
+      <TodoBooth playerRef={playerRef} onEnter={() => setShowTodoPopup(true)} />
+      +{" "}
+      {/* <PathGuide
           start={[-20, 0.5, 70]}
           end={[-20, 0.5, 70]}
           turnOffset={10}
@@ -433,61 +426,61 @@ function Scene({
           arrowCount={0}
           arrowColor="#ffffff"
         /> */}
-        <WelcomeMat
-          position={[-16.3, 0.01, -5.5]}
-          rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
-          width={2.3}
-          height={8.5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[-16.4, 0.1, -30.5]}
-          rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-          width={2.3}
-          height={8}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[16.2, 0.01, -4.5]}
-          rotation={[Math.PI / 2, 0, Math.PI / 2]}
-          width={2.3}
-          height={8.5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[16.2, 0.01, -29.5]}
-          rotation={[Math.PI / 2, 0, Math.PI / 2]}
-          width={2}
-          height={8.5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[77.6, 12.2, 12]}
-          rotation={[Math.PI / 2, 0, Math.PI / 2]}
-          width={7}
-          height={8.5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        <WelcomeMat
-          position={[1, 11, -82.8]}
-          rotation={[Math.PI / 2, 0, 0]}
-          width={1.8}
-          height={4}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-        />
-        {/* <Seesaw
+      <WelcomeMat
+        position={[-16.3, 0.01, -5.5]}
+        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+        width={2.3}
+        height={8.5}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      <WelcomeMat
+        position={[-16.4, 0.1, -30.5]}
+        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+        width={2.3}
+        height={8}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      <WelcomeMat
+        position={[16.2, 0.01, -4.5]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        width={2.3}
+        height={8.5}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      <WelcomeMat
+        position={[16.2, 0.01, -29.5]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        width={2}
+        height={8.5}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      <WelcomeMat
+        position={[77.6, 12.2, 12]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        width={7}
+        height={8.5}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      <WelcomeMat
+        position={[1, 11, -82.8]}
+        rotation={[Math.PI / 2, 0, 0]}
+        width={1.8}
+        height={4}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+      />
+      {/* <Seesaw
           playerRef={playerRef}
           position={[-50, 0, 55]}
           width={50}
@@ -495,59 +488,59 @@ function Scene({
           pivotHeight={1}
           maxAngle={Math.PI / 6}
         /> */}
-        {/* <MultiSignPost position={[0, 0, 80]} /> */}
-        {showContactMat && (
-          <AreaMat
-            width={8}
-            height={4}
-            rotation={[0, 0, 0]}
-            position={[0, 0.1, -42]}
-            areaName={"Contact"}
-            onEnter={onEnterContact}
-          />
-        )}
-        {showProjectsMat && (
-          <AreaMat
-            width={8}
-            height={4}
-            rotation={[0, 0, 0]}
-            position={[0, 0.1, -3]}
-            areaName={"Projects"}
-            onEnter={onEnterProjects}
-          />
-        )}
-        {showAboutMat && (
-          <AreaMat
-            width={8}
-            height={4}
-            position={[40, 0.1, 12]}
-            onEnter={onEnterAbout}
-            areaName={"About"}
-            textRotation={[-Math.PI / 2, 0, Math.PI]}
-          />
-        )}
-        <Roads position={[0, 4, 0]} />
-        <EntryMat
-          position={[0, 0.01, 130]}
+      {/* <MultiSignPost position={[0, 0, 80]} /> */}
+      {showContactMat && (
+        <AreaMat
+          width={8}
+          height={4}
           rotation={[0, 0, 0]}
-          width={20}
-          height={8.5}
-          color="#ffeb3b"
-          ringColor="#ffee58"
-          thickness={0.3}
-          onEnter={onEnterWelcome}
+          position={[0, 0.1, -42]}
+          areaName={"Contact"}
+          onEnter={onEnterContact}
         />
-        <SkeeBall
-          position={[-40, 0, 50]}
-          onEnterGameArea={onEnterGameArea}
-          rulesOpen={rulesOpen}
-          onGameOver={onGameOver}
-          resetTrigger={resetTrigger}
+      )}
+      {showProjectsMat && (
+        <AreaMat
+          width={8}
+          height={4}
+          rotation={[0, 0, 0]}
+          position={[0, 0.1, -3]}
+          areaName={"Projects"}
+          onEnter={onEnterProjects}
         />
-        <FadeInOverlay />
-        {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
-        <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
-      </KeyboardControls>
+      )}
+      {showAboutMat && (
+        <AreaMat
+          width={8}
+          height={4}
+          position={[40, 0.1, 12]}
+          onEnter={onEnterAbout}
+          areaName={"About"}
+          textRotation={[-Math.PI / 2, 0, Math.PI]}
+        />
+      )}
+      <Roads position={[0, 4, 0]} />
+      <EntryMat
+        position={[0, 0.01, 130]}
+        rotation={[0, 0, 0]}
+        width={20}
+        height={8.5}
+        color="#ffeb3b"
+        ringColor="#ffee58"
+        thickness={0.3}
+        onEnter={onEnterWelcome}
+      />
+      <SkeeBall
+        position={[-40, 0, 50]}
+        onEnterGameArea={onEnterGameArea}
+        rulesOpen={rulesOpen}
+        onGameOver={onGameOver}
+        resetTrigger={resetTrigger}
+      />
+      <FadeInOverlay />
+      {/* {activeProject && <ProjectInfo3D project={activeProject} />} */}
+      <CameraFollow targetRef={playerRef} zoomLevel={zoomLevel} />
+      {/* </KeyboardControls> */}
     </>
   );
 }
