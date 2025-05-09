@@ -56,12 +56,14 @@ export default function App() {
   const playerRef = useRef();
 
   const features = [
-    "Explore 3D portfolio world",
-    "Visit Contact, About & Project areas",
-    "Play the Skee-Ball mini-game",
-    "Track your high-score leaderboard",
-    "Teleport between sections",
-    "And more surprises!",
+    "Explore the interactive 3D environment",
+    "Check out my Projects showcase",
+    "Browse the Skills and technologies I’ve mastered",
+    "Discover my professional background",
+    "Connect with me via the Contact page",
+    "Play the fun Skee-Ball mini-game",
+    "Don't fall in the pit!",
+    "More features coming soon!",
   ];
 
   // Helper to teleport the player

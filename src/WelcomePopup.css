@@ -48,3 +48,8 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.welcome-close-wrapper {
+  text-align: center;
+  margin-top: 1.5rem;
+}

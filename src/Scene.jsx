@@ -535,8 +535,8 @@ function Scene({
       <EntryMat
         position={[0, 0.01, 130]}
         rotation={[0, 0, 0]}
-        width={20}
-        height={8.5}
+        width={40}
+        height={15.5}
         color="#ffeb3b"
         ringColor="#ffee58"
         thickness={0.3}

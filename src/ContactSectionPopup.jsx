@@ -25,7 +25,9 @@ export default function ContactSectionPopup({ visible, onClose }) {
           </li>
           {/* <li>Freelance: Available</li> */}
         </ul>
-        <button onClick={onClose}>Close</button>
+        <div className="button-close">
+          <button onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );

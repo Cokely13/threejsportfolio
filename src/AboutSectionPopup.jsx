@@ -12,7 +12,9 @@ export default function AboutSectionPopup({ visible, onClose }) {
           Head up the ramp to learn more about my background, and the story
           behind this portfolio!
         </p>
-        <button onClick={onClose}>Close</button>
+        <div className="button-close">
+          <button onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );

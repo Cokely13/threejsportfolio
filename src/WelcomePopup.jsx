@@ -18,9 +18,11 @@ export default function WelcomePopup({ visible, onClose, features }) {
             <li key={i}>{feat}</li>
           ))}
         </ul>
-        <button className="welcome-close" onClick={onClose}>
-          Let’s Go!
-        </button>
+        <div className="welcome-close-wrapper">
+          <button className="welcome-close" onClick={onClose}>
+            Let’s Go!
+          </button>
+        </div>
       </div>
     </div>
   );

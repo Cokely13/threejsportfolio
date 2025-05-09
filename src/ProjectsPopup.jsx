@@ -9,7 +9,9 @@ export default function ProjectsPopup({ visible, onClose }) {
       <div className="projects-popup" onClick={(e) => e.stopPropagation()}>
         <h2>📂 Projects</h2>
         <ul>Enter any of the buildings for more details on each project!</ul>
-        <button onClick={onClose}>Close</button>
+        <div className="button-close">
+          <button onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );
