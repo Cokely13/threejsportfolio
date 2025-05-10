@@ -134,23 +134,23 @@ export default function ContactPopup({ visible, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
     const formData = new FormData(e.target);
+
     try {
-      const response = await fetch(
+      const res = await fetch(
         "https://formsubmit.co/ajax/48dab0b95f07970a07e68bccf88c827b",
-        {
-          method: "POST",
-          headers: { Accept: "application/json" },
-          body: formData,
-        }
+        { method: "POST", body: formData }
       );
-      if (!response.ok) {
-        throw new Error(`Status ${response.status}`);
+
+      if (!res.ok) {
+        throw new Error(`Submission failed with status ${res.status}`);
       }
-      // Treat any 2xx as success
+
+      // Successful 2xx response
       setSubmitted(true);
     } catch (err) {
-      console.error("Form submission error:", err);
+      console.error("Contact form error:", err);
       setError("Oops! Something went wrong. Please try again later.");
     }
   };
@@ -189,7 +189,9 @@ export default function ContactPopup({ visible, onClose }) {
             <button type="submit">Send</button>
           </form>
         ) : (
-          <p>Thanks for your message! I'll get back to you soon.</p>
+          <p className="thank-you-message">
+            Thanks for your message! I'll get back to you soon.
+          </p>
         )}
 
         <button className="close-btn" onClick={onClose}>
