@@ -44,6 +44,85 @@
 //   );
 // }
 
+// import React, { useState } from "react";
+// import "./ContactPopup.css";
+
+// export default function ContactPopup({ visible, onClose }) {
+//   if (!visible) return null;
+
+//   const [submitted, setSubmitted] = useState(false);
+
+//   const handleSubmit = () => {
+//     // delay to allow form to submit before showing thank-you message
+//     setTimeout(() => setSubmitted(true), 100);
+//   };
+
+//   return (
+//     <div className="contact-popup-overlay" onClick={onClose}>
+//       <div className="contact-popup" onClick={(e) => e.stopPropagation()}>
+//         <h2>Contact Me</h2>
+
+//         {!submitted ? (
+//           <>
+//             <p>
+//               Email:{" "}
+//               <a
+//                 href="mailto:ryan.cokely@gmail.com"
+//                 style={{ color: "#00ffff" }}
+//               >
+//                 ryan.cokely@gmail.com
+//               </a>
+//             </p>
+
+//             <form
+//               action="https://formsubmit.co/ryan.cokely@gmail.com"
+//               method="POST"
+//               target="_blank"
+//               onSubmit={handleSubmit}
+//             >
+//               {/* Disable built‑in CAPTCHA and set custom subject/redirect */}
+//               <input type="hidden" name="_captcha" value="false" />
+//               <input
+//                 type="hidden"
+//                 name="_subject"
+//                 value="New message from portfolio"
+//               />
+//               {/* Optional: redirect on success */}
+//               <input
+//                 type="hidden"
+//                 name="_next"
+//                 value="https://yourdomain.com/thank-you"
+//               />
+
+//               <input type="text" name="name" placeholder="Full Name" required />
+//               <input
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email Address"
+//                 required
+//               />
+//               <textarea
+//                 name="message"
+//                 placeholder="Your Message"
+//                 rows="5"
+//                 required
+//               />
+
+//               <button type="submit">Send</button>
+//             </form>
+//           </>
+//         ) : (
+//           <p>Thanks for your message! I'll get back to you soon.</p>
+//         )}
+
+//         <button className="close-btn" onClick={onClose}>
+//           Close
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
 import React, { useState } from "react";
 import "./ContactPopup.css";
 
@@ -53,7 +132,7 @@ export default function ContactPopup({ visible, onClose }) {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    // delay to allow form to submit before showing thank-you message
+    // show acknowledgment message after submission
     setTimeout(() => setSubmitted(true), 100);
   };
 
@@ -75,24 +154,26 @@ export default function ContactPopup({ visible, onClose }) {
             </p>
 
             <form
-              action="https://formsubmit.co/ryan.cokely@gmail.com"
+              action="https://formsubmit.co/48dab0b95f07970a07e68bccf88c827b"
               method="POST"
               target="_blank"
               onSubmit={handleSubmit}
             >
-              {/* Disable built‑in CAPTCHA and set custom subject/redirect */}
+              {/* Disable FormSubmit CAPTCHA and set email subject */}
               <input type="hidden" name="_captcha" value="false" />
               <input
                 type="hidden"
                 name="_subject"
                 value="New message from portfolio"
               />
-              {/* Optional: redirect on success */}
+              {/* Redirect user after submit (update path as needed) */}
               <input
                 type="hidden"
                 name="_next"
-                value="https://yourdomain.com/thank-you"
+                value="https://ryancokely.netlify.app/thank-you"
               />
+              {/* Honeypot spam field (optional) */}
+              <input type="text" name="_honey" style={{ display: "none" }} />
 
               <input type="text" name="name" placeholder="Full Name" required />
               <input
