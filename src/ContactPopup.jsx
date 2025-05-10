@@ -134,25 +134,21 @@ export default function ContactPopup({ visible, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+    const formData = new FormData(e.target);
     try {
-      const response = await fetch(
+      const res = await fetch(
         "https://formsubmit.co/ajax/48dab0b95f07970a07e68bccf88c827b",
-        {
-          method: "POST",
-          body: formData,
-        }
+        { method: "POST", body: formData }
       );
-      const result = await response.json();
-      if (result.success === "OK") {
+      const json = await res.json();
+      if (json.success === "OK") {
         setSubmitted(true);
       } else {
         throw new Error("Submission failed");
       }
     } catch (err) {
       console.error(err);
-      setError("Sorry, something went wrong. Please try again later.");
+      setError("Oops! Something went wrong. Please try again later.");
     }
   };
 
@@ -164,45 +160,31 @@ export default function ContactPopup({ visible, onClose }) {
         {error && <p className="error-message">{error}</p>}
 
         {!submitted ? (
-          <>
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:ryan.cokely@gmail.com"
-                style={{ color: "#00ffff" }}
-              >
-                ryan.cokely@gmail.com
-              </a>
-            </p>
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="_captcha" value="false" />
+            <input
+              type="hidden"
+              name="_subject"
+              value="New message from portfolio"
+            />
+            <input type="text" name="_honey" style={{ display: "none" }} />
 
-            <form onSubmit={handleSubmit}>
-              {/* Disable CAPTCHA, subject set via hidden inputs */}
-              <input type="hidden" name="_captcha" value="false" />
-              <input
-                type="hidden"
-                name="_subject"
-                value="New message from portfolio"
-              />
-              {/* Honeypot spam field */}
-              <input type="text" name="_honey" style={{ display: "none" }} />
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              rows="5"
+              required
+            />
 
-              <input type="text" name="name" placeholder="Full Name" required />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows="5"
-                required
-              />
-
-              <button type="submit">Send</button>
-            </form>
-          </>
+            <button type="submit">Send</button>
+          </form>
         ) : (
           <p>Thanks for your message! I'll get back to you soon.</p>
         )}
