@@ -136,24 +136,21 @@ export default function ContactPopup({ visible, onClose }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     try {
-      const res = await fetch(
+      const response = await fetch(
         "https://formsubmit.co/ajax/48dab0b95f07970a07e68bccf88c827b",
         {
           method: "POST",
-          headers: {
-            Accept: "application/json",
-          },
+          headers: { Accept: "application/json" },
           body: formData,
         }
       );
-      const json = await res.json();
-      if (json.success === "OK") {
-        setSubmitted(true);
-      } else {
-        throw new Error("Submission failed");
+      if (!response.ok) {
+        throw new Error(`Status ${response.status}`);
       }
+      // Treat any 2xx as success
+      setSubmitted(true);
     } catch (err) {
-      console.error(err);
+      console.error("Form submission error:", err);
       setError("Oops! Something went wrong. Please try again later.");
     }
   };
