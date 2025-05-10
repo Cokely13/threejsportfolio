@@ -138,7 +138,13 @@ export default function ContactPopup({ visible, onClose }) {
     try {
       const res = await fetch(
         "https://formsubmit.co/ajax/48dab0b95f07970a07e68bccf88c827b",
-        { method: "POST", body: formData }
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          body: formData,
+        }
       );
       const json = await res.json();
       if (json.success === "OK") {
