@@ -130,16 +130,38 @@ export default function ContactPopup({ visible, onClose }) {
   if (!visible) return null;
 
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = () => {
-    // show acknowledgment message after submission
-    setTimeout(() => setSubmitted(true), 100);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/48dab0b95f07970a07e68bccf88c827b",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const result = await response.json();
+      if (result.success === "OK") {
+        setSubmitted(true);
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Sorry, something went wrong. Please try again later.");
+    }
   };
 
   return (
     <div className="contact-popup-overlay" onClick={onClose}>
       <div className="contact-popup" onClick={(e) => e.stopPropagation()}>
         <h2>Contact Me</h2>
+
+        {error && <p className="error-message">{error}</p>}
 
         {!submitted ? (
           <>
@@ -153,26 +175,15 @@ export default function ContactPopup({ visible, onClose }) {
               </a>
             </p>
 
-            <form
-              action="https://formsubmit.co/48dab0b95f07970a07e68bccf88c827b"
-              method="POST"
-              target="_blank"
-              onSubmit={handleSubmit}
-            >
-              {/* Disable FormSubmit CAPTCHA and set email subject */}
+            <form onSubmit={handleSubmit}>
+              {/* Disable CAPTCHA, subject set via hidden inputs */}
               <input type="hidden" name="_captcha" value="false" />
               <input
                 type="hidden"
                 name="_subject"
                 value="New message from portfolio"
               />
-              {/* Redirect user after submit (update path as needed) */}
-              <input
-                type="hidden"
-                name="_next"
-                value="https://ryancokely.netlify.app/thank-you"
-              />
-              {/* Honeypot spam field (optional) */}
+              {/* Honeypot spam field */}
               <input type="text" name="_honey" style={{ display: "none" }} />
 
               <input type="text" name="name" placeholder="Full Name" required />
