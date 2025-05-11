@@ -159,11 +159,30 @@ export default function App() {
               className="three-canvas"
               shadows
               camera={{ position: [0, 80, 250], fov: 80 }}
-              onCreated={({ gl }) => gl.setClearColor("#87ceeb")}
+              onCreated={({ gl }) => {
+                gl.setClearColor("#87ceeb");
+                gl.shadowMap.enabled = true;
+                gl.shadowMap.type = THREE.PCFSoftShadowMap;
+              }}
             >
               <Suspense fallback={<LoadingScreen />}>
                 <ambientLight intensity={1.5} />
-                <directionalLight position={[10, 20, 10]} intensity={1.2} />
+                <directionalLight
+                  castShadow
+                  position={[30, 50, 10]}
+                  intensity={1.2}
+                  // shadow-map resolution (higher → crisper shadows)
+                  shadow-mapSize-width={2048}
+                  shadow-mapSize-height={2048}
+                  // these bounds must cover your whole scene
+                  shadow-camera-left={-100}
+                  shadow-camera-right={100}
+                  shadow-camera-top={100}
+                  shadow-camera-bottom={-100}
+                  // near/far on the shadow camera
+                  shadow-camera-near={1}
+                  shadow-camera-far={200}
+                />
                 <OrbitControls
                   minPolarAngle={Math.PI / 6}
                   maxPolarAngle={Math.PI / 2.2}

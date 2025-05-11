@@ -22,6 +22,8 @@ export default function Runner({
           roughness: 1, // fully rough (no gloss)
           emissive: 0x000000, // no glow
         });
+        child.castShadow = true;
+        child.receiveShadow = true;
         child.material.needsUpdate = true;
       }
     });
