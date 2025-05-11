@@ -13,6 +13,21 @@ export default function Runner({
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        // replace with a flat, non-shiny material
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0x555555, // mid-gray
+          metalness: 0, // no metallic sheen
+          roughness: 1, // fully rough (no gloss)
+          emissive: 0x000000, // no glow
+        });
+        child.material.needsUpdate = true;
+      }
+    });
+  }, [scene]);
+
+  useEffect(() => {
     if (actions && Object.keys(actions).length > 0) {
       for (const clip in animations) {
         actions[animations[clip].name].loop = THREE.LoopRepeat;

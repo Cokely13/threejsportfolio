@@ -62,11 +62,11 @@ export default function ContactBuilding({
         scale={[2, 1.5, 2]}
         rotation={[0, -Math.PI / 2, 0]}
       />
-      <DoorFrame
+      {/* <DoorFrame
         position={[1, 9.0, -83]}
         rotation={[0, 0, 0]}
         scale={[1, 1, 1]}
-      />
+      /> */}
 
       {/* — Two windows (left & right) — */}
       <Window

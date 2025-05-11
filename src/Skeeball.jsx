@@ -112,7 +112,7 @@ export default function SkeeBall({
   const hoopZStagger = hoopX.map(
     (_, idx) => hoopZBase + (idx - 1) * staggerSpacing
   );
-  const wallHeight = 3;
+  const wallHeight = 6;
   const wallThickness = 0.2;
   const entranceWidth = 4;
   const sideWallWidth = (rampWidth - entranceWidth) / 2 + 5;
