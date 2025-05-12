@@ -169,7 +169,7 @@ export default function App() {
                 <ambientLight intensity={1.5} />
                 <directionalLight
                   castShadow
-                  position={[30, 50, 10]}
+                  position={[30, 30, -10]}
                   intensity={1.2}
                   // shadow-map resolution (higher → crisper shadows)
                   shadow-mapSize-width={2048}
