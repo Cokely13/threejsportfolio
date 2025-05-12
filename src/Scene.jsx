@@ -85,8 +85,11 @@ function Scene({
   const fallSound = useRef();
   const ballRefs = useRef([]);
   const [animationName, setAnimationName] = useState("rig|Idle");
-  const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
-  const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+  // const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
+  // const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+  const [roadTexture] = useLoader(TextureLoader, ["/textures/cobblestone.jpg"]);
+  const [grassTexture] = useLoader(TextureLoader, ["/textures/grass.jpg"]);
+
   const [showChalkboard, setShowChalkboard] = useState(false);
   const [chalkboardVisible, setChalkboardVisible] = useState(false);
   // const [showTodoPopup, setShowTodoPopup] = useState(false);

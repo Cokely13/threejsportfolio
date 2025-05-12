@@ -20,8 +20,8 @@ export default function GroundWithHole() {
   // load your dark grass textures
   const [colorMap, normalMap, roughnessMap] = useLoader(TextureLoader, [
     "/textures/darkGrass-JPG/Grass003_2K-JPG_Color.jpg",
-    "/textures/darkGrass-JPG/Grass003_2K-JPG_NormalGL.jpg",
-    "/textures/darkGrass-JPG/Grass003_2K-JPG_Roughness.jpg",
+    "/textures/darkGrass-JPG/Grass003_2K-JPG_NormalDX.jpg",
+    "/textures/darkGrass-JPG/Grass003_2K-JPG_NormalDX.jpg",
   ]);
 
   // configure tiling

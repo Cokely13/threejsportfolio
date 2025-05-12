@@ -112,7 +112,7 @@ export default function CameraFollow({ targetRef }) {
   const { endFov, dollyDistance, dollyHeight, introDuration } = useMemo(
     () => ({
       endFov: 75,
-      dollyDistance: 20,
+      dollyDistance: 40,
       dollyHeight: 1,
       introDuration: 2,
     }),
