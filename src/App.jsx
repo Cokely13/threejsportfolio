@@ -175,7 +175,7 @@ export default function App() {
                   shadow-mapSize-width={2048}
                   shadow-mapSize-height={2048}
                   // these bounds must cover your whole scene
-                  shadow-camera-left={-100}
+                  shadow-camera-left={-135}
                   shadow-camera-right={100}
                   shadow-camera-top={100}
                   shadow-camera-bottom={-100}
