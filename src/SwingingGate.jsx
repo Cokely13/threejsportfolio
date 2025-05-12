@@ -2,9 +2,10 @@
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Text, RoundedBox } from "@react-three/drei";
+import { Text3D, Center } from "@react-three/drei";
 
 const letters = "WELCOME".split("");
-const radius = 9;
+const radius = 8;
 const halfArc = Math.PI; // 180°
 
 export default function SwingingGate({ playerRef, onEnter }) {
@@ -59,71 +60,8 @@ export default function SwingingGate({ playerRef, onEnter }) {
             toneMapped={false}
           />
         </mesh>
-
-        {/* <Text
-          position={[0, 3, 0.6]}
-          fontSize={2.5}
-          color="#ffffff"
-          anchorX="center"
-          anchorY="middle"
-          material-toneMapped={false}
-          material-emissive="#ffcc33"
-          material-emissiveIntensity={1}
-        >
-          WELCOME
-        </Text> */}
-
-        {/* curved letters */}
-        {/* {letters.map((ltr, i) => {
-          const t = i / (letters.length - 1); // 0→1
-          const angle = Math.PI + halfArc * (t - 0.5); // center at top
-          const x = Math.cos(angle) * (radius - 1.5);
-          const y = Math.sin(angle) * (radius - 1.5);
-          return (
-            <Text
-              key={i}
-              position={[x, y + 18, 0.6]}
-              rotation-z={angle + Math.PI / 2} // rotate to face forward
-              fontSize={2}
-              color="#fff"
-              material-emissive="#ffcc33"
-              material-emissiveIntensity={1}
-              anchorX="center"
-              anchorY="middle"
-              castShadow
-            >
-              {ltr}
-            </Text>
-          );
-        })} */}
       </group>
 
-      {/* 〈— Wooden plank —〉 */}
-      {/* <group position={[0, 23, 0]}>
-        <RoundedBox
-          args={[30, 4, 1]}
-          radius={0.5}
-          smoothness={4}
-          castShadow
-          receiveShadow
-        >
-          <meshStandardMaterial color="#8B4513" />
-        </RoundedBox>
-
-        <Text
-          position={[0, 1, 0.6]}
-          fontSize={3}
-          color="#fff"
-          outlineWidth={0.05}
-          outlineColor="#000"
-          anchorX="center"
-          anchorY="middle"
-        >
-          WELCOME
-        </Text>
-      </group> */}
-
-      {/* left gate */}
       <group ref={leftPivot} position={[-8, 0, 0]}>
         <mesh position={[4, 5, 0]}>
           <boxGeometry args={[8, 20, 1]} />
@@ -142,6 +80,45 @@ export default function SwingingGate({ playerRef, onEnter }) {
           R
         </Text>
       </group>
+
+      {/* --- NEW: semi-circular board + WELCOME text --- */}
+      <group position={[0, 16, -0.8]} rotation={[Math.PI / 2, Math.PI / 2, 0]}>
+        {/* half-cylinder “board” */}
+        <mesh castShadow receiveShadow>
+          <cylinderGeometry
+            args={[
+              radius,
+              radius,
+              /* thickness */ 1,
+              /* rad segs */ 64,
+              1,
+              /* openEnded? */ false,
+              /* start */ 0,
+              /* length */ halfArc,
+            ]}
+          />
+          <meshStandardMaterial
+            color="#1e90ff" // ← deep sky blue backing
+            metalness={0.1}
+            roughness={0.8}
+          />
+        </mesh>
+      </group>
+      {/* flat WELCOME text, just in front of the board */}
+      <Text
+        position={[0, 19, 0.51]}
+        setRotationFromMatrix={[-Math.PI / 2, 0, 0]}
+        fontSize={2.5}
+        // font="/fonts/DancingScript-Bold.ttf"
+        color="#ffeb3b"
+        outlineWidth={0.05}
+        outlineColor="#000"
+        anchorX="center"
+        anchorY="middle"
+        castShadow
+      >
+        WELCOME
+      </Text>
 
       {/* right gate */}
       <group ref={rightPivot} position={[8, 0, 0]}>
