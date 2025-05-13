@@ -12,37 +12,25 @@ import ContactBuilding from "./ContactBuilding";
 import AboutBuilding from "./AboutBuilding";
 import { TextureLoader, RepeatWrapping } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
-import { Vector3 } from "three";
 import Wall from "./Wall";
 import CameraFollow from "./CameraFollow";
-import Road from "./Road";
-import Road2 from "./Road2";
 import MyHill from "./MyHill";
 import BouncyBall from "./BouncyBall";
-import MainRoad from "./MainRoad";
-import SignPost from "./SignPost";
-import MultiSignPost from "./MultiSign";
 import FloatingLabel from "./FloatingLabel";
 import Chalkboard from "./Chalkboard";
 import GroundWithHole from "./GroundWithHole";
 import PulsingGlowRing from "./PulsingGlowRing";
 import TodoBooth from "./TodoBooth";
 import Roads from "./Roads";
-import TodoPopup from "./TodoPopup";
 import SwingingGate from "./SwingingGate";
-import Ramp from "./Ramp";
 import PittLabel from "./PittLabel";
-import ContactPlatform from "./ContactPlatform";
-import Stairs from "./Stairs";
 import Platform from "./Platform";
 import Platform2 from "./Platform2";
-import PathGuide from "./PathGuide";
 import WelcomeMat from "./WelcomeMat";
 import Project1 from "./Project1";
 import Project2 from "./Project2";
 import Project3 from "./Project3";
 import Project4 from "./Project4";
-import Seesaw from "./Seesaw";
 import SkeeBall from "./Skeeball";
 import { PositionalAudio } from "@react-three/drei";
 import EntryMat from "./EntryMat";
@@ -85,15 +73,13 @@ function Scene({
   const fallSound = useRef();
   const ballRefs = useRef([]);
   const [animationName, setAnimationName] = useState("rig|Idle");
-  // const roadTexture = useLoader(TextureLoader, "/textures/cobblestone.jpg");
-  // const grassTexture = useLoader(TextureLoader, "/textures/grass.jpg");
+
   const [roadTexture] = useLoader(TextureLoader, ["/textures/cobblestone.jpg"]);
   const [grassTexture] = useLoader(TextureLoader, ["/textures/grass.jpg"]);
 
   const [showChalkboard, setShowChalkboard] = useState(false);
   const [chalkboardVisible, setChalkboardVisible] = useState(false);
-  // const [showTodoPopup, setShowTodoPopup] = useState(false);
-  // const [roadMode, setRoadMode] = useState("translate");
+
   grassTexture.wrapS = grassTexture.wrapT = RepeatWrapping;
   grassTexture.repeat.set(60, 60);
   roadTexture.wrapS = roadTexture.wrapT = RepeatWrapping;
@@ -214,20 +200,9 @@ function Scene({
         castShadow
         color="#ffffff"
       />
-      {/* <ContactBuilding
-          position={[0, 0, -90]}
-          playerRef={playerRef}
-          onEnter={handlePlayerNearContact}
-          popupVisible={showContactPopup}
-        /> */}
-      {/* <ContactPlatform position={[0, 1, -90]} radius={13} height={19} /> */}
-      {/* <Ramp
-          position={[0, -1, -48]} // tweak Y so its top aligns with the platform (Y=5)
-          rotation={[0, -1.5, 0]} // rotate if you need it facing forwards/backwards
-          scale={[10, 11, 9]} // your desired X/Y/Z scale
-        /> */}
+
       <ContactBuilding
-        position={[0, 9.4, -90]} // 2 = height of platform + building base
+        position={[0, 9.4, -90]}
         playerRef={playerRef}
         onEnter={handlePlayerNearContact}
         popupVisible={showContactPopup}
@@ -237,21 +212,7 @@ function Scene({
         rotation={[0, -Math.PI / 2, 0]}
         scale={[8, 8, 10]}
       />
-      {/* <Platform
-          position={[0, 0, -65]}
-          rotation={[0, -Math.PI / 2, 0]}
-          scale={[8, 8, 10]}
-        /> */}
-      {/* Projects - 4 buildings after Cross */}
-      {/* <Building
-          position={[-20, 0, -30]}
-          rotation={[0, 0, 0]}
-          color="#e74c3c"
-          project={PROJECTS.HyroxTrack}
-          playerRef={playerRef}
-          // onEnter={() => setActiveProject(PROJECTS.HyroxTrack)}
-          showDebug={true}
-        /> */}
+
       <Project1
         position={[-20, 0, -30]}
         rotation={[0, 0, 0]}
@@ -378,59 +339,24 @@ function Scene({
         rotation={[0, Math.PI, 0]}
         scale={[8, 8, 10]}
       />
-      {/* Player */}
+
       <Player
         onProjectEnter={setActiveProject}
         playerRef={playerRef}
         position={[0, 1, -20]}
       />
-      {/* Hills */}
-      {/* <Hills /> */}
-      {/* <MainRoad
-          // scale={[3, 2, 6]}
-          // position={[0, 0, -20]}
-          // rotation={[3.1401, 0, 0]}
-          scale={[5, 5, 5]}
-          position={[0, 0.03, 0]}
-          rotation={[0, 0, 0]}
-        /> */}
+
       <MyHill position={[-45, -1, 12]} scale={[8, 3, 8]} rotation={[0, 0, 0]} />
       <FloatingLabel text="Projects" position={[0, 20, -10]} />
       <FloatingLabel text="Skills" position={[-70, 20, 15]} />
       <FloatingLabel text="SkeeBall" position={[-40, 30, 75]} />
       <FloatingLabel text="About" position={[80, 35, 15]} />
-      <FloatingLabel text="Contact" position={[0, 30, -80]} />
-      {/* <SignPost position={[-12, 0, 20]} text="Projects" /> */}
+      <FloatingLabel text="Contact" position={[0, 40, -90]} />
       <Chalkboard fadeIn={chalkboardVisible} />
       <PittLabel playerRef={playerRef} />
-      {/* <SignPost
-          position={[-30, 0, 15]}
-          text="Skills"
-          rotation={[0, Math.PI / 4, 0]}
-        />
-        <SignPost
-          position={[30, 0, 35]}
-          text="About"
-          rotation={[0, -Math.PI / 4, 0]}
-        />
-        <SignPost
-          position={[25, 0, 75]}
-          text="Under Construction"
-          rotation={[0, -Math.PI / 6, 0]}
-          style="warning" // Optional: add a style prop if you want to customize
-        />
-        <SignPost position={[15, 0, -65]} text="Contact" /> */}
+
       <TodoBooth playerRef={playerRef} onEnter={() => setShowTodoPopup(true)} />
-      +{" "}
-      {/* <PathGuide
-          start={[-20, 0.5, 70]}
-          end={[-20, 0.5, 70]}
-          turnOffset={10}
-          tubeRadius={1}
-          tubeColor="#00ff00"
-          arrowCount={0}
-          arrowColor="#ffffff"
-        /> */}
+
       <WelcomeMat
         position={[-16.3, 0.01, -5.5]}
         rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
@@ -485,15 +411,6 @@ function Scene({
         ringColor="#ffee58"
         thickness={0.3}
       />
-      {/* <Seesaw
-          playerRef={playerRef}
-          position={[-50, 0, 55]}
-          width={50}
-          length={5}
-          pivotHeight={1}
-          maxAngle={Math.PI / 6}
-        /> */}
-      {/* <MultiSignPost position={[0, 0, 80]} /> */}
       {showContactMat && (
         <AreaMat
           width={8}

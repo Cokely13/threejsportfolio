@@ -48,12 +48,22 @@ export default function App() {
   const [showContactPopup, setShowContactPopup] = useState(false);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [showTodoPopup, setShowTodoPopup] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
   const [showRulesPopup, setShowRulesPopup] = useState(false);
   const [welcomeSeen, setWelcomeSeen] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(0);
   const [viewMode, setViewMode] = useState("explore"); // "explore" or "portfolio"
   const playerRef = useRef();
+
+  // “Tell the backend someone entered” as soon as App mounts:
+  useEffect(() => {
+    fetch("/.netlify/functions/visits", { method: "POST" })
+      .then((res) => {
+        if (!res.ok) console.error("Visit ping failed:", res.status);
+      })
+      .catch((err) => console.error("Visit ping error:", err));
+  }, []);
 
   const features = [
     "Explore the interactive 3D environment",
@@ -141,7 +151,6 @@ export default function App() {
   return (
     <KeyboardControls map={controlsMap}>
       <div className="canvas-container">
-        {/* only show the toggle for the *other* mode */}
         <div className="mode-toggle">
           {viewMode !== "explore" && (
             <button onClick={() => setViewMode("explore")}>Explore Mode</button>
@@ -171,15 +180,12 @@ export default function App() {
                   castShadow
                   position={[30, 30, -10]}
                   intensity={1.2}
-                  // shadow-map resolution (higher → crisper shadows)
                   shadow-mapSize-width={2048}
                   shadow-mapSize-height={2048}
-                  // these bounds must cover your whole scene
                   shadow-camera-left={-135}
                   shadow-camera-right={100}
                   shadow-camera-top={100}
                   shadow-camera-bottom={-100}
-                  // near/far on the shadow camera
                   shadow-camera-near={1}
                   shadow-camera-far={200}
                 />
@@ -229,7 +235,7 @@ export default function App() {
               visible={showContactPopup}
               onClose={handleCloseContact}
             />
-            <GamesRulesPopup // ← new popup
+            <GamesRulesPopup
               visible={showRulesPopup}
               onClose={() => setShowRulesPopup(false)}
             />
@@ -246,6 +252,10 @@ export default function App() {
             <TodoPopup
               visible={showTodoPopup}
               onClose={() => setShowTodoPopup(false)}
+              suggestions={suggestions}
+              onNewSuggestion={(text) => {
+                setSuggestions((prev) => [...prev, text]);
+              }}
             />
             <ProjectsPopup
               visible={showProjects}

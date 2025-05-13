@@ -46,23 +46,13 @@ export default function TodoBooth({
           />
         </mesh>
         <Text
-          position={[-2.0, 4, -0.49]}
+          position={[-2.1, 4, -0.49]}
           fontSize={0.5}
           color="black"
           anchorX="left"
           anchorY="middle"
         >
-          Things to do:
-        </Text>
-        {/* Floating label */}
-        <Text
-          position={[0, 9.5, 0]}
-          fontSize={1.2}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          UNDER CONSTRUCTION
+          Suggestion Board
         </Text>
       </RigidBody>
 

@@ -24,17 +24,76 @@
   margin-bottom: 1rem;
 }
 
+.todo-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #00aced;
+}
+
 .todo-content ul {
   list-style: disc;
   padding-left: 1.2rem;
 }
 
-.todo-content button {
-  margin-top: 1rem;
+.suggestions-list {
+  max-height: 120px;
+  overflow-y: auto;
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+  border-left: 2px solid #00aced;
+}
+
+/* ───────── Suggestion Form ───────── */
+.suggestion-form {
+  display: flex;
+  align-items: center; /* vertically center input + button */
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.suggestion-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #00aced; /* accent border */
+  border-radius: 4px;
+  background: #333;
+  color: white;
+}
+
+.suggestion-form input::placeholder {
+  color: #888;
+}
+
+.suggestion-form button {
   padding: 0.5rem 1rem;
   font-weight: bold;
-  background: #00ffff;
+  background: #00aced; /* teal submit */
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: white;
+}
+
+.suggestion-form button:hover {
+  background: #0095cc;
+}
+
+/* ───────── Close Button ───────── */
+.button-close {
+  text-align: right;
+}
+
+.button-close button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background: #ff4081; /* pink close */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.button-close button:hover {
+  background: #e03370;
 }
