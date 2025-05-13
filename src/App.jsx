@@ -6,6 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import * as THREE from "three";
 import Scene from "./Scene";
+import GroundClipper from "./GroundClipper";
 import LoadingScreen from "./LoadingScreen";
 import ContactPopup from "./ContactPopup";
 import AboutPopup from "./AboutPopup";
@@ -56,23 +57,14 @@ export default function App() {
   const [viewMode, setViewMode] = useState("explore"); // "explore" or "portfolio"
   const playerRef = useRef();
 
-  // “Tell the backend someone entered” as soon as App mounts:
-  useEffect(() => {
-    fetch("/.netlify/functions/visits", { method: "POST" })
-      .then((res) => {
-        if (!res.ok) console.error("Visit ping failed:", res.status);
-      })
-      .catch((err) => console.error("Visit ping error:", err));
-  }, []);
-
   const features = [
     "Explore the interactive 3D environment",
     "Check out my Projects showcase",
-    "Browse the Skills and technologies I’ve mastered",
-    "Discover my professional background",
-    "Connect with me via the Contact page",
-    "Play the fun Skee-Ball mini-game",
-    "Don't fall in the pit!",
+    "Browse the Skills and technologies I’ve used to create my projects",
+    "Learn more about me in the About section",
+    "Reach out to me in the Contact building",
+    "Try to set the record in the Skeetball game!",
+    "Watch out for the pit!",
     "More features coming soon!",
   ];
 
@@ -97,7 +89,7 @@ export default function App() {
   const handleCloseContact = () => {
     setShowContactPopup(false);
     // Teleport to just outside the ContactBuilding
-    teleportPlayer(-0, 4, -55, Math.PI);
+    teleportPlayer(-0, 10, -35, Math.PI);
   };
 
   function handlePlayAgain() {
@@ -174,6 +166,7 @@ export default function App() {
                 gl.shadowMap.type = THREE.PCFSoftShadowMap;
               }}
             >
+              <GroundClipper height={-1} />
               <Suspense fallback={<LoadingScreen />}>
                 <ambientLight intensity={1.5} />
                 <directionalLight

@@ -20,7 +20,7 @@ export default function WelcomePopup({ visible, onClose, features }) {
         </ul>
         <div className="welcome-close-wrapper">
           <button className="welcome-close" onClick={onClose}>
-            Let’s Go!
+            Ready to Explore!
           </button>
         </div>
       </div>

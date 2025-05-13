@@ -14,14 +14,8 @@ export default function ContactSectionPopup({ visible, onClose }) {
         <ul>
           <li>Head up the ramp and enter the building!</li>
           <li>
-            GitHub:{" "}
-            <a
-              href="https://github.com/Cokely13"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/Cokely13
-            </a>
+            Email:{" "}
+            <a href="mailto:ryancokely@gmail.com">ryancokely@gmail.com</a>
           </li>
           {/* <li>Freelance: Available</li> */}
         </ul>
