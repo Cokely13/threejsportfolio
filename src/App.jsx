@@ -184,8 +184,8 @@ export default function App() {
                   shadow-camera-far={200}
                 />
                 <OrbitControls
-                  minPolarAngle={Math.PI / 6}
-                  maxPolarAngle={Math.PI / 2.2}
+                  // minPolarAngle={Math.PI / 6}
+                  maxPolarAngle={Math.PI}
                 />
                 <Physics gravity={[0, -30, 0]}>
                   <Scene
