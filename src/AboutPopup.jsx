@@ -22,7 +22,7 @@ export default function AboutPopup({ visible, onClose }) {
           <li>Travel ✈️</li>
           <li>Reading 📚</li>
           <li>Triathlons & fitness challenges 🏊‍♂️🚴‍♂️🏃‍♂️</li>
-          <li>Mountain biking & coffee snob ☕️</li>
+          <li>Volunteering</li>
         </ul>
 
         <h4>Get in Touch</h4>
@@ -39,9 +39,20 @@ export default function AboutPopup({ visible, onClose }) {
           </li>
           <li>💼 Freelance: Available</li>
           <li>📧 ryan.cokely@gmail.com</li>
+          <li>
+            📄{" "}
+            <a
+              href="https://docs.google.com/document/d/1mKoyA6Yo7mY6CGV6KY--TiGGv823leAv/edit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View my resume
+            </a>
+          </li>
         </ul>
-
-        <button onClick={onClose}>Close</button>
+        <div className="button-close">
+          <button onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );
