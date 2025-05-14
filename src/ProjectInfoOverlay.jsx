@@ -13,6 +13,7 @@ export default function ProjectInfoOverlay({ project, onClose }) {
     name,
     description,
     url,
+    site,
     github,
     youtube,
     screenshots = [],
@@ -29,27 +30,6 @@ export default function ProjectInfoOverlay({ project, onClose }) {
           ✕
         </button>
 
-        {/* Screenshot carousel */}
-        {/* <div className="project-hero">
-          <img
-            src={slides[current]}
-            alt={`${name} screenshot ${current + 1}`}
-          />
-          {slides.length > 1 && (
-            <div className="carousel-controls">
-              <button
-                onClick={() =>
-                  setCurrent((current + slides.length - 1) % slides.length)
-                }
-              >
-                ‹
-              </button>
-              <button onClick={() => setCurrent((current + 1) % slides.length)}>
-                ›
-              </button>
-            </div>
-          )}
-        </div> */}
         <div className="project-hero">
           {slides.map((src, idx) => (
             <img
@@ -115,6 +95,16 @@ export default function ProjectInfoOverlay({ project, onClose }) {
               rel="noopener noreferrer"
             >
               <FaGithub /> Source
+            </a>
+          )}
+          {site && (
+            <a
+              href={site}
+              className="btn site"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Try It <FaExternalLinkAlt />
             </a>
           )}
           {youtube && (

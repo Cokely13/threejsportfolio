@@ -119,6 +119,7 @@ function Scene({
         "Track your events and workouts, set goals and compete  with friends!",
       github: "https://github.com/Cokely13/HyroxTrack",
       url: "https://www.youtube.com/embed/5TQAkt9m-ZY",
+      site: "https://hyroxtrack.herokuapp.com/",
     },
     PopcornPair: {
       name: "PopcornPair",
@@ -133,6 +134,7 @@ function Scene({
         "Track, rate and recommend movies with friends and the help of AI!",
       github: "https://github.com/Cokely13/popcornpair",
       url: "https://popcornpair-6403c0694200.herokuapp.com/home",
+      site: "https://popcornpair-6403c0694200.herokuapp.com/",
     },
     NewHorizons: {
       name: "NewHorizons",
@@ -159,6 +161,7 @@ function Scene({
       description: "Create your own playlists and challenge your friends!",
       github: "https://github.com/Cokely13/PlaylistBattle",
       url: "https://www.youtube.com/embed/qAG_KmmzOgc",
+      site: "https://playlistbattle.herokuapp.com/",
     },
     ForeverAthlete: {
       name: "ForeverAthlete",

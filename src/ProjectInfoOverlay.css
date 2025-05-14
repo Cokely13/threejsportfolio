@@ -193,3 +193,10 @@ h2 {
 .carousel-dots .dot.active {
   background: #1e90ff;
 }
+
+.btn.site {
+  background: #28a745; /* a green accent */
+}
+.btn.site:hover {
+  background: #24a140;
+}
