@@ -149,7 +149,7 @@ export default function App() {
           )}
           {viewMode !== "portfolio" && (
             <button onClick={() => setViewMode("portfolio")}>
-              Portfolio Mode
+              Standard Mode
             </button>
           )}
         </div>
