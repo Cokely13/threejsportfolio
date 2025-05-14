@@ -4,15 +4,16 @@ import React from "react";
 
 export default function PortfolioView() {
   return (
-    <main className="portfolio-view">
-      <section className="hero">
-        <h1>Ryan Cokely</h1>
-        <p>Turning ideas into production‑ready full‑stack apps.</p>
-      </section>
-
-      <section className="projects-grid"></section>
-
-      {/* …About, Contact, etc. */}
-    </main>
+    <div style={{ width: "100%", height: "100vh" }}>
+      <iframe
+        src="/portfolio/index.html"
+        title="My Static Portfolio"
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "none",
+        }}
+      />
+    </div>
   );
 }
