@@ -108,28 +108,64 @@ function Scene({
   const PROJECTS = {
     HyroxTrack: {
       name: "HyroxTrack",
-      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to log and compare results for Hyrox.",
-      url: "https://hyroxtrack.herokuapp.com/",
+      image: "/assets/img/projects/hyroxtrack/HyroxEvents.png",
+      screenshots: [
+        "public/assets/img/projects/hyroxtrack/HyroxHome.png",
+        "public/assets/img/projects/hyroxtrack/HyroxEvents.png",
+        "public/assets/img/projects/hyroxtrack/HyroxTargetTimes.png",
+        "public/assets/img/projects/hyroxtrack/HyroxWorkouts.png",
+      ],
+      description:
+        "Track your events and workouts, set goals and compete  with friends!",
+      github: "https://github.com/Cokely13/HyroxTrack",
+      url: "https://www.youtube.com/embed/5TQAkt9m-ZY",
     },
     PopcornPair: {
       name: "PopcornPair",
-      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
+      image: "/assets/img/projects/popcornpair/homepage.png",
+      screenshots: [
+        "/assets/img/projects/popcornpair/homepage.png",
+        "/assets/img/projects/popcornpair/prediction.png",
+        "/assets/img/projects/popcornpair/profile.png",
+        "/assets/img/projects/popcornpair/search.png",
+      ],
       description:
-        "An app to track, recommend, and predict movies with friends.",
-      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+        "Track, rate and recommend movies with friends and the help of AI!",
+      github: "https://github.com/Cokely13/popcornpair",
+      url: "https://popcornpair-6403c0694200.herokuapp.com/home",
     },
     NewHorizons: {
       name: "NewHorizons",
-      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "An app to plan and reflect on new adventures.",
-      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+      screenshots: [
+        "public/assets/img/projects/new-horizons/activity-detail.png",
+        "public/assets/img/projects/new-horizons/all-activities.png",
+        "public/assets/img/projects/new-horizons/graphsupdate.png",
+        "public/assets/img/projects/new-horizons/myactupdate.png",
+        "public/assets/img/projects/new-horizons/allactupdate.png",
+      ],
+      image: "/assets/img/projects/new-horizons/myactupdate.png",
+      description: "Find new fun activites using our AI recommendation system!",
+      github: "https://github.com/Capstone-NewHorizons/new-horizons",
+      url: "https://www.youtube.com/embed/M20-Wi2Hvx4",
     },
     PlaylistBattle: {
       name: "PlaylistBattle",
-      image: "/assets/img/projects/hyroxtrack/HyroxHome.png",
-      description: "A music-themed guessing game you can play with friends.",
-      url: "https://hyroxtrack.herokuapp.com/", // Replace if needed
+      image: "assets/img/projects/playlistbattle/playlistHome.png",
+      screenshots: [
+        "assets/img/projects/playlistbattle/playlistHome.png",
+        "assets/img/projects/playlistbattle/Playlist Records.png",
+        "/assets/img/projects/playlistbattle/Playlist Songs Search.png",
+      ],
+      description: "Create your own playlists and challenge your friends!",
+      github: "https://github.com/Cokely13/PlaylistBattle",
+      url: "https://www.youtube.com/embed/qAG_KmmzOgc",
+    },
+    ForeverAthlete: {
+      name: "ForeverAthlete",
+      image: "/assets/img/projects/foreverathletebooking/FaCalendar.png",
+      description: "A calender app for booking and managing your workouts.",
+      github: "https://github.com/Cokely13/foreverAthleteBooking",
+      url: "https://www.youtube.com/embed/dQhqzZ6gtHk",
     },
   };
 
