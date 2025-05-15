@@ -37,3 +37,55 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.mini-popup-content .carousel-container {
+  position: relative;
+  text-align: center;
+}
+
+.mini-popup-content .carousel-container img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.mini-popup-content .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30, 144, 255, 0.8);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mini-popup-content .prev {
+  left: 0.5rem;
+}
+
+.mini-popup-content .next {
+  right: 0.5rem;
+}
+
+.mini-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* bump this above the main about overlay */
+}
+
+/* The white box */
+.mini-popup-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow: auto;
+  z-index: 2001;
+}

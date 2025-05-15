@@ -110,10 +110,10 @@ function Scene({
       name: "HyroxTrack",
       image: "/assets/img/projects/hyroxtrack/HyroxEvents.png",
       screenshots: [
-        "public/assets/img/projects/hyroxtrack/HyroxHome.png",
-        "public/assets/img/projects/hyroxtrack/HyroxEvents.png",
-        "public/assets/img/projects/hyroxtrack/HyroxTargetTimes.png",
-        "public/assets/img/projects/hyroxtrack/HyroxWorkouts.png",
+        "/assets/img/projects/hyroxtrack/HyroxHome.png",
+        "/assets/img/projects/hyroxtrack/HyroxEvents.png",
+        "/assets/img/projects/hyroxtrack/HyroxTargetTimes.png",
+        "/assets/img/projects/hyroxtrack/HyroxWorkouts.png",
       ],
       description:
         "Track your events and workouts, set goals and compete  with friends!",
@@ -139,11 +139,11 @@ function Scene({
     NewHorizons: {
       name: "NewHorizons",
       screenshots: [
-        "public/assets/img/projects/new-horizons/activity-detail.png",
-        "public/assets/img/projects/new-horizons/all-activities.png",
-        "public/assets/img/projects/new-horizons/graphsupdate.png",
-        "public/assets/img/projects/new-horizons/myactupdate.png",
-        "public/assets/img/projects/new-horizons/allactupdate.png",
+        "/assets/img/projects/new-horizons/activity-detail.png",
+        "/assets/img/projects/new-horizons/all-activities.png",
+        "/assets/img/projects/new-horizons/graphsupdate.png",
+        "/assets/img/projects/new-horizons/myactupdate.png",
+        "/assets/img/projects/new-horizons/allactupdate.png",
       ],
       image: "/assets/img/projects/new-horizons/myactupdate.png",
       description: "Find new fun activites using our AI recommendation system!",
