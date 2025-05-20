@@ -58,9 +58,9 @@ export default function App() {
   const playerRef = useRef();
 
   const features = [
-    "Explore the interactive 3D environment",
+    "Walk, run or teleport around the 3D enivronment",
     "Check out my Projects showcase",
-    "Browse the Skills and technologies I’ve used to create my projects",
+    "See the Skills and technologies I’ve used to create my projects",
     "Learn more about me in the About section",
     "Reach out to me in the Contact building",
     "Try to set the record in the Skeetball game!",
